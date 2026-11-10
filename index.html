@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#0f766e">
+    <title>Clínicas Inteligentes</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div id="login" class="login">
+      <div class="loginbox">
+        <div class="brand">
+          <div class="logo">✚</div>
+          <div>
+            <b>Clínicas Inteligentes</b>
+            <small>Plataforma integrada</small>
+          </div>
+        </div>
+        <h1>Acesso à plataforma</h1>
+        <p class="muted">Selecione um perfil para explorar o protótipo. Use somente dados fictícios.</p>
+        <div class="field">
+          <label>Usuário demonstrativo</label>
+          <input id="username" value="gestao">
+        </div>
+        <div class="field">
+          <label>Perfil</label>
+          <select id="loginrole">
+          </select>
+        </div>
+        <button onclick="login()">Entrar na demonstração</button>
+        <p>
+          <small>Não há autenticação real. A senha de demonstração não é validada.</small>
+        </p>
+      </div>
+    </div>
+    <div id="app" class="hidden">
+      <header class="top">
+        <div class="brand">
+          <div class="logo">✚</div>
+          <div>
+            <strong>Clínicas Inteligentes</strong>
+            <small>Experiência, segurança e integração</small>
+          </div>
+        </div>
+        <div>
+          <span class="username" id="who">
+          </span>
+          <button class="ghost" onclick="profile()">Perfil/segurança</button>
+          <button class="secondary" onclick="logout()">Sair</button>
+        </div>
+      </header>
+      <div class="layout">
+        <aside>
+          <div class="nav" id="nav">
+          </div>
+          <p class="notice section">Protótipo local. Não use dados reais de saúde.</p>
+        </aside>
+        <main id="main">
+        </main>
+      </div>
+      <nav class="bottom" id="bottom">
+      </nav>
+    </div>
+    <div class="modalbg" id="modalbg" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <div class="modalhead">
+          <h2 id="mtitle">
+          </h2>
+          <button class="secondary" onclick="closeModal()">Fechar ✕</button>
+        </div>
+        <div id="mbody">
+        </div>
+      </div>
+    </div>
+    <div id="toast" class="toast">
+    </div>
+    <script src="js/script.js" defer>
+    </script>
+  </body>
+</html>
