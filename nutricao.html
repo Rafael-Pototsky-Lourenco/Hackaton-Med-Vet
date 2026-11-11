@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestão Clínica de Nutrição — Demonstração</title>
+
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS e Script Modulares -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="nutricao.css">
+</head>
+<body>
+  <a class="skip" href="#main-content">Pular para o conteúdo</a>
+  
+  <div id="app" class="app">
+    <aside id="sidebar" class="sidebar" aria-label="Menu lateral">
+      <div class="brand">
+        <div class="logo-box">
+          <img id="sidebar-logo" src="img/logo.png" alt="Logotipo da Universidade Positivo" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-fallback',textContent:'Logotipo da instituição'}))">
+        </div>
+        <div class="brand-name">
+          Clínica de Nutrição da<br>Universidade Positivo
+        </div>
+      </div>
+      <nav id="nav-list" class="nav-list" aria-label="Módulos"></nav>
+      <a class="switch-link" href="index.html">← Trocar de clínica</a>
+      <div class="side-note">
+        AMBIENTE DE DEMONSTRAÇÃO<br>Dados fictícios • Sem aprovação institucional
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <button id="menu-toggle" class="icon-btn" type="button" aria-label="Recolher ou abrir menu">
+          <i data-lucide="panel-left"></i>
+        </button> 
+        <span class="top-title">Gestão nutricional</span>
+        <div class="search-wrap">
+          <i data-lucide="search"></i>
+          <label class="skip" for="global-search">Busca global</label>
+          <input id="global-search" type="search" placeholder="Buscar pacientes, registros..." autocomplete="off">
+          <div id="search-results" class="search-results hidden" role="listbox"></div>
+        </div>
+        <button id="notifications-btn" class="icon-btn" type="button" aria-label="Notificações">
+          <i data-lucide="bell"></i>
+        </button>
+        <div class="profile-control">
+          <span>Perfil simulado</span>
+          <label class="skip" for="profile-select">Perfil simulado atual</label>
+          <select id="profile-select"></select>
+        </div>
+      </header>
+
+      <main id="main-content" class="content" tabindex="-1">
+        <div class="demo-banner">
+          <i data-lucide="info"></i>
+          <div>
+            <strong>AMBIENTE DE DEMONSTRAÇÃO</strong> · Todos os registros são fictícios. Não é um sistema oficialmente aprovado pela instituição. Permissões nesta interface são apenas simuladas.
+          </div>
+        </div>
+        <div id="view"></div>
+      </main>
+
+      <footer class="footer">
+        Demonstração funcional · Horários exibidos no fuso America/Sao_Paulo · Sem integrações reais
+      </footer>
+    </div>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="nutricao.js"></script>
+</body>
+</html>
