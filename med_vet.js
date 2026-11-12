@@ -2,7 +2,7 @@ const modules = [
   ['painel', 'Painel inicial', 'layout-dashboard', 'Geral'],
   ['recepcao', 'Recepção e fila', 'users-round', 'Geral'],
   ['agenda', 'Agenda', 'calendar-days', 'Geral'],
-  ['tutores', 'Tutores', 'contact', 'Cadastros'],
+  ['responsaveis', 'Responsáveis', 'contact', 'Cadastros'],
   ['pacientes', 'Pacientes', 'paw-print', 'Cadastros'],
   ['atendimentos', 'Atendimentos e prontuários', 'file-heart', 'Clínica'],
   ['exames', 'Exames', 'flask-conical', 'Clínica'],
@@ -26,7 +26,7 @@ const profiles = [
 ];
 
 const entityModule = {
-  tutor: 'tutores', paciente: 'pacientes', agendamento: 'agenda', atendimento: 'atendimentos',
+  responsaveis: 'responsaveis', paciente: 'pacientes', agendamento: 'agenda', atendimento: 'atendimentos',
   exame: 'exames', cirurgia: 'cirurgias', internamento: 'internamento', prescricao: 'prescricoes',
   produto: 'estoque', movimento: 'estoque', orcamento: 'orcamentos', cobranca: 'financeiro',
   pagamento: 'financeiro', cuidado: 'internamento', documento: 'prescricoes', auditoria: 'relatorios',
@@ -34,7 +34,7 @@ const entityModule = {
 };
 
 const entityNames = {
-  tutor: 'Tutor', paciente: 'Paciente', agendamento: 'Agendamento', atendimento: 'Atendimento',
+  responsaveis: 'Responsáveis', paciente: 'Paciente', agendamento: 'Agendamento', atendimento: 'Atendimento',
   exame: 'Exame', cirurgia: 'Cirurgia', internamento: 'Internamento', prescricao: 'Prescrição',
   produto: 'Produto', movimento: 'Movimento', orcamento: 'Orçamento', cobranca: 'Cobrança',
   pagamento: 'Pagamento', cuidado: 'Cuidado', documento: 'Documento', auditoria: 'Auditoria',
@@ -42,17 +42,17 @@ const entityNames = {
 };
 
 const keyFor = {
-  tutores: 'tutor', pacientes: 'paciente', agenda: 'agendamento', atendimentos: 'atendimento',
+  responsaveis: 'responsavel', pacientes: 'paciente', agenda: 'agendamento', atendimentos: 'atendimento',
   exames: 'exame', cirurgias: 'cirurgia', internamento: 'internamento', prescricoes: 'prescricao',
   estoque: 'produto', orcamentos: 'orcamento', financeiro: 'cobranca', supervisao: 'supervisao'
 };
 
 const fixtures = [
-  ['T-001', 'tutor', 'Marina Duarte', 'Ativo', { telefone: '(00) 00000-0001', email: 'marina@example.invalid', contato: 'WhatsApp' }],
-  ['T-002', 'tutor', 'Rafael Nogueira', 'Ativo', { telefone: '(00) 00000-0002', email: 'rafael@example.invalid', contato: 'E-mail' }],
-  ['P-001', 'paciente', 'Luna', 'Ativo', { tutorId: 'T-001', especie: 'Cão', raca: 'SRD', sexo: 'Fêmea', prontuario: 'PR-001', peso: '12,4 kg', alertas: 'Alergia informada a medicamento; verificar histórico' }],
-  ['P-002', 'paciente', 'Mingau', 'Ativo', { tutorId: 'T-002', especie: 'Gato', raca: 'SRD', sexo: 'Macho', prontuario: 'PR-002', peso: '4,8 kg' }],
-  ['P-003', 'paciente', 'Pipoca', 'Ativo', { tutorId: 'T-001', especie: 'Coelho', raca: 'SRD', sexo: 'Fêmea', prontuario: 'PR-003', peso: '2,1 kg' }],
+  ['T-001', 'responsavel', 'Marina Duarte', 'Ativo', { telefone: '(00) 00000-0001', email: 'marina@example.invalid', contato: 'WhatsApp' }],
+  ['T-002', 'responsavel', 'Rafael Nogueira', 'Ativo', { telefone: '(00) 00000-0002', email: 'rafael@example.invalid', contato: 'E-mail' }],
+  ['P-001', 'paciente', 'Luna', 'Ativo', { responsavelId: 'T-001', especie: 'Cão', raca: 'SRD', sexo: 'Fêmea', prontuario: 'PR-001', peso: '12,4 kg', alertas: 'Alergia informada a medicamento; verificar histórico' }],
+  ['P-002', 'paciente', 'Mingau', 'Ativo', { responsavelId: 'T-002', especie: 'Gato', raca: 'SRD', sexo: 'Macho', prontuario: 'PR-002', peso: '4,8 kg' }],
+  ['P-003', 'paciente', 'Pipoca', 'Ativo', { responsavelId: 'T-001', especie: 'Coelho', raca: 'SRD', sexo: 'Fêmea', prontuario: 'PR-003', peso: '2,1 kg' }],
   ['A-001', 'agendamento', 'Consulta · Luna', 'Confirmado', { patientId: 'P-001', professional: 'Dra. Ana (fictícia)', room: 'Consultório 1', date: '2026-05-22', time: '09:00', end: '09:30', service: 'Consulta' }],
   ['A-002', 'agendamento', 'Consulta · Mingau', 'Agendado', { patientId: 'P-002', professional: 'Dr. Bruno (fictício)', room: 'Consultório 2', date: '2026-05-22', time: '11:00', end: '11:30', service: 'Consulta' }],
   ['A-003', 'agendamento', 'Retorno · Pipoca', 'Concluído', { patientId: 'P-003', professional: 'Dra. Ana (fictícia)', room: 'Consultório 1', date: '2026-05-21', time: '14:00', end: '14:30', service: 'Retorno' }],
@@ -105,20 +105,20 @@ function can(module, action = 'visualizar') {
   if (module === 'escopo' || module === 'configuracoes' || module === 'painel') return action === 'visualizar';
 
   const allowed = {
-    'Recepção': ['recepcao', 'agenda', 'tutores', 'pacientes', 'orcamentos'],
-    'Médico-veterinário': ['recepcao', 'agenda', 'tutores', 'pacientes', 'atendimentos', 'exames', 'cirurgias', 'internamento', 'prescricoes', 'supervisao'],
+    'Recepção': ['recepcao', 'agenda', 'responsaveis', 'pacientes', 'orcamentos'],
+    'Médico-veterinário': ['recepcao', 'agenda', 'responsaveis', 'pacientes', 'atendimentos', 'exames', 'cirurgias', 'internamento', 'prescricoes', 'supervisao'],
     'Professor ou supervisor': ['agenda', 'pacientes', 'atendimentos', 'exames', 'cirurgias', 'internamento', 'prescricoes', 'supervisao', 'relatorios'],
     'Aluno ou estagiário': ['agenda', 'pacientes', 'atendimentos', 'exames', 'supervisao'],
     'Equipe de internamento': ['pacientes', 'internamento', 'prescricoes', 'exames'],
     'Estoque ou farmácia': ['estoque', 'prescricoes'],
-    'Financeiro': ['tutores', 'pacientes', 'orcamentos', 'financeiro', 'relatorios']
+    'Financeiro': ['responsaveis', 'pacientes', 'orcamentos', 'financeiro', 'relatorios']
   };
 
   if (!(allowed[profile] || []).includes(module)) return false;
   if (action === 'visualizar') return true;
   if (action === 'exportar' || action === 'administrar' || action === 'cancelar') return false;
   if (profile === 'Aluno ou estagiário') return module === 'atendimentos' && ['cadastrar', 'editar'].includes(action);
-  if (profile === 'Recepção') return ['recepcao', 'agenda', 'tutores', 'pacientes', 'orcamentos'].includes(module) && action !== 'finalizar' && action !== 'validar';
+  if (profile === 'Recepção') return ['recepcao', 'agenda', 'responsaveis', 'pacientes', 'orcamentos'].includes(module) && action !== 'finalizar' && action !== 'validar';
   if (profile === 'Financeiro') return ['orcamentos', 'financeiro'].includes(module) && action !== 'validar';
   if (profile === 'Estoque ou farmácia') return module === 'estoque' || (module === 'prescricoes' && action === 'editar');
   if (profile === 'Equipe de internamento') return module === 'internamento' && action !== 'validar';
@@ -190,7 +190,7 @@ function recordRow(r) {
   let d = data(r), p = d.patientId ? byId(d.patientId) : null;
   return `<tr>
     <td><button type="button" class="link-btn" data-detail="${esc(r.entity_id)}">${esc(r.title)}</button> ${r.demo ? '<span class="tag fict">Fictício</span>' : ''}</td>
-    <td>${p ? esc(p.title) : r.entity_type === 'paciente' ? esc(byId(d.tutorId)?.title || '—') : esc(d.professional || d.telefone || d.code || d.bed || '—')}</td>
+    <td>${p ? esc(p.title) : r.entity_type === 'paciente' ? esc(byId(d.responsavelId)?.title || '—') : esc(d.professional || d.telefone || d.code || d.bed || '—')}</td>
     <td>${badge(r.status)}</td>
     <td>${esc(d.date ? fmtDate(d.date) + (d.time ? ' · ' + d.time : '') : r.entity_id)}</td>
   </tr>`;
@@ -239,7 +239,7 @@ function moduleList(m) {
   let action = can(m, 'cadastrar') ? `<button class="btn" data-new="${t}"><i data-lucide="plus"></i> Novo registro</button>` : '';
   
   let description = {
-    tutores: 'Cadastros de responsáveis, relacionados aos pacientes.',
+    responsaveis: 'Cadastros de responsáveis, relacionados aos pacientes.',
     pacientes: 'Prontuários únicos e vínculos com responsáveis.',
     agenda: 'Agendamentos e recursos com validação de conflitos.',
     atendimentos: 'Rascunhos, finalização e adendos rastreáveis.',
@@ -321,7 +321,7 @@ function dashboard() {
         <div class="panel-head"><h2>Próximos passos</h2></div>
         <p class="section-note">Comece pelos cadastros, confira a agenda e abra um atendimento. Cada registro mantém seus vínculos por ID.</p>
         <div class="actions">
-          <button class="btn secondary" data-nav="tutores">Ver tutores</button>
+          <button class="btn secondary" data-nav="responsaveis">Ver responsáveis</button>
           <button class="btn secondary" data-nav="agenda">Ver agenda</button>
         </div>
       </section>
@@ -368,7 +368,7 @@ function patientDetail(r) {
         <strong>Raça:</strong> ${esc(d.raca || 'Não informado')}<br>
         <strong>Sexo:</strong> ${esc(d.sexo || 'Não informado')}<br>
         <strong>Peso informado:</strong> ${esc(d.peso || 'Não informado')}<br>
-        <strong>Responsável:</strong> ${esc(byId(d.tutorId)?.title || 'Não informado')}</p>
+        <strong>Responsável:</strong> ${esc(byId(d.responsavelId)?.title || 'Não informado')}</p>
       </div>
       <div class="panel"><h2>Alertas clínicos</h2>
         <p>${esc(d.alertas || 'Não informado — não equivale a ausência de alergias ou reações.')}</p>
@@ -386,7 +386,7 @@ function detail(r) {
   if (r.entity_type === 'paciente') return patientDetail(r);
   
   let d = data(r), m = entityModule[r.entity_type], related = d.patientId ? byId(d.patientId) : null;
-  let lines = Object.entries(d).filter(([k]) => !['patientId', 'tutorId'].includes(k)).map(([k, v]) => `<div><strong>${esc(({ professional: 'Profissional', room: 'Sala', date: 'Data', time: 'Hora', end: 'Término', complaint: 'Queixa principal', notes: 'Registro', result: 'Laudo', stock: 'Estoque', priceCents: 'Preço', amountCents: 'Valor', paidCents: 'Recebido', bed: 'Leito', reason: 'Motivo', student: 'Aluno', supervisor: 'Supervisor', care: 'Cuidado', dose: 'Dose informada', unit: 'Unidade', lot: 'Lote', expiry: 'Validade', origin: 'Origem', arrivedAt: 'Chegada' }[k] || k))}:</strong> ${esc(k === 'date' || k === 'expiry' ? fmtDate(v) : k.endsWith('Cents') ? money(v) : v)}</div>`).join('');
+  let lines = Object.entries(d).filter(([k]) => !['patientId', 'responsavelId'].includes(k)).map(([k, v]) => `<div><strong>${esc(({ professional: 'Profissional', room: 'Sala', date: 'Data', time: 'Hora', end: 'Término', complaint: 'Queixa principal', notes: 'Registro', result: 'Laudo', stock: 'Estoque', priceCents: 'Preço', amountCents: 'Valor', paidCents: 'Recebido', bed: 'Leito', reason: 'Motivo', student: 'Aluno', supervisor: 'Supervisor', care: 'Cuidado', dose: 'Dose informada', unit: 'Unidade', lot: 'Lote', expiry: 'Validade', origin: 'Origem', arrivedAt: 'Chegada' }[k] || k))}:</strong> ${esc(k === 'date' || k === 'expiry' ? fmtDate(v) : k.endsWith('Cents') ? money(v) : v)}</div>`).join('');
   let acts = [];
   
   const add = (label, act, permission = 'editar') => { if (can(m, permission)) acts.push(`<button class="btn small secondary" data-act="${act}" data-id="${r.entity_id}">${label}</button>`); };
@@ -445,14 +445,14 @@ function documentation() {
   const sections = [
     // Array with all the document text sections
     ['contexto', 'Contexto e problema', `<p>Um hospital veterinário coordena atendimento, internamento, exames, procedimentos, estoque e faturamento entre equipas e turnos. Registros dispersos podem dificultar continuidade clínica, localização de informações e rastreabilidade de decisões.</p><div class="doc-callout"><strong>Limite da fonte:</strong> esta documentação descreve a demonstração visível nesta página e propõe requisitos para um eventual sistema hospitalar. Não constitui especificação institucional aprovada.</div>`],
-    ['objetivos', 'Objetivos e escopo', `<p><strong>Objetivos propostos:</strong> manter vínculos entre tutores, pacientes e episódios; apoiar agenda e fila; registrar decisões clínicas e execução de cuidados; dar visibilidade a leitos, produtos, cobranças e supervisão.</p><p><strong>Escopo demonstrado:</strong> cadastros, agenda, recepção, atendimentos, exames, cirurgias, internamento, prescrições, estoque, orçamentos, financeiro, supervisão e relatórios básicos. <strong>Fora do escopo atual:</strong> operação clínica real, autenticação forte, integrações externas, anexos binários, emissão fiscal e assinatura certificada.</p>`],
+    ['objetivos', 'Objetivos e escopo', `<p><strong>Objetivos propostos:</strong> manter vínculos entre responsáveis, pacientes e episódios; apoiar agenda e fila; registrar decisões clínicas e execução de cuidados; dar visibilidade a leitos, produtos, cobranças e supervisão.</p><p><strong>Escopo demonstrado:</strong> cadastros, agenda, recepção, atendimentos, exames, cirurgias, internamento, prescrições, estoque, orçamentos, financeiro, supervisão e relatórios básicos. <strong>Fora do escopo atual:</strong> operação clínica real, autenticação forte, integrações externas, anexos binários, emissão fiscal e assinatura certificada.</p>`],
     ['arquitetura', 'Visão geral da arquitetura', `<p><span class="doc-label observed">Observado na demonstração</span> Interface web de página única com navegação por módulos, regras no navegador e registros de demonstração gravados no armazenamento local do navegador; exemplos fictícios estão embutidos na página. A interface não representa uma arquitetura de produção.</p><p><span class="doc-label">A confirmar</span> Serviços de domínio, banco transacional, fila de eventos, armazenamento de ficheiros, fronteiras de rede, estratégia multiunidade e hospedagem. Para produção, autorização e validação devem ocorrer no servidor, não apenas na interface.</p>`],
-    ['modulos', 'Módulos e responsabilidades', `<div class="table-wrap"><table><thead><tr><th>Módulo</th><th>Responsabilidade esperada</th><th>Estado</th></tr></thead><tbody><tr><td>Recepção e agenda</td><td>Marcar, reagendar, bloquear recursos, registrar chegada e acompanhar fila.</td><td>Demonstração</td></tr><tr><td>Tutores e pacientes</td><td>Identificação, vínculo e histórico longitudinal do paciente.</td><td>Demonstração</td></tr><tr><td>Atendimentos, exames e cirurgia</td><td>Episódios, solicitações, resultados, avaliação e acompanhamento de procedimentos.</td><td>Demonstração</td></tr><tr><td>Internamento e prescrições</td><td>Leitos, evolução, cuidados e execução documentada.</td><td>Demonstração</td></tr><tr><td>Estoque</td><td>Produtos, lotes, validade, entradas e consumo.</td><td>Demonstração</td></tr><tr><td>Orçamentos e financeiro</td><td>Previsão de custos, cobranças, pagamentos parciais e saldo.</td><td>Demonstração</td></tr><tr><td>Supervisão e relatórios</td><td>Revisão académica e indicadores operacionais básicos.</td><td>Demonstração</td></tr></tbody></table></div>`],
-    ['fluxos', 'Principais fluxos do sistema', `<ol><li><strong>Entrada:</strong> cadastrar tutor → paciente → agendar → registrar chegada → abrir atendimento.</li><li><strong>Clínico:</strong> criar rascunho → finalizar ou enviar à supervisão → registrar adendo quando aplicável; solicitar exame → registrar resultado → avaliação identificada.</li><li><strong>Cirúrgico e internamento:</strong> programar procedimento → registrar início/conclusão → admitir em leito → prescrever e executar cuidados → registrar alta clínica.</li><li><strong>Operacional:</strong> criar produto → registrar entrada ou consumo → acompanhar saldo; apresentar orçamento → criar cobrança → registrar recebimento parcial.</li></ol><p>Estes fluxos são representações funcionais da demonstração; critérios clínicos e aprovações formais permanecem a confirmar.</p>`],
-    ['dados', 'Modelo de dados e entidades', `<p><span class="doc-label observed">Observado</span> O armazenamento da demonstração usa <code>entity_id</code>, <code>entity_type</code>, <code>title</code>, <code>status</code>, <code>payload</code> (JSON em texto) e <code>updated_at</code>. Vínculos como <code>patientId</code> e <code>tutorId</code> ficam no payload; não há modelo relacional de produção definido.</p><div class="table-wrap"><table><thead><tr><th>Entidade conceptual</th><th>Relações principais</th><th>Notas</th></tr></thead><tbody><tr><td>Tutor · Paciente</td><td>Paciente → tutor</td><td>Identidade e prontuário único a definir em produção.</td></tr><tr><td>Agendamento · Atendimento</td><td>Ambos → paciente</td><td>Atendimento pode nascer de agendamento ou entrada direta.</td></tr><tr><td>Exame · Cirurgia · Internamento</td><td>Cada um → paciente</td><td>Resultados, procedimento e ocupação têm ciclos próprios.</td></tr><tr><td>Prescrição · Documento · Adendo</td><td>→ paciente ou atendimento</td><td>Autoria, revisão e imutabilidade exigem desenho formal.</td></tr><tr><td>Produto · Movimento</td><td>Movimento → produto</td><td>Lote, validade e unidade de medida requerem normalização.</td></tr><tr><td>Orçamento · Cobrança · Pagamento</td><td>→ paciente; pagamento → cobrança</td><td>Valores em centavos; reconciliação a definir.</td></tr></tbody></table></div><p><span class="doc-label">A confirmar</span> Cardinalidades, chaves, unicidade, versionamento, política de exclusão e esquema migrável.</p>`],
+    ['modulos', 'Módulos e responsabilidades', `<div class="table-wrap"><table><thead><tr><th>Módulo</th><th>Responsabilidade esperada</th><th>Estado</th></tr></thead><tbody><tr><td>Recepção e agenda</td><td>Marcar, reagendar, bloquear recursos, registrar chegada e acompanhar fila.</td><td>Demonstração</td></tr><tr><td>Responsáveis e pacientes</td><td>Identificação, vínculo e histórico longitudinal do paciente.</td><td>Demonstração</td></tr><tr><td>Atendimentos, exames e cirurgia</td><td>Episódios, solicitações, resultados, avaliação e acompanhamento de procedimentos.</td><td>Demonstração</td></tr><tr><td>Internamento e prescrições</td><td>Leitos, evolução, cuidados e execução documentada.</td><td>Demonstração</td></tr><tr><td>Estoque</td><td>Produtos, lotes, validade, entradas e consumo.</td><td>Demonstração</td></tr><tr><td>Orçamentos e financeiro</td><td>Previsão de custos, cobranças, pagamentos parciais e saldo.</td><td>Demonstração</td></tr><tr><td>Supervisão e relatórios</td><td>Revisão académica e indicadores operacionais básicos.</td><td>Demonstração</td></tr></tbody></table></div>`],
+    ['fluxos', 'Principais fluxos do sistema', `<ol><li><strong>Entrada:</strong> cadastrar responsável → paciente → agendar → registrar chegada → abrir atendimento.</li><li><strong>Clínico:</strong> criar rascunho → finalizar ou enviar à supervisão → registrar adendo quando aplicável; solicitar exame → registrar resultado → avaliação identificada.</li><li><strong>Cirúrgico e internamento:</strong> programar procedimento → registrar início/conclusão → admitir em leito → prescrever e executar cuidados → registrar alta clínica.</li><li><strong>Operacional:</strong> criar produto → registrar entrada ou consumo → acompanhar saldo; apresentar orçamento → criar cobrança → registrar recebimento parcial.</li></ol><p>Estes fluxos são representações funcionais da demonstração; critérios clínicos e aprovações formais permanecem a confirmar.</p>`],
+    ['dados', 'Modelo de dados e entidades', `<p><span class="doc-label observed">Observado</span> O armazenamento da demonstração usa <code>entity_id</code>, <code>entity_type</code>, <code>title</code>, <code>status</code>, <code>payload</code> (JSON em texto) e <code>updated_at</code>. Vínculos como <code>patientId</code> e <code>responsavelId</code> ficam no payload; não há modelo relacional de produção definido.</p><div class="table-wrap"><table><thead><tr><th>Entidade conceptual</th><th>Relações principais</th><th>Notas</th></tr></thead><tbody><tr><td>Responsável · Paciente</td><td>Paciente → responsável</td><td>Identidade e prontuário único a definir em produção.</td></tr><tr><td>Agendamento · Atendimento</td><td>Ambos → paciente</td><td>Atendimento pode nascer de agendamento ou entrada direta.</td></tr><tr><td>Exame · Cirurgia · Internamento</td><td>Cada um → paciente</td><td>Resultados, procedimento e ocupação têm ciclos próprios.</td></tr><tr><td>Prescrição · Documento · Adendo</td><td>→ paciente ou atendimento</td><td>Autoria, revisão e imutabilidade exigem desenho formal.</td></tr><tr><td>Produto · Movimento</td><td>Movimento → produto</td><td>Lote, validade e unidade de medida requerem normalização.</td></tr><tr><td>Orçamento · Cobrança · Pagamento</td><td>→ paciente; pagamento → cobrança</td><td>Valores em centavos; reconciliação a definir.</td></tr></tbody></table></div><p><span class="doc-label">A confirmar</span> Cardinalidades, chaves, unicidade, versionamento, política de exclusão e esquema migrável.</p>`],
     ['permissoes', 'Perfis de utilizador e permissões', `<p>Perfis simulados: Administração, Gestão da clínica, Recepção, Médico-veterinário, Professor ou supervisor, Aluno ou estagiário, Equipe de internamento, Estoque ou farmácia e Financeiro. A interface mostra módulos e ações conforme o perfil escolhido, mas <strong>não autentica nem protege dados no servidor</strong>.</p><p><span class="doc-label">Decisão a confirmar</span> Matriz oficial por recurso e ação (ler, criar, editar, validar, finalizar, cancelar, exportar e administrar), segregação por unidade, acesso de emergência, delegação e revisão periódica de acessos.</p>`],
     ['apis', 'APIs e integrações', `<p><span class="doc-label observed">Observado</span> A demonstração usa a armazenamento local do navegador (localStorage) para registros; não expõe API pública hospitalar nem envia mensagens ou pagamentos.</p><p><span class="doc-label">A confirmar</span> Contratos REST/eventos, autenticação entre sistemas, versionamento, idempotência, limites, retentativas, webhooks e mapeamentos para laboratório, comunicação, meios de pagamento, emissão fiscal e equipamentos. Nenhum endpoint ou fornecedor está especificado.</p>`],
-    ['requisitos', 'Requisitos funcionais e não funcionais', `<h3>Funcionais propostos</h3><ul><li>RF-01: cadastrar tutores e pacientes e manter vínculos rastreáveis.</li><li>RF-02: gerir agenda com detecção de conflitos de sala e profissional.</li><li>RF-03: registrar atendimento, solicitação e avaliação de exames, cirurgia e internamento.</li><li>RF-04: distinguir prescrição de execução; registrar autoria, hora e justificativas.</li><li>RF-05: registrar movimentos de estoque, cobranças e pagamentos sem apagar histórico.</li></ul><h3>Não funcionais a acordar</h3><ul><li>Disponibilidade, tempos de resposta, capacidade, acessibilidade WCAG 2.2 AA e suporte a dispositivos.</li><li>Consistência transacional, retenção, interoperabilidade, desempenho de busca e recuperação de desastre.</li></ul><p><span class="doc-label">A confirmar</span> Metas mensuráveis, cargas de referência e níveis de serviço.</p>`],
+    ['requisitos', 'Requisitos funcionais e não funcionais', `<h3>Funcionais propostos</h3><ul><li>RF-01: cadastrar responsáveis e pacientes e manter vínculos rastreáveis.</li><li>RF-02: gerir agenda com detecção de conflitos de sala e profissional.</li><li>RF-03: registrar atendimento, solicitação e avaliação de exames, cirurgia e internamento.</li><li>RF-04: distinguir prescrição de execução; registrar autoria, hora e justificativas.</li><li>RF-05: registrar movimentos de estoque, cobranças e pagamentos sem apagar histórico.</li></ul><h3>Não funcionais a acordar</h3><ul><li>Disponibilidade, tempos de resposta, capacidade, acessibilidade WCAG 2.2 AA e suporte a dispositivos.</li><li>Consistência transacional, retenção, interoperabilidade, desempenho de busca e recuperação de desastre.</li></ul><p><span class="doc-label">A confirmar</span> Metas mensuráveis, cargas de referência e níveis de serviço.</p>`],
     ['seguranca', 'Segurança, privacidade e auditoria', `<p>Esta página contém dados fictícios; o seletor de perfil é simulado. Não inserir dados clínicos ou pessoais reais. Para uso real, projetar autenticação, autorização no servidor, criptografia em trânsito e repouso, proteção de sessões, minimização de dados, gestão de consentimento/base legal aplicável, retenção e resposta a incidentes.</p><p>Auditoria esperada: ator autenticado, ação, recurso, instante, origem e mudanças relevantes, com integridade e acesso restrito. O módulo de auditoria demonstrativo <strong>não comprova</strong> trilha completa ou imutável.</p>`],
     ['observabilidade', 'Observabilidade e tratamento de erros', `<p><span class="doc-label observed">Observado</span> Falhas de carregamento e gravação exibem mensagens na interface; não há monitoramento operacional de produção documentado.</p><p><span class="doc-label">A confirmar</span> Logs estruturados sem dados sensíveis, métricas, rastreamento distribuído, alertas, correlação por requisição, estratégia de retentativa, filas de falhas e procedimentos de suporte. Erros parciais em operações de múltiplas gravações exigem reconciliação.</p>`],
     ['implantacao', 'Implantação e ambientes', `<p><span class="doc-label observed">Observado</span> A versão atual é uma demonstração web estática; não há implantação hospitalar declarada.</p><p><span class="doc-label">A confirmar</span> Ambientes de desenvolvimento, testes, homologação e produção; infraestrutura, segregação de credenciais, migrações, revisão de mudanças, estratégia de release/rollback, configuração e residência de dados.</p>`],
@@ -482,7 +482,7 @@ function selectField(id, label, options, chosen = '') {
 }
 
 function patientOptions() { return list('paciente').map(r => [r.entity_id, r.title + ' · ' + (data(r).prontuario || r.entity_id)]); }
-function tutorOptions() { return list('tutor').map(r => [r.entity_id, r.title]); }
+function responsavelOptions() { return list('responsavel').map(r => [r.entity_id, r.title]); }
 function textArea(id, label, value = '') { return `<div class="field span-2"><label for="${id}">${label}</label><textarea id="${id}" name="${id}">${esc(value)}</textarea><span class="error" id="err-${id}"></span></div>`; }
 
 function openModal(title, content, submit = 'Gravar registro', handler = null) {
@@ -575,8 +575,8 @@ async function createFlow(type, patientId = '') {
   if (!can(entityModule[type] || 'agenda', 'cadastrar')) return toast('Ação indisponível para este perfil.');
   let title = 'Novo ' + (entityNames[type] || 'registro').toLowerCase(), html = '', initial = patientId || patientOptions()[0]?.[0] || '';
   
-  if (type === 'tutor') html = `<div class="form-grid">${field('name', 'Nome ou razão social *')}${field('phone', 'Telefone (opcional)', 'tel')}${field('email', 'E-mail (opcional)', 'email')}${selectField('contact', 'Preferência de contato', [['Telefone', 'Telefone'], ['WhatsApp', 'WhatsApp'], ['E-mail', 'E-mail']])}${field('address', 'Endereço (opcional)')}${textArea('notes', 'Observações')}</div><p class="section-note">Responsável provisório é permitido. Documentos de identificação não são coletados nesta demonstração.</p>`;
-  else if (type === 'paciente') html = `<div class="form-grid">${field('name', 'Nome do paciente *')}${selectField('tutor', 'Responsável *', tutorOptions())}${selectField('species', 'Espécie', [['Cão', 'Cão'], ['Gato', 'Gato'], ['Coelho', 'Coelho'], ['Outra', 'Outra']])}${field('breed', 'Raça ou SRD')}${selectField('sex', 'Sexo', [['Não informado', 'Não informado'], ['Fêmea', 'Fêmea'], ['Macho', 'Macho']])}${field('weight', 'Peso informado (kg)', 'number', '', 'min="0" step="0.01"')}${textArea('alerts', 'Alertas, alergias e reações (não preencher como normal automaticamente)')}</div><div id="duplicate-warning" class="notice">Possíveis duplicidades por nome e tutor serão exibidas antes da gravação. Não há união automática.</div>`;
+  if (type === 'responsavel') html = `<div class="form-grid">${field('name', 'Nome ou razão social *')}${field('phone', 'Telefone (opcional)', 'tel')}${field('email', 'E-mail (opcional)', 'email')}${selectField('contact', 'Preferência de contato', [['Telefone', 'Telefone'], ['WhatsApp', 'WhatsApp'], ['E-mail', 'E-mail']])}${field('address', 'Endereço (opcional)')}${textArea('notes', 'Observações')}</div><p class="section-note">Responsável provisório é permitido. Documentos de identificação não são coletados nesta demonstração.</p>`;
+  else if (type === 'paciente') html = `<div class="form-grid">${field('name', 'Nome do paciente *')}${selectField('responsavel', 'Responsável *', responsavelOptions())}${selectField('species', 'Espécie', [['Cão', 'Cão'], ['Gato', 'Gato'], ['Coelho', 'Coelho'], ['Outra', 'Outra']])}${field('breed', 'Raça ou SRD')}${selectField('sex', 'Sexo', [['Não informado', 'Não informado'], ['Fêmea', 'Fêmea'], ['Macho', 'Macho']])}${field('weight', 'Peso informado (kg)', 'number', '', 'min="0" step="0.01"')}${textArea('alerts', 'Alertas, alergias e reações (não preencher como normal automaticamente)')}</div><div id="duplicate-warning" class="notice">Possíveis duplicidades por nome e responsável serão exibidas antes da gravação. Não há união automática.</div>`;
   else if (type === 'agendamento' || type === 'bloqueio') html = `<div class="form-grid">${type === 'agendamento' ? selectField('patient', 'Paciente *', patientOptions()) : field('name', 'Motivo do bloqueio *')}${selectField('professional', 'Profissional / recurso', [['Dra. Ana (fictícia)', 'Dra. Ana (fictícia)'], ['Dr. Bruno (fictício)', 'Dr. Bruno (fictício)']])}${selectField('room', 'Sala', [['Consultório 1', 'Consultório 1'], ['Consultório 2', 'Consultório 2'], ['Centro cirúrgico', 'Centro cirúrgico']])}${field('date', 'Data *', 'date')}${field('time', 'Início *', 'time')}${field('end', 'Fim *', 'time')}${type === 'agendamento' ? field('service', 'Serviço', 'text', 'Consulta') : ''}${textArea('notes', 'Observações ou justificativa de encaixe')}</div>`;
   else if (type === 'atendimento') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${selectField('kind', 'Tipo', [['Consulta', 'Consulta'], ['Retorno', 'Retorno'], ['Sem agendamento', 'Sem agendamento']])}${field('professional', 'Profissional *', 'text', profile === 'Aluno ou estagiário' ? 'Aluno(a) Camila (fictício)' : 'Dra. Ana (fictícia)')}${field('complaint', 'Queixa principal *')}${textArea('notes', 'Anamnese, exame físico, parâmetros com unidades, conduta e orientações — diferencie não informado, não avaliado e normal')}${profile === 'Aluno ou estagiário' ? field('supervisor', 'Supervisor *', 'text', 'Prof.ª Elisa (fictícia)') : ''}</div><p class="section-note">Rascunho pode ser continuado depois. Nenhum diagnóstico ou achado é gerado automaticamente.</p>`;
   else if (type === 'exame') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${field('name', 'Exame solicitado *')}${field('requester', 'Solicitante *', 'text', 'Dra. Ana (fictícia)')}${selectField('priority', 'Prioridade informada', [['Rotina', 'Rotina'], ['Prioritário', 'Prioritário']])}${field('lab', 'Laboratório interno ou externo')}${textArea('notes', 'Observações')}</div>`;
@@ -590,14 +590,14 @@ async function createFlow(type, patientId = '') {
   openModal(title, html, 'Gravar registro', async e => {
     e.preventDefault();
     let v = values(), button = e.submitter;
-    let required = type === 'tutor' ? ['name'] : type === 'paciente' ? ['name', 'tutor'] : type === 'agendamento' ? ['patient', 'date', 'time', 'end'] : type === 'bloqueio' ? ['name', 'date', 'time', 'end'] : type === 'atendimento' ? ['patient', 'professional', 'complaint'] : type === 'exame' ? ['patient', 'name', 'requester'] : type === 'cirurgia' ? ['patient', 'name', 'professional', 'date', 'time'] : type === 'internamento' ? ['patient', 'bed', 'professional', 'reason'] : type === 'prescricao' ? ['patient', 'name', 'time', 'professional'] : type === 'produto' ? ['name', 'code', 'unit'] : ['patient', 'name', 'amount'];
+    let required = type === 'responsavel' ? ['name'] : type === 'paciente' ? ['name', 'responsavel'] : type === 'agendamento' ? ['patient', 'date', 'time', 'end'] : type === 'bloqueio' ? ['name', 'date', 'time', 'end'] : type === 'atendimento' ? ['patient', 'professional', 'complaint'] : type === 'exame' ? ['patient', 'name', 'requester'] : type === 'cirurgia' ? ['patient', 'name', 'professional', 'date', 'time'] : type === 'internamento' ? ['patient', 'bed', 'professional', 'reason'] : type === 'prescricao' ? ['patient', 'name', 'time', 'professional'] : type === 'produto' ? ['name', 'code', 'unit'] : ['patient', 'name', 'amount'];
     
     let invalid = false;
     required.forEach(k => { if (!v[k]?.trim()) { err(k, 'Campo obrigatório.'); invalid = true; } });
     if (invalid) return;
 
-    if (type === 'tutor' && v.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) { err('email', 'Informe um e-mail válido.'); return; }
-    if (type === 'paciente' && of('paciente').some(r => r.title.toLowerCase() === v.name.toLowerCase() && data(r).tutorId === v.tutor)) { err('name', 'Possível duplicidade: mesmo nome e responsável. Confira antes de continuar.'); return; }
+    if (type === 'responsavel' && v.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) { err('email', 'Informe um e-mail válido.'); return; }
+    if (type === 'paciente' && of('paciente').some(r => r.title.toLowerCase() === v.name.toLowerCase() && data(r).responsavelId === v.responsavel)) { err('name', 'Possível duplicidade: mesmo nome e responsável. Confira antes de continuar.'); return; }
     if (['agendamento', 'bloqueio'].includes(type)) {
       if (v.end <= v.time) { err('end', 'O término deve ser posterior ao início.'); return; }
       let clash = [...of('agendamento'), ...of('bloqueio')].some(r => {
@@ -610,8 +610,8 @@ async function createFlow(type, patientId = '') {
     if (type === 'produto' && v.expiry && v.expiry < new Date().toISOString().slice(0, 10)) { err('expiry', 'Lote vencido não pode entrar como disponível.'); return; }
     
     let id = uid(type), p = {}, name = v.name || byId(v.patient)?.title || 'Registro';
-    if (type === 'tutor') p = { telefone: v.phone, email: v.email, contato: v.contact, endereco: v.address, observacoes: v.notes };
-    if (type === 'paciente') p = { tutorId: v.tutor, especie: v.species, raca: v.breed || 'SRD', sexo: v.sex, peso: v.weight ? v.weight + ' kg' : 'Não informado', alertas: v.alerts, prontuario: 'PR-' + id.slice(-7) };
+    if (type === 'responsavel') p = { telefone: v.phone, email: v.email, contato: v.contact, endereco: v.address, observacoes: v.notes };
+    if (type === 'paciente') p = { responsavelId: v.responsavel, especie: v.species, raca: v.breed || 'SRD', sexo: v.sex, peso: v.weight ? v.weight + ' kg' : 'Não informado', alertas: v.alerts, prontuario: 'PR-' + id.slice(-7) };
     if (type === 'agendamento' || type === 'bloqueio') p = { patientId: v.patient, professional: v.professional, room: v.room, date: v.date, time: v.time, end: v.end, service: v.service, notes: v.notes };
     if (type === 'atendimento') p = { patientId: v.patient, professional: v.professional, type: v.kind, complaint: v.complaint, notes: v.notes, student: profile === 'Aluno ou estagiário' ? v.professional : '', supervisor: v.supervisor || '', date: new Date().toISOString() };
     if (type === 'exame') p = { patientId: v.patient, requester: v.requester, priority: v.priority, lab: v.lab, notes: v.notes };
@@ -621,8 +621,8 @@ async function createFlow(type, patientId = '') {
     if (type === 'produto') p = { code: v.code, category: v.category, unit: v.unit, stock: Number(v.stock), min: Number(v.min), lot: v.lot, expiry: v.expiry, priceCents: Math.round(Number(v.price) * 100) };
     if (type === 'orcamento' || type === 'cobranca') p = { patientId: v.patient, amountCents: Math.round(Number(v.amount) * 100), paidCents: 0, items: v.notes, origin: 'Lançamento manual demonstrativo' };
     
-    let statuses = { tutor: 'Ativo', paciente: 'Ativo', agendamento: 'Agendado', bloqueio: 'Bloqueado', atendimento: 'Rascunho', exame: 'Solicitado', cirurgia: 'Programada', internamento: 'Internado', prescricao: 'Ativa', produto: 'Ativo', orcamento: 'Rascunho', cobranca: 'Em aberto' };
-    let r = { entity_id: id, entity_type: type, title: type === 'agendamento' ? 'Consulta · ' + name : type === 'paciente' || type === 'tutor' || type === 'produto' ? name : (entityNames[type] || type) + ' · ' + name, status: statuses[type], payload: JSON.stringify(p), updated_at: new Date().toISOString() };
+    let statuses = { responsavel: 'Ativo', paciente: 'Ativo', agendamento: 'Agendado', bloqueio: 'Bloqueado', atendimento: 'Rascunho', exame: 'Solicitado', cirurgia: 'Programada', internamento: 'Internado', prescricao: 'Ativa', produto: 'Ativo', orcamento: 'Rascunho', cobranca: 'Em aberto' };
+    let r = { entity_id: id, entity_type: type, title: type === 'agendamento' ? 'Consulta · ' + name : type === 'paciente' || type === 'responsavel' || type === 'produto' ? name : (entityNames[type] || type) + ' · ' + name, status: statuses[type], payload: JSON.stringify(p), updated_at: new Date().toISOString() };
     
     if (await saveNew(r, button)) { activeDetail = id; render(); }
   });

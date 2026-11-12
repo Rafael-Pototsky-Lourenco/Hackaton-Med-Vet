@@ -2,7 +2,7 @@ const modules = [
   ['painel', 'Painel inicial', 'layout-dashboard', 'Geral'],
   ['recepcao', 'Recepção e fila', 'users-round', 'Geral'],
   ['agenda', 'Agenda', 'calendar-days', 'Geral'],
-  ['pacientes', 'Pacientes', 'accessibility', 'Cadastros'],
+  ['pacientes', 'Pacientes', 'users', 'Cadastros'],
   ['atendimentos', 'Avaliações e evoluções', 'file-heart', 'Clínica'],
   ['exames', 'Exames e avaliações funcionais', 'activity', 'Clínica'],
   ['orcamentos', 'Pacotes e orçamentos', 'receipt', 'Operação'],
