@@ -1,10 +1,12 @@
 # Clínicas Positivo — demonstração
 
-Versão cumulativa das etapas 1 a 6, incluindo a revisão do cadastro único. A entrega atual está descrita em [LEIA-ME-ETAPA-6.md](docs/guias/LEIA-ME-ETAPA-6.md). As instruções e relatórios das etapas anteriores permanecem como histórico; as regras mais recentes prevalecem.
+Versão cumulativa das etapas 1 a 6, incluindo a revisão do cadastro único e as oito correções de QA. Consulte [Correções e roteiro de testes](docs/validacao/CORRECOES-QA.md) e [LEIA-ME-ETAPA-6.md](docs/guias/LEIA-ME-ETAPA-6.md). As instruções e relatórios das etapas anteriores permanecem como histórico; as regras mais recentes prevalecem.
 
 ## Executar
 
 Sirva esta pasta no servidor local habitual e abra index.html. Preserve protocolo, host e porta ao atualizar, para manter os dados do navegador. Não há build. Fontes e ícones usam as referências externas do projeto original; o odontograma é desenhado localmente em SVG.
+
+Use Chrome ou Edge atualizado em localhost ou HTTPS. As gravações usam Web Locks para coordenar abas da mesma origem; sem esse recurso, a demonstração mostra o motivo e recusa a gravação. Feche as abas da versão anterior antes de atualizar. Os dados existentes e as cópias de migração são preservados.
 
 Rotas: index.html, odonto.html, fisioterapia.html, psicologia.html, nutricao.html e med_vet.html. A rota veterinária continua independente e sem alterações.
 

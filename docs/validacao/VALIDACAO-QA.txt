@@ -1,0 +1,19 @@
+Versão 0.6.1 — 13/11/2026
+
+Cadastro: 122 verificações
+Agenda e encaminhamentos: 272 verificações
+Permissões: 114 verificações
+Prontuário: 247 verificações
+Odontologia: 146 verificações
+Sincronização entre abas: 52 verificações
+Regressões de interface: 57 verificações
+Regressões de prontuário: 92 verificações
+Regressões de gravação: 104 verificações
+Total: 1.206 verificações passaram.
+
+Sintaxe dos scripts, referências locais, manifesto e seis rotas: passaram.
+Inspeção no navegador integrado: não concluída; conexão ao servidor local terminou por timeout.
+Concorrência validada em contextos isolados com fila compartilhada de Web Locks simulada.
+Nenhum dado do navegador do usuário foi alterado pelos testes.
+
+Roteiro de conferência manual: CORRECOES-QA.md.

@@ -80,8 +80,8 @@ const fixtures = [
 let backendRecords = [], ready = false, current = 'painel', profile = ClinicAuth.membership('fisioterapia')?.role || 'Sem vínculo', activeDetail = null, page = 1, filter = '', sort = 'asc', agendaMode = 'dia', patientTab = 'Cadastro', modalDirty = false;
 const store = {
  load() { return ClinicData.list('fisioterapia'); },
- create(r) { const result=ClinicData.save('fisioterapia',r); if(result.isOk) backendRecords=this.load(); return result; },
- update(r) { return this.create(r); }
+ async create(r) { const result=await ClinicData.save('fisioterapia',r); if(result.isOk) backendRecords=this.load(); return result; },
+ async update(r) { return this.create(r); }
 };
 
 const $ = s => document.querySelector(s);
@@ -431,7 +431,14 @@ function openModal(title, content, submit = 'Gravar registro', handler = null) {
   $('#modal-root').innerHTML = `<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-head"><h2 id="modal-title">${esc(title)}</h2><button class="icon-btn" type="button" id="close-modal" aria-label="Fechar"><i data-lucide="x"></i></button></div><form id="modal-form" novalidate>${content}<div id="modal-feedback" role="alert"></div><div class="actions" style="justify-content:flex-end;margin-top:20px"><button type="button" class="btn secondary" id="cancel-modal">Cancelar</button><button type="submit" class="btn">${submit}</button></div></form></div></div>`;
   modalDirty = false;
   $('#modal-form').addEventListener('input', () => modalDirty = true);
-  $('#modal-form').onsubmit = handler;
+  const form=$('#modal-form');let pending=false;
+  form.onsubmit=async e=>{
+    e.preventDefault();if(pending||!handler)return;
+    pending=true;const button=e.submitter||$('#modal-form button[type=submit]');
+    if(button)button.disabled=true;form.setAttribute('aria-busy','true');
+    try{return await handler(e);}catch(error){$('#modal-feedback').innerHTML='<div class="notice error-note">'+esc(error.message||'Não foi possível concluir a ação.')+'</div>';}
+    finally{pending=false;if(button)button.disabled=false;form.removeAttribute?.('aria-busy');}
+  };
   $('#modal-title').focus?.();
   icons();
   $('#modal-form input,#modal-form select,#modal-form textarea')?.focus();
@@ -466,7 +473,7 @@ async function saveNew(r, button) {
   if (backendRecords.length >= 999) { toast('Limite de 999 registros atingido.'); return false; }
   button.disabled = true; button.textContent = 'Gravando...';
   try {
-    let res = store.create(r);
+    let res = await store.create(r);
     if (!res.isOk) {
       $('#modal-feedback').innerHTML = `<div class="notice error-note">${esc(res.error || 'Não foi possível confirmar a gravação.')}</div>`;
       return false;
@@ -495,7 +502,7 @@ async function updateRecord(r, patch, statusText, button) {
   let old = button.textContent;
   button.textContent = 'Gravando...';
   try {
-    let result = store.update({ ...source, status: statusText ?? r.status, payload: JSON.stringify({ ...data(r), ...patch }), updated_at: new Date().toISOString() });
+    let result = await store.update({ ...source, status: statusText ?? r.status, payload: JSON.stringify({ ...data(r), ...patch }), updated_at: new Date().toISOString() });
     if (!result.isOk) {
       $('#modal-feedback').innerHTML = `<div class="notice error-note">${esc(result.error || 'Não foi possível confirmar a alteração.')}</div>`;
       return false;
@@ -569,6 +576,7 @@ async function createFlow(type, patientId = '') {
 function simpleAction(r, act) {
   if(!ClinicAuth.action('fisioterapia',r,act))return toast('Acesso restrito');
   let d = data(r), title = '', html = '', label = 'Registrar ação';
+  const paymentOperation=uid('OP');
   const reason = (text = 'Motivo *') => textArea('reason', text);
   
   if (act === 'arrive') { title = 'Registrar chegada'; html = field('arrival', 'Horário de chegada *', 'time', new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date())); }
@@ -589,7 +597,7 @@ function simpleAction(r, act) {
   else if (act === 'evaluate') { title = 'Avaliar resultado'; html = `${field('evaluator', 'Profissional avaliador *', 'text', profile)}${textArea('notes', 'Registro da avaliação *')}`; }
   else if (act === 'approve' || act === 'partial') { title = act === 'approve' ? 'Aprovar orçamento' : 'Aprovar parcialmente'; html = `${field('responsible', 'Responsável pela confirmação *')}${selectField('method', 'Forma de confirmação', [['Verbal registrada', 'Verbal registrada'], ['E-mail informado', 'E-mail informado']])}${act === 'partial' ? reason('Itens aprovados *') : textArea('notes', 'Observações')}`; }
   else if (act === 'discount') { title='Aplicar desconto'; html=field('amount','Desconto (R$) *','number','','min="0.01" step="0.01"')+reason('Justificativa *'); }
-  else if (act === 'pay') { title = 'Receber pagamento parcial'; html = `${field('amount', 'Valor recebido (R$) *', 'number', '', 'min="0.01" step="0.01"')}${selectField('method', 'Meio informado', [['Dinheiro', 'Dinheiro'], ['PIX confirmado manualmente', 'PIX confirmado manualmente'], ['Cartão confirmado manualmente', 'Cartão confirmado manualmente']])}${field('operator', 'Operador *', 'text', profile)}`; }
+  else if (act === 'pay') { title = 'Receber pagamento parcial'; html = `${field('amount', 'Valor recebido (R$) *', 'number', '', 'min="0.01" step="0.01"')}${selectField('method', 'Meio informado', [['Dinheiro', 'Dinheiro'], ['PIX confirmado manualmente', 'PIX confirmado manualmente'], ['Cartão confirmado manualmente', 'Cartão confirmado manualmente']])}${field('operator', 'Operador (conta atual) *', 'text', ClinicAuth.current().name, 'readonly')}`; }
   else return toast('Ação indisponível.');
 
   openModal(title, html, label, async e => {
@@ -598,7 +606,7 @@ function simpleAction(r, act) {
     let required = ({"discount":["amount","reason"],"authorizeCorrection":["reason"],"arrive":["arrival"],"reschedule":["date","time","end","reason"],"cancel":["reason"],"reverse":["reason"],"edit":["complaint"],"submit":["supervisor"],"finalize":["author"],"addendum":["reason","notes","author"],"validate":["reason"],"return":["reason"],"result":["result"],"evaluate":["evaluator","notes"],"surgeryStart":["reason"],"surgeryFinish":["reason"],"consume":["product","quantity","reason"],"stockIn":["product","quantity","reason"],"approve":["responsible"],"partial":["responsible","reason"],"pay":["amount","operator"]})[act] || [];
     for (let k of required) { if (!v[k]?.trim()) { err(k, 'Campo obrigatório.'); return; } }
     
-    let patch = {}, statusText = r.status, extra = null;
+    let patch = {}, statusText = r.status;
     
     if (act === 'arrive') { patch.arrivedAt = v.arrival; statusText = 'Chegou'; }
     if (act === 'reschedule') {
@@ -619,22 +627,14 @@ function simpleAction(r, act) {
     if (act === 'approve' || act === 'partial') { patch = { confirmedBy: v.responsible, confirmationMethod: v.method, approvedItems: v.reason || d.items, confirmedAt: stamp() }; statusText = act === 'approve' ? 'Aprovado' : 'Parcialmente aprovado'; }
     if (act === 'discount') { const cents=Math.round(Number(v.amount)*100),balance=(d.amountCents||0)-(d.paidCents||0);if(!Number.isFinite(cents)||cents<=0||cents>balance){err('amount','Desconto deve ser positivo e não exceder o saldo.');return;}patch={amountCents:d.amountCents-cents,discountReason:v.reason,discountBy:ClinicAuth.current().id}; }
     if (act === 'pay') {
-      let cents = Math.round(Number(v.amount) * 100), balance = (d.amountCents || 0) - (d.paidCents || 0);
-      if (!Number.isFinite(cents) || cents <= 0 || cents > balance) { err('amount', 'Valor deve ser maior que zero e não exceder o saldo ' + money(balance) + '.'); return; }
-      patch = { paidCents: (d.paidCents || 0) + cents };
-      statusText = patch.paidCents >= d.amountCents ? 'Paga' : 'Parcialmente paga';
-      extra = record('pagamento', 'Recebimento · ' + r.title, 'Confirmado manualmente', { chargeId: r.entity_id, amountCents: cents, method: v.method, operator: v.operator, at: stamp() });
+      const cents=Math.round(Number(v.amount)*100);
+      if(!Number.isSafeInteger(cents)||cents<=0)return err('amount','Informe um valor positivo em reais.');
+      const result=await ClinicData.finance.receive('fisioterapia',r.entity_id,{amountCents:cents,method:v.method,operationId:paymentOperation});
+      workflowResult(result);return;
     }
     if (act === 'addendum') {
       let entry = record('adendo', 'Adendo · ' + r.title, 'Registrado', { parentId: r.entity_id, patientId: d.patientId, reason: v.reason || '', notes: v.notes, author: v.author, at: stamp() });
       if (await saveNew(entry, button)) render();
-      return;
-    }
-    
-    if (extra) {
-      if (!await saveNew(extra, button)) return;
-      let b = $('#modal-form button[type=submit]') || button;
-      if (await updateRecord(r, patch, statusText, b)) render();
       return;
     }
     
@@ -651,7 +651,7 @@ function search() {
   box.classList.remove('hidden');
 }
 
-document.addEventListener('click', e => {
+document.addEventListener('click', async e => {
   let t = e.target.closest('button');
   if (!t) return;
   
@@ -672,7 +672,7 @@ document.addEventListener('click', e => {
   
   if (t.dataset.tab) { patientTab = t.dataset.tab; render(); return; }
   if (t.dataset.page) { page += Number(t.dataset.page); render(); return; }
-  if (t.dataset.start) { startScheduled(t.dataset.start); return; }
+  if (t.dataset.start) { await startScheduled(t.dataset.start); return; }
   if (t.dataset.act) { let r = byId(t.dataset.id); if (r) simpleAction(r, t.dataset.act); return; }
   
   if (t.id === 'export-btn') {
@@ -694,11 +694,11 @@ document.addEventListener('input', e => {
   if (e.target.id === 'list-filter') {
     filter = e.target.value;
     page = 1;
-    let pos = e.target.selectionStart;
-    let panel = e.target.closest('.panel');
-    panel.innerHTML = toolbar() + paged(list(keyFor[current]));
-    $('#list-filter').focus();
-    $('#list-filter').setSelectionRange(pos, pos);
+    const { selectionStart, selectionEnd, selectionDirection } = e.target;
+    render();
+    const input = $('#list-filter');
+    input.focus();
+    input.setSelectionRange(selectionStart, selectionEnd, selectionDirection);
   }
 });
 
@@ -731,7 +731,17 @@ $('#profile-select').innerHTML = ClinicAuth.accounts().map(u => `<option value="
 
 icons();
 backendRecords = store.load();
-window.addEventListener('storage', e => { if([ClinicData.key,ClinicAuth.key,ClinicAuth.sessionKey].includes(e.key)) { profile=ClinicAuth.membership('fisioterapia')?.role||'Sem vínculo';backendRecords=store.load();$('#modal-root').innerHTML='';$('#search-results').innerHTML='';modalDirty=false;render(); } });
+window.addEventListener('storage', e => {
+  if (![ClinicData.key, ClinicAuth.key, ClinicAuth.sessionKey].includes(e.key)) return;
+  profile = ClinicAuth.membership('fisioterapia')?.role || 'Sem vínculo';
+  backendRecords = store.load();
+  if (e.key !== ClinicData.key) {
+    $('#modal-root').innerHTML = '';
+    $('#search-results').innerHTML = '';
+    modalDirty = false;
+  }
+  render();
+});
 ready = true;
 render();
 
@@ -744,3 +754,5 @@ function migrationNotice(){
  document.getElementById('view').prepend(box);
 }
 const originalRender=render;render=function(){originalRender();migrationNotice();};migrationNotice();
+
+ClinicData.ready.then(result=>{backendRecords=store.load();render();if(!result.isOk)toast(result.error);});

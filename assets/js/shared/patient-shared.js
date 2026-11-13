@@ -73,7 +73,7 @@ document.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b)return;
  if(b.dataset.patientEdit){const r=byId(b.dataset.patientEdit);if(r&&visible(r))patientForm(r);}
  const id=b.dataset.usePatient||b.dataset.patientLink;
- if(id&&can('pacientes','cadastrar')){const r=byId(id);if(!r||!visible(r))return;const result=ClinicData.link(patientClinic,id);if(!result.isOk)return toast(result.error||'Acesso restrito');backendRecords=store.load();modalDirty=false;document.getElementById('modal-root').innerHTML='';activeDetail=id;current='pacientes';patientTab='Cadastro';render();toast('Paciente existente vinculado à clínica.');}
+ if(id&&can('pacientes','cadastrar')){const r=byId(id);if(!r||!visible(r))return;const result=await ClinicData.link(patientClinic,id);if(!result.isOk)return toast(result.error||'Acesso restrito');backendRecords=store.load();modalDirty=false;document.getElementById('modal-root').innerHTML='';activeDetail=id;current='pacientes';patientTab='Cadastro';render();toast('Paciente existente vinculado à clínica.');}
  if(b.dataset.patientStatus&&can('pacientes','editar')){
   const r=byId(b.dataset.patientStatus);if(!r||!visible(r))return;
   openModal(r.status==='Ativo'?'Inativar cadastro':'Reativar cadastro','<p>O histórico será preservado. Cadastros inativos não podem receber novos agendamentos.</p>','Confirmar',async event=>{event.preventDefault();if(await saveNew({...r,status:r.status==='Ativo'?'Inativo':'Ativo',updated_at:new Date().toISOString()},event.submitter))render();});
