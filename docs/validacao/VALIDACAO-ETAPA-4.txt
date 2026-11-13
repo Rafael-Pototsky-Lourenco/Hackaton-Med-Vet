@@ -1,0 +1,272 @@
+272 verificações da etapa 4 concluídas.
+
+OK: odonto: término anterior ao início bloqueado
+OK: odonto: data impossível bloqueada
+OK: odonto: aluno exige supervisor
+OK: odonto: prévia semanal calculada
+OK: odonto: prévia não grava dados
+OK: odonto: série gravada integralmente
+OK: odonto: sessões têm IDs próprios e vínculo à série
+OK: odonto: conflito de profissional bloqueado
+OK: odonto: conflito de sala bloqueado
+OK: odonto: sobreposição do paciente bloqueada
+OK: odonto: reagendamento desconsidera próprio registro
+OK: odonto: reagendamento altera somente uma sessão
+OK: odonto: histórico preserva data, início, fim e motivo
+OK: odonto: cancelamento exige motivo
+OK: odonto: sessão da série cancelada individualmente
+OK: odonto: falta registrada individualmente
+OK: odonto: demais sessões e vínculo da série preservados
+OK: odonto: confirmação e chegada registradas
+OK: odonto: Recepção não inicia conteúdo clínico
+OK: odonto: equipe autorizada inicia atendimento
+OK: odonto: atendimento recebe vínculos e horários da agenda
+OK: odonto: iniciar novamente reabre atendimento sem duplicação
+OK: odonto: cobrança aberta criada
+OK: odonto: atendimento clínico finalizado
+OK: odonto: conclusão clínica conclui sessão
+OK: odonto: cobrança continua Em aberto após conclusão clínica
+OK: odonto: bloqueio de recurso salvo
+OK: odonto: conflito posterior identificado na série
+OK: odonto: série conflitante não grava sessões parciais
+OK: odonto: recorrência mensal respeita meses e ano bissexto
+OK: odonto: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: odonto: agenda oferece os sete estados
+OK: odonto: formulário apresenta série antes da confirmação
+OK: odonto: confirmação do formulário salva a série
+OK: odonto: vínculos e situações persistem após recarga
+OK: fisioterapia: término anterior ao início bloqueado
+OK: fisioterapia: data impossível bloqueada
+OK: fisioterapia: aluno exige supervisor
+OK: fisioterapia: prévia semanal calculada
+OK: fisioterapia: prévia não grava dados
+OK: fisioterapia: série gravada integralmente
+OK: fisioterapia: sessões têm IDs próprios e vínculo à série
+OK: fisioterapia: conflito de profissional bloqueado
+OK: fisioterapia: conflito de sala bloqueado
+OK: fisioterapia: sobreposição do paciente bloqueada
+OK: fisioterapia: reagendamento desconsidera próprio registro
+OK: fisioterapia: reagendamento altera somente uma sessão
+OK: fisioterapia: histórico preserva data, início, fim e motivo
+OK: fisioterapia: cancelamento exige motivo
+OK: fisioterapia: sessão da série cancelada individualmente
+OK: fisioterapia: falta registrada individualmente
+OK: fisioterapia: demais sessões e vínculo da série preservados
+OK: fisioterapia: confirmação e chegada registradas
+OK: fisioterapia: Recepção não inicia conteúdo clínico
+OK: fisioterapia: equipe autorizada inicia atendimento
+OK: fisioterapia: atendimento recebe vínculos e horários da agenda
+OK: fisioterapia: iniciar novamente reabre atendimento sem duplicação
+OK: fisioterapia: cobrança aberta criada
+OK: fisioterapia: atendimento clínico finalizado
+OK: fisioterapia: conclusão clínica conclui sessão
+OK: fisioterapia: cobrança continua Em aberto após conclusão clínica
+OK: fisioterapia: bloqueio de recurso salvo
+OK: fisioterapia: conflito posterior identificado na série
+OK: fisioterapia: série conflitante não grava sessões parciais
+OK: fisioterapia: recorrência mensal respeita meses e ano bissexto
+OK: fisioterapia: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: fisioterapia: agenda oferece os sete estados
+OK: fisioterapia: formulário apresenta série antes da confirmação
+OK: fisioterapia: confirmação do formulário salva a série
+OK: fisioterapia: vínculos e situações persistem após recarga
+OK: psicologia: término anterior ao início bloqueado
+OK: psicologia: data impossível bloqueada
+OK: psicologia: aluno exige supervisor
+OK: psicologia: prévia semanal calculada
+OK: psicologia: prévia não grava dados
+OK: psicologia: série gravada integralmente
+OK: psicologia: sessões têm IDs próprios e vínculo à série
+OK: psicologia: conflito de profissional bloqueado
+OK: psicologia: conflito de sala bloqueado
+OK: psicologia: sobreposição do paciente bloqueada
+OK: psicologia: reagendamento desconsidera próprio registro
+OK: psicologia: reagendamento altera somente uma sessão
+OK: psicologia: histórico preserva data, início, fim e motivo
+OK: psicologia: cancelamento exige motivo
+OK: psicologia: sessão da série cancelada individualmente
+OK: psicologia: falta registrada individualmente
+OK: psicologia: demais sessões e vínculo da série preservados
+OK: psicologia: confirmação e chegada registradas
+OK: psicologia: Recepção não inicia conteúdo clínico
+OK: psicologia: equipe autorizada inicia atendimento
+OK: psicologia: atendimento recebe vínculos e horários da agenda
+OK: psicologia: iniciar novamente reabre atendimento sem duplicação
+OK: psicologia: cobrança aberta criada
+OK: psicologia: atendimento clínico finalizado
+OK: psicologia: conclusão clínica conclui sessão
+OK: psicologia: cobrança continua Em aberto após conclusão clínica
+OK: psicologia: bloqueio de recurso salvo
+OK: psicologia: conflito posterior identificado na série
+OK: psicologia: série conflitante não grava sessões parciais
+OK: psicologia: recorrência mensal respeita meses e ano bissexto
+OK: psicologia: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: psicologia: agenda oferece os sete estados
+OK: psicologia: formulário apresenta série antes da confirmação
+OK: psicologia: confirmação do formulário salva a série
+OK: psicologia: vínculos e situações persistem após recarga
+OK: nutricao: término anterior ao início bloqueado
+OK: nutricao: data impossível bloqueada
+OK: nutricao: aluno exige supervisor
+OK: nutricao: prévia semanal calculada
+OK: nutricao: prévia não grava dados
+OK: nutricao: série gravada integralmente
+OK: nutricao: sessões têm IDs próprios e vínculo à série
+OK: nutricao: conflito de profissional bloqueado
+OK: nutricao: conflito de sala bloqueado
+OK: nutricao: sobreposição do paciente bloqueada
+OK: nutricao: reagendamento desconsidera próprio registro
+OK: nutricao: reagendamento altera somente uma sessão
+OK: nutricao: histórico preserva data, início, fim e motivo
+OK: nutricao: cancelamento exige motivo
+OK: nutricao: sessão da série cancelada individualmente
+OK: nutricao: falta registrada individualmente
+OK: nutricao: demais sessões e vínculo da série preservados
+OK: nutricao: confirmação e chegada registradas
+OK: nutricao: Recepção não inicia conteúdo clínico
+OK: nutricao: equipe autorizada inicia atendimento
+OK: nutricao: atendimento recebe vínculos e horários da agenda
+OK: nutricao: iniciar novamente reabre atendimento sem duplicação
+OK: nutricao: cobrança aberta criada
+OK: nutricao: atendimento clínico finalizado
+OK: nutricao: conclusão clínica conclui sessão
+OK: nutricao: cobrança continua Em aberto após conclusão clínica
+OK: nutricao: bloqueio de recurso salvo
+OK: nutricao: conflito posterior identificado na série
+OK: nutricao: série conflitante não grava sessões parciais
+OK: nutricao: recorrência mensal respeita meses e ano bissexto
+OK: nutricao: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: nutricao: agenda oferece os sete estados
+OK: nutricao: formulário apresenta série antes da confirmação
+OK: nutricao: confirmação do formulário salva a série
+OK: nutricao: vínculos e situações persistem após recarga
+OK: odonto: encaminhamento criado com motivo resumido
+OK: odonto: origem e autor registrados
+OK: odonto: destino vê operação sem motivo clínico
+OK: odonto: conta sem acesso à origem não age na origem
+OK: odonto: destino aceita encaminhamento
+OK: odonto: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: odonto: transição inválida de encaminhamento bloqueada
+OK: odonto: agendamento no destino atualiza encaminhamento
+OK: odonto: encaminhamento aponta agendamento criado
+OK: odonto: origem não cancela sessão já agendada no destino
+OK: odonto: equipe atribuída inicia atendimento no destino
+OK: odonto: destino finaliza atendimento
+OK: odonto: encaminhamento concluído vincula atendimento de destino
+OK: odonto: histórico segue o ciclo completo
+OK: odonto: recusa sem motivo bloqueada
+OK: odonto: recusa com motivo salva
+OK: odonto: cancelamento exige e guarda motivo
+OK: fisioterapia: encaminhamento criado com motivo resumido
+OK: fisioterapia: origem e autor registrados
+OK: fisioterapia: destino vê operação sem motivo clínico
+OK: fisioterapia: conta sem acesso à origem não age na origem
+OK: fisioterapia: destino aceita encaminhamento
+OK: fisioterapia: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: fisioterapia: transição inválida de encaminhamento bloqueada
+OK: fisioterapia: agendamento no destino atualiza encaminhamento
+OK: fisioterapia: encaminhamento aponta agendamento criado
+OK: fisioterapia: origem não cancela sessão já agendada no destino
+OK: fisioterapia: equipe atribuída inicia atendimento no destino
+OK: fisioterapia: destino finaliza atendimento
+OK: fisioterapia: encaminhamento concluído vincula atendimento de destino
+OK: fisioterapia: histórico segue o ciclo completo
+OK: fisioterapia: recusa sem motivo bloqueada
+OK: fisioterapia: recusa com motivo salva
+OK: fisioterapia: cancelamento exige e guarda motivo
+OK: psicologia: encaminhamento criado com motivo resumido
+OK: psicologia: origem e autor registrados
+OK: psicologia: destino vê operação sem motivo clínico
+OK: psicologia: conta sem acesso à origem não age na origem
+OK: psicologia: destino aceita encaminhamento
+OK: psicologia: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: psicologia: transição inválida de encaminhamento bloqueada
+OK: psicologia: agendamento no destino atualiza encaminhamento
+OK: psicologia: encaminhamento aponta agendamento criado
+OK: psicologia: origem não cancela sessão já agendada no destino
+OK: psicologia: equipe atribuída inicia atendimento no destino
+OK: psicologia: destino finaliza atendimento
+OK: psicologia: encaminhamento concluído vincula atendimento de destino
+OK: psicologia: histórico segue o ciclo completo
+OK: psicologia: recusa sem motivo bloqueada
+OK: psicologia: recusa com motivo salva
+OK: psicologia: cancelamento exige e guarda motivo
+OK: nutricao: encaminhamento criado com motivo resumido
+OK: nutricao: origem e autor registrados
+OK: nutricao: destino vê operação sem motivo clínico
+OK: nutricao: conta sem acesso à origem não age na origem
+OK: nutricao: destino aceita encaminhamento
+OK: nutricao: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: nutricao: transição inválida de encaminhamento bloqueada
+OK: nutricao: agendamento no destino atualiza encaminhamento
+OK: nutricao: encaminhamento aponta agendamento criado
+OK: nutricao: origem não cancela sessão já agendada no destino
+OK: nutricao: equipe atribuída inicia atendimento no destino
+OK: nutricao: destino finaliza atendimento
+OK: nutricao: encaminhamento concluído vincula atendimento de destino
+OK: nutricao: histórico segue o ciclo completo
+OK: nutricao: recusa sem motivo bloqueada
+OK: nutricao: recusa com motivo salva
+OK: nutricao: cancelamento exige e guarda motivo
+OK: odonto: vínculo acadêmico pode ser atribuído na agenda
+OK: odonto: aluno vê contexto do paciente pela sessão atribuída
+OK: odonto: botão Iniciar atendimento cria e vincula registro
+OK: odonto: botão reabre sem duplicação
+OK: odonto: aluno envia sessão atribuída para revisão
+OK: odonto: supervisor atribuído conclui sessão acadêmica
+OK: odonto: sessão concluída não pode ser remarcada
+OK: fisioterapia: vínculo acadêmico pode ser atribuído na agenda
+OK: fisioterapia: aluno vê contexto do paciente pela sessão atribuída
+OK: fisioterapia: botão Iniciar atendimento cria e vincula registro
+OK: fisioterapia: botão reabre sem duplicação
+OK: fisioterapia: aluno envia sessão atribuída para revisão
+OK: fisioterapia: supervisor atribuído conclui sessão acadêmica
+OK: fisioterapia: sessão concluída não pode ser remarcada
+OK: psicologia: vínculo acadêmico pode ser atribuído na agenda
+OK: psicologia: aluno vê contexto do paciente pela sessão atribuída
+OK: psicologia: botão Iniciar atendimento cria e vincula registro
+OK: psicologia: botão reabre sem duplicação
+OK: psicologia: aluno envia sessão atribuída para revisão
+OK: psicologia: supervisor atribuído conclui sessão acadêmica
+OK: psicologia: sessão concluída não pode ser remarcada
+OK: nutricao: vínculo acadêmico pode ser atribuído na agenda
+OK: nutricao: aluno vê contexto do paciente pela sessão atribuída
+OK: nutricao: botão Iniciar atendimento cria e vincula registro
+OK: nutricao: botão reabre sem duplicação
+OK: nutricao: aluno envia sessão atribuída para revisão
+OK: nutricao: supervisor atribuído conclui sessão acadêmica
+OK: nutricao: sessão concluída não pode ser remarcada
+OK: odonto: formulário cria encaminhamento
+OK: odonto: detalhe do destino mostra ações sem conteúdo clínico
+OK: odonto: botão Aceitar usa mesmo cadastro
+OK: odonto: encaminhamento aceito pode ser agendado
+OK: odonto: falta retorna encaminhamento à situação Aceito
+OK: odonto: nova sessão pode ser criada após falta
+OK: odonto: cancelamento agendado encerra encaminhamento e sessão atomicamente
+OK: fisioterapia: formulário cria encaminhamento
+OK: fisioterapia: detalhe do destino mostra ações sem conteúdo clínico
+OK: fisioterapia: botão Aceitar usa mesmo cadastro
+OK: fisioterapia: encaminhamento aceito pode ser agendado
+OK: fisioterapia: falta retorna encaminhamento à situação Aceito
+OK: fisioterapia: nova sessão pode ser criada após falta
+OK: fisioterapia: cancelamento agendado encerra encaminhamento e sessão atomicamente
+OK: psicologia: formulário cria encaminhamento
+OK: psicologia: detalhe do destino mostra ações sem conteúdo clínico
+OK: psicologia: botão Aceitar usa mesmo cadastro
+OK: psicologia: encaminhamento aceito pode ser agendado
+OK: psicologia: falta retorna encaminhamento à situação Aceito
+OK: psicologia: nova sessão pode ser criada após falta
+OK: psicologia: cancelamento agendado encerra encaminhamento e sessão atomicamente
+OK: nutricao: formulário cria encaminhamento
+OK: nutricao: detalhe do destino mostra ações sem conteúdo clínico
+OK: nutricao: botão Aceitar usa mesmo cadastro
+OK: nutricao: encaminhamento aceito pode ser agendado
+OK: nutricao: falta retorna encaminhamento à situação Aceito
+OK: nutricao: nova sessão pode ser criada após falta
+OK: nutricao: cancelamento agendado encerra encaminhamento e sessão atomicamente
+
+Regressão adicional: 244 verificações de permissões + 122 de cadastro. Total cumulativo: 638.
+
+Ambiente: scripts completos das quatro páginas em Node.js com DOM simulado. Inclui submissões e eventos reais dos formulários. A conferência visual foi interrompida pelo controle do computador, que não conseguiu confirmar a URL do navegador no Windows com segurança. Nenhuma alteração de dados foi feita pela interface do navegador durante essa tentativa.
+
+Para repetir: node tests/agenda-encaminhamentos.test.cjs

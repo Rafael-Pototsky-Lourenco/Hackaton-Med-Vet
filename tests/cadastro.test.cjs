@@ -1,0 +1,37 @@
+const assert=require('node:assert/strict');
+const {make}=require('./helpers/app-harness.cjs');
+const clinics=['odonto','fisioterapia','psicologia','nutricao'];let checks=0;const log=[];
+function check(value,message){assert.ok(value,message);checks++;log.push('OK: '+message);}
+module.exports=(async()=>{
+for(const c of clinics){
+ const t=make(c),D=t.ctx.ClinicData,A=t.ctx.ClinicAuth,pid=c+':P-001';
+ t.select('admin-clinico');t.run('navigate("pacientes",'+JSON.stringify(pid)+')');
+ let html=t.e('#view').innerHTML;const tabs=['Cadastro','Agenda','Encaminhamentos','Prontuários','Financeiro'];
+ check(tabs.every(tab=>html.includes('data-tab="'+tab+'"')),c+': ficha geral exibe as cinco abas na conta com todos os acessos');
+ for(const tab of tabs){await t.dispatch('click',{target:{closest:()=>({dataset:{tab}})}});check(t.e('#view').innerHTML.includes('aria-selected="true" class="active" data-tab="'+tab+'"'),c+': clique abre a aba '+tab);}
+ t.select('recepcao');t.run('navigate("pacientes",'+JSON.stringify(pid)+')');html=t.e('#view').innerHTML;
+ check(html.includes('data-tab="Agenda"')&&html.includes('data-tab="Encaminhamentos"')&&!html.includes('data-tab="Prontuários"')&&!html.includes('data-tab="Financeiro"'),c+': abas de Recepção respeitam permissões');
+ t.select('financeiro');t.run('navigate("pacientes",'+JSON.stringify(pid)+')');html=t.e('#view').innerHTML;
+ check(html.includes('data-tab="Financeiro"')&&!html.includes('data-tab="Agenda"')&&!html.includes('data-tab="Prontuários"'),c+': abas financeiras respeitam permissões');
+ t.select('admin');let g=A.management().users.find(u=>u.id==='recepcao').memberships.find(x=>x.clinic===c);g.actions.agenda=[];for(const otherGrant of A.management().users.find(u=>u.id==='recepcao').memberships){otherGrant.actions.agenda=[];A.saveMembership('recepcao',otherGrant);}check(A.saveMembership('recepcao',g).isOk,c+': configuração de acesso independente salva');t.select('recepcao');html=t.run('patientDetail(byId('+JSON.stringify(pid)+'))');check(html.includes('data-tab="Encaminhamentos"')&&!html.includes('data-tab="Agenda"'),c+': Encaminhamentos independe da Agenda');
+ t.select('admin');const before=D.get(c,pid);let p=JSON.parse(before.payload);check(p.idadeOriginal==='34 anos',c+': idade legada preservada');
+ const input={name:'João Homônimo',social:'Jô',birth:'2000-02-29',phone:'(41) 99999-0000',email:'joao@exemplo.test',guardian:'Responsável fictício'};
+ t.ctx.formValues=input;t.run('values=()=>formValues;patientForm()');await t.e('#modal-form').onsubmit({preventDefault(){},submitter:{disabled:false,textContent:'Salvar'}});
+ const created=D.list(c).find(r=>r.title==='João Homônimo');check(!!created,c+': formulário cria cadastro geral');const id=created.entity_id;let d=JSON.parse(created.payload);
+ check(id.startsWith('PAC-')&&d.nomeSocial==='Jô'&&d.nascimento===input.birth&&d.telefone===input.phone&&d.email===input.email&&d.responsavel===input.guardian&&created.status==='Ativo',c+': identificador e campos gerais persistem');
+ t.ctx.edit=created;t.run('patientForm(edit)');t.ctx.formValues={...input,name:'João Editado'};await t.e('#modal-form').onsubmit({preventDefault(){},submitter:{disabled:false,textContent:'Salvar'}});check(D.get(c,id).title==='João Editado',c+': edição mantém ID global');
+ const other=c==='nutricao'?'odonto':'nutricao';check(D.link(other,id).isOk,c+': vínculo em outra clínica usa o mesmo cadastro');check(JSON.parse(D.get(other,id).payload).clinics.includes(c)&&JSON.parse(D.get(other,id).payload).clinics.includes(other),c+': múltiplos vínculos preservados');
+ t.ctx.item=D.get(c,id);const searchable=t.run('patientSearchText(item)');check(searchable.includes('joao editado')&&searchable.includes(id.toLowerCase())&&searchable.includes('41999990000')&&searchable.includes('joao@exemplo.test'),c+': busca por nome, ID, telefone com e sem máscara e e-mail');
+ check(/^\d+ anos$/.test(t.run('patientAge(data(item))')),c+': idade calculada a partir do nascimento');
+ const originalAge=JSON.parse(before.payload);check(D.save(c,{...before,payload:JSON.stringify({...originalAge,nascimento:'1990-01-01'})}).isOk,c+': nascimento pode complementar cadastro legado');check(JSON.parse(D.get(c,pid).payload).idadeOriginal==='34 anos',c+': dado original mantido após preencher nascimento');
+ check(!D.save(c,{...D.get(c,id),payload:JSON.stringify({...JSON.parse(D.get(c,id).payload),nascimento:'2001-02-29'})}).isOk,c+': data impossível rejeitada no serviço');
+ const count=D.list(c).filter(r=>r.entity_type==='paciente').length;t.ctx.formValues={...input,name:'João Editado'};t.run('patientForm()');await t.e('#modal-form').onsubmit({preventDefault(){},submitter:{}});check(D.list(c).filter(r=>r.entity_type==='paciente').length===count&&t.e('#patient-duplicates').innerHTML.includes('Usar este paciente'),c+': duplicidade é apresentada antes da gravação');
+ await t.dispatch('click',{target:{closest:()=>({dataset:{usePatient:id}})}});check(D.list(c).filter(r=>r.entity_type==='paciente').length===count,c+': selecionar existente evita duplicação');
+ t.ctx.formValues={...input,name:'João Editado',birth:'1995-04-03'};t.run('patientForm()');await t.e('#modal-form').onsubmit({preventDefault(){},submitter:{}});await t.e('#modal-form').onsubmit({preventDefault(){},submitter:{}});check(D.list(c).filter(r=>r.entity_type==='paciente'&&r.title==='João Editado').length===2,c+': homônimo distinto pode ser confirmado');
+ let patient=D.get(c,id);check(D.save(c,{...patient,status:'Inativo'}).isOk,c+': inativação salva sem excluir');const appointment={entity_id:c+':new-appointment',entity_type:'agendamento',title:'Agenda fictícia',status:'Agendado',payload:JSON.stringify({patientId:id,service:'Consulta',professional:'Recurso exclusivo de teste',room:'Sala exclusiva de teste',date:'2026-12-01',time:'09:00',end:'10:00'})};check(!D.save(c,appointment).isOk,c+': cadastro inativo bloqueia agendamento no serviço');t.run('backendRecords=store.load()');check(!t.run('patientOptions()').some(([pid])=>pid===id),c+': inativo removido das opções de agendamento');
+ check(D.save(c,{...D.get(c,id),status:'Ativo'}).isOk&&D.save(c,appointment).isOk,c+': reativação permite agendar');
+ const reload=make(other,t.storage);check(reload.ctx.ClinicData.get(other,id).title==='João Editado',c+': registro compartilhado permanece após recarregar outra clínica');
+ check(!JSON.parse(D.get(c,pid).payload).alertas,c+': cadastro administrativo não contém notas clínicas');
+}
+const t=make('nutricao'),A=t.ctx.ClinicAuth,D=t.ctx.ClinicData;t.select('admin');const uid='cross-user';A.saveUser({id:uid,name:'Conta com acesso em duas clínicas'});const grant=(c,role,extra={})=>({clinic:c,role,actions:A.templates[role],clinical:false,patientIds:[],caseIds:[],recordIds:[],...extra});A.saveMembership(uid,grant('nutricao','Financeiro'));A.saveMembership(uid,grant('odonto','Profissional responsável',{clinical:true,patientIds:['odonto:P-003']}));t.select(uid);let h=t.run('patientDetail(byId("odonto:P-003"))');check(h.includes('data-tab="Prontuários"'),'Ficha geral considera acesso clínico expressamente atribuído em outra clínica');t.run('patientTab="Prontuários"');h=t.run('patientDetail(byId("odonto:P-003"))');check(h.includes('odonto.html#atendimentos/odonto%3AAT-001')&&h.includes('Prontuários por caso'),'Prontuário autorizado aparece por especialidade e caso, com link correto');
+console.log(checks+' verificações da etapa 2 concluídas.');return {checks,log};})();

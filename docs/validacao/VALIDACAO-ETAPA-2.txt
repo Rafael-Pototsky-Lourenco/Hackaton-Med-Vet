@@ -1,0 +1,36 @@
+OK: ID global migrado preservado
+OK: Alerta clínico fora do cadastro geral
+OK: Idade legada preservada
+OK: Vínculo adicional sem novo cadastro
+OK: Paciente com múltiplas clínicas
+OK: Agenda bloqueada no serviço para paciente inativo
+OK: Reativação libera novo agendamento
+OK: Histórico preservado após inativar
+OK: Recarregamento sem duplicação
+OK: odonto: formulário cria paciente
+OK: odonto: edição persiste com mesmo ID
+OK: odonto: abas administrativas
+OK: odonto: abas seguem perfil
+OK: odonto: busca por contato
+OK: odonto: formulário cria paciente após conferência
+OK: odonto: edição persiste com mesmo ID
+OK: odonto: abas administrativas
+OK: odonto: abas seguem perfil
+OK: odonto: busca por contato
+OK: fisioterapia: formulário cria paciente após conferência
+OK: fisioterapia: edição persiste com mesmo ID
+OK: fisioterapia: abas administrativas
+OK: fisioterapia: abas seguem perfil
+OK: fisioterapia: busca por contato
+OK: psicologia: formulário cria paciente após conferência
+OK: psicologia: edição persiste com mesmo ID
+OK: psicologia: abas administrativas
+OK: psicologia: abas seguem perfil
+OK: psicologia: busca por contato
+OK: nutricao: formulário cria paciente após conferência
+OK: nutricao: edição persiste com mesmo ID
+OK: nutricao: abas administrativas
+OK: nutricao: abas seguem perfil
+OK: nutricao: busca por contato
+
+Testes executados com o serviço e funções reais dos formulários em contexto JavaScript isolado. Não houve inspeção visual no navegador.

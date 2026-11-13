@@ -1,0 +1,240 @@
+244 verificações concluídas.
+
+OK: odonto: inicialização completa das cinco camadas
+OK: odonto: Administração sem atribuição não lê prontuários
+OK: odonto: Gestão sem acesso clínico implícito
+OK: odonto: atribuição clínica expressa libera leitura
+OK: odonto: Recepção sem financeiro
+OK: odonto: Recepção lê agenda
+OK: odonto: menu clínico oculto
+OK: odonto: busca não expõe notas
+OK: odonto: link direto nega prontuário
+OK: odonto: gravação direta clínica negada
+OK: odonto: Recepção não altera permissões
+OK: odonto: aluno apenas pacientes atribuídos
+OK: odonto: aluno cria rascunho atribuído
+OK: odonto: aluno não finaliza
+OK: odonto: aluno não cria caso sem atribuição
+OK: odonto: aluno envia para revisão
+OK: odonto: supervisor devolve
+OK: odonto: correção sem autorização negada
+OK: odonto: supervisor autoriza correção
+OK: odonto: correção autorizada salva
+OK: odonto: reenvio após correção
+OK: odonto: revisão valida versão
+OK: odonto: profissional lê caso atribuído
+OK: odonto: finalizado protegido
+OK: odonto: estorno exige permissão própria
+OK: odonto: desconto exige permissão própria
+OK: odonto: Financeiro sem conteúdo clínico
+OK: odonto: estorno autorizado
+OK: odonto: alternância preserva os registros
+OK: odonto: conta preservada ao recarregar
+OK: odonto: administrador salva atribuição por atendimento
+OK: odonto: atribuição específica concede o atendimento
+OK: fisioterapia: inicialização completa das cinco camadas
+OK: fisioterapia: Administração sem atribuição não lê prontuários
+OK: fisioterapia: Gestão sem acesso clínico implícito
+OK: fisioterapia: atribuição clínica expressa libera leitura
+OK: fisioterapia: Recepção sem financeiro
+OK: fisioterapia: Recepção lê agenda
+OK: fisioterapia: menu clínico oculto
+OK: fisioterapia: busca não expõe notas
+OK: fisioterapia: link direto nega prontuário
+OK: fisioterapia: gravação direta clínica negada
+OK: fisioterapia: Recepção não altera permissões
+OK: fisioterapia: aluno apenas pacientes atribuídos
+OK: fisioterapia: aluno cria rascunho atribuído
+OK: fisioterapia: aluno não finaliza
+OK: fisioterapia: aluno não cria caso sem atribuição
+OK: fisioterapia: aluno envia para revisão
+OK: fisioterapia: supervisor devolve
+OK: fisioterapia: correção sem autorização negada
+OK: fisioterapia: supervisor autoriza correção
+OK: fisioterapia: correção autorizada salva
+OK: fisioterapia: reenvio após correção
+OK: fisioterapia: revisão valida versão
+OK: fisioterapia: profissional lê caso atribuído
+OK: fisioterapia: finalizado protegido
+OK: fisioterapia: estorno exige permissão própria
+OK: fisioterapia: desconto exige permissão própria
+OK: fisioterapia: Financeiro sem conteúdo clínico
+OK: fisioterapia: estorno autorizado
+OK: fisioterapia: alternância preserva os registros
+OK: fisioterapia: conta preservada ao recarregar
+OK: fisioterapia: administrador salva atribuição por atendimento
+OK: fisioterapia: atribuição específica concede o atendimento
+OK: psicologia: inicialização completa das cinco camadas
+OK: psicologia: Administração sem atribuição não lê prontuários
+OK: psicologia: Gestão sem acesso clínico implícito
+OK: psicologia: atribuição clínica expressa libera leitura
+OK: psicologia: Recepção sem financeiro
+OK: psicologia: Recepção lê agenda
+OK: psicologia: menu clínico oculto
+OK: psicologia: busca não expõe notas
+OK: psicologia: link direto nega prontuário
+OK: psicologia: gravação direta clínica negada
+OK: psicologia: Recepção não altera permissões
+OK: psicologia: aluno apenas pacientes atribuídos
+OK: psicologia: aluno cria rascunho atribuído
+OK: psicologia: aluno não finaliza
+OK: psicologia: aluno não cria caso sem atribuição
+OK: psicologia: aluno envia para revisão
+OK: psicologia: supervisor devolve
+OK: psicologia: correção sem autorização negada
+OK: psicologia: supervisor autoriza correção
+OK: psicologia: correção autorizada salva
+OK: psicologia: reenvio após correção
+OK: psicologia: revisão valida versão
+OK: psicologia: profissional lê caso atribuído
+OK: psicologia: finalizado protegido
+OK: psicologia: estorno exige permissão própria
+OK: psicologia: desconto exige permissão própria
+OK: psicologia: Financeiro sem conteúdo clínico
+OK: psicologia: estorno autorizado
+OK: psicologia: alternância preserva os registros
+OK: psicologia: conta preservada ao recarregar
+OK: psicologia: administrador salva atribuição por atendimento
+OK: psicologia: atribuição específica concede o atendimento
+OK: nutricao: inicialização completa das cinco camadas
+OK: nutricao: Administração sem atribuição não lê prontuários
+OK: nutricao: Gestão sem acesso clínico implícito
+OK: nutricao: atribuição clínica expressa libera leitura
+OK: nutricao: Recepção sem financeiro
+OK: nutricao: Recepção lê agenda
+OK: nutricao: menu clínico oculto
+OK: nutricao: busca não expõe notas
+OK: nutricao: link direto nega prontuário
+OK: nutricao: gravação direta clínica negada
+OK: nutricao: Recepção não altera permissões
+OK: nutricao: aluno apenas pacientes atribuídos
+OK: nutricao: aluno cria rascunho atribuído
+OK: nutricao: aluno não finaliza
+OK: nutricao: aluno não cria caso sem atribuição
+OK: nutricao: aluno envia para revisão
+OK: nutricao: supervisor devolve
+OK: nutricao: correção sem autorização negada
+OK: nutricao: supervisor autoriza correção
+OK: nutricao: correção autorizada salva
+OK: nutricao: reenvio após correção
+OK: nutricao: revisão valida versão
+OK: nutricao: profissional lê caso atribuído
+OK: nutricao: finalizado protegido
+OK: nutricao: estorno exige permissão própria
+OK: nutricao: desconto exige permissão própria
+OK: nutricao: Financeiro sem conteúdo clínico
+OK: nutricao: estorno autorizado
+OK: nutricao: alternância preserva os registros
+OK: nutricao: conta preservada ao recarregar
+OK: nutricao: administrador salva atribuição por atendimento
+OK: nutricao: atribuição específica concede o atendimento
+OK: Uma pessoa exerce funções diferentes por clínica
+OK: Sem vínculo com Psicologia não há leitura
+OK: Psicologia: descrição financeira administrativa sem itens clínicos
+OK: Psicologia: Recepção vê somente a agenda administrativa
+OK: odonto: formulário reschedule abre
+OK: odonto: reagendamento pela tela salva
+OK: odonto: formulário approve abre
+OK: odonto: orçamento aprovado pela tela
+OK: odonto: formulário pay abre
+OK: odonto: pagamento parcial pela tela salva
+OK: odonto: formulário discount abre
+OK: odonto: desconto autorizado pela tela salva
+OK: odonto: formulário reverse abre
+OK: odonto: estorno autorizado pela tela salva
+OK: odonto: formulário addendum abre
+OK: odonto: adendo pela tela salva
+OK: odonto: notas e adendos ausentes após alternância
+OK: fisioterapia: formulário reschedule abre
+OK: fisioterapia: reagendamento pela tela salva
+OK: fisioterapia: formulário approve abre
+OK: fisioterapia: orçamento aprovado pela tela
+OK: fisioterapia: formulário pay abre
+OK: fisioterapia: pagamento parcial pela tela salva
+OK: fisioterapia: formulário discount abre
+OK: fisioterapia: desconto autorizado pela tela salva
+OK: fisioterapia: formulário reverse abre
+OK: fisioterapia: estorno autorizado pela tela salva
+OK: fisioterapia: formulário addendum abre
+OK: fisioterapia: adendo pela tela salva
+OK: fisioterapia: notas e adendos ausentes após alternância
+OK: psicologia: formulário reschedule abre
+OK: psicologia: reagendamento pela tela salva
+OK: psicologia: formulário approve abre
+OK: psicologia: orçamento aprovado pela tela
+OK: psicologia: formulário pay abre
+OK: psicologia: pagamento parcial pela tela salva
+OK: psicologia: formulário discount abre
+OK: psicologia: desconto autorizado pela tela salva
+OK: psicologia: formulário reverse abre
+OK: psicologia: estorno autorizado pela tela salva
+OK: psicologia: formulário addendum abre
+OK: psicologia: adendo pela tela salva
+OK: psicologia: notas e adendos ausentes após alternância
+OK: nutricao: formulário reschedule abre
+OK: nutricao: reagendamento pela tela salva
+OK: nutricao: formulário approve abre
+OK: nutricao: orçamento aprovado pela tela
+OK: nutricao: formulário pay abre
+OK: nutricao: pagamento parcial pela tela salva
+OK: nutricao: formulário discount abre
+OK: nutricao: desconto autorizado pela tela salva
+OK: nutricao: formulário reverse abre
+OK: nutricao: estorno autorizado pela tela salva
+OK: nutricao: formulário addendum abre
+OK: nutricao: adendo pela tela salva
+OK: nutricao: notas e adendos ausentes após alternância
+OK: odonto: equipe autorizada registra evolucao
+OK: odonto: equipe autorizada registra escala
+OK: odonto: equipe autorizada registra anotacao
+OK: odonto: exportação da Administração sem conteúdo clínico
+OK: odonto: exportação direta sem permissão é negada
+OK: odonto: evoluções, escalas e anotações protegidas
+OK: odonto: atribuição por atendimento salva
+OK: odonto: atribuição ao atendimento libera contexto administrativo do paciente
+OK: fisioterapia: equipe autorizada registra evolucao
+OK: fisioterapia: equipe autorizada registra escala
+OK: fisioterapia: equipe autorizada registra anotacao
+OK: fisioterapia: exportação da Administração sem conteúdo clínico
+OK: fisioterapia: exportação direta sem permissão é negada
+OK: fisioterapia: evoluções, escalas e anotações protegidas
+OK: fisioterapia: atribuição por atendimento salva
+OK: fisioterapia: atribuição ao atendimento libera contexto administrativo do paciente
+OK: psicologia: equipe autorizada registra evolucao
+OK: psicologia: equipe autorizada registra escala
+OK: psicologia: equipe autorizada registra anotacao
+OK: psicologia: exportação da Administração sem conteúdo clínico
+OK: psicologia: exportação direta sem permissão é negada
+OK: psicologia: evoluções, escalas e anotações protegidas
+OK: psicologia: atribuição por atendimento salva
+OK: psicologia: atribuição ao atendimento libera contexto administrativo do paciente
+OK: nutricao: equipe autorizada registra evolucao
+OK: nutricao: equipe autorizada registra escala
+OK: nutricao: equipe autorizada registra anotacao
+OK: nutricao: exportação da Administração sem conteúdo clínico
+OK: nutricao: exportação direta sem permissão é negada
+OK: nutricao: evoluções, escalas e anotações protegidas
+OK: nutricao: atribuição por atendimento salva
+OK: nutricao: atribuição ao atendimento libera contexto administrativo do paciente
+OK: Administração cadastra serviço no catálogo
+OK: Financeiro consulta catálogo
+OK: Financeiro não altera catálogo
+OK: odonto: caso para revisão pela tela
+OK: odonto: devolução docente pela tela
+OK: odonto: autorização de correção pela tela
+OK: odonto: validação docente pela tela
+OK: fisioterapia: caso para revisão pela tela
+OK: fisioterapia: devolução docente pela tela
+OK: fisioterapia: autorização de correção pela tela
+OK: fisioterapia: validação docente pela tela
+OK: psicologia: caso para revisão pela tela
+OK: psicologia: devolução docente pela tela
+OK: psicologia: autorização de correção pela tela
+OK: psicologia: validação docente pela tela
+OK: nutricao: caso para revisão pela tela
+OK: nutricao: devolução docente pela tela
+OK: nutricao: autorização de correção pela tela
+OK: nutricao: validação docente pela tela
+
+Ambiente: Node.js com páginas completas em contexto JavaScript isolado e DOM simulado. Os formulários, serviços, buscas, menu, links diretos e eventos de exportação são os reais da aplicação. Teste visual no navegador integrado bloqueado por timeout ao acessar 127.0.0.1.
+Executar novamente: node tests/permissoes.test.cjs

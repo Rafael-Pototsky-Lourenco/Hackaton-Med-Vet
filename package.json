@@ -1,0 +1,13 @@
+{
+  "name": "clinicas-positivo-demo",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Demonstração das clínicas-escola — etapas 1 a 6",
+  "scripts": {
+    "test": "node tests/run.cjs",
+    "check": "node scripts/check.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

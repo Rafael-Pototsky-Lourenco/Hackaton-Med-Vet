@@ -1,0 +1,888 @@
+899 verificações concluídas.
+
+cadastro.test.cjs: 122 verificações
+OK: odonto: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: odonto: clique abre a aba Cadastro
+OK: odonto: clique abre a aba Agenda
+OK: odonto: clique abre a aba Encaminhamentos
+OK: odonto: clique abre a aba Prontuários
+OK: odonto: clique abre a aba Financeiro
+OK: odonto: abas de Recepção respeitam permissões
+OK: odonto: abas financeiras respeitam permissões
+OK: odonto: configuração de acesso independente salva
+OK: odonto: Encaminhamentos independe da Agenda
+OK: odonto: idade legada preservada
+OK: odonto: formulário cria cadastro geral
+OK: odonto: identificador e campos gerais persistem
+OK: odonto: edição mantém ID global
+OK: odonto: vínculo em outra clínica usa o mesmo cadastro
+OK: odonto: múltiplos vínculos preservados
+OK: odonto: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: odonto: idade calculada a partir do nascimento
+OK: odonto: nascimento pode complementar cadastro legado
+OK: odonto: dado original mantido após preencher nascimento
+OK: odonto: data impossível rejeitada no serviço
+OK: odonto: duplicidade é apresentada antes da gravação
+OK: odonto: selecionar existente evita duplicação
+OK: odonto: homônimo distinto pode ser confirmado
+OK: odonto: inativação salva sem excluir
+OK: odonto: cadastro inativo bloqueia agendamento no serviço
+OK: odonto: inativo removido das opções de agendamento
+OK: odonto: reativação permite agendar
+OK: odonto: registro compartilhado permanece após recarregar outra clínica
+OK: odonto: cadastro administrativo não contém notas clínicas
+OK: fisioterapia: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: fisioterapia: clique abre a aba Cadastro
+OK: fisioterapia: clique abre a aba Agenda
+OK: fisioterapia: clique abre a aba Encaminhamentos
+OK: fisioterapia: clique abre a aba Prontuários
+OK: fisioterapia: clique abre a aba Financeiro
+OK: fisioterapia: abas de Recepção respeitam permissões
+OK: fisioterapia: abas financeiras respeitam permissões
+OK: fisioterapia: configuração de acesso independente salva
+OK: fisioterapia: Encaminhamentos independe da Agenda
+OK: fisioterapia: idade legada preservada
+OK: fisioterapia: formulário cria cadastro geral
+OK: fisioterapia: identificador e campos gerais persistem
+OK: fisioterapia: edição mantém ID global
+OK: fisioterapia: vínculo em outra clínica usa o mesmo cadastro
+OK: fisioterapia: múltiplos vínculos preservados
+OK: fisioterapia: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: fisioterapia: idade calculada a partir do nascimento
+OK: fisioterapia: nascimento pode complementar cadastro legado
+OK: fisioterapia: dado original mantido após preencher nascimento
+OK: fisioterapia: data impossível rejeitada no serviço
+OK: fisioterapia: duplicidade é apresentada antes da gravação
+OK: fisioterapia: selecionar existente evita duplicação
+OK: fisioterapia: homônimo distinto pode ser confirmado
+OK: fisioterapia: inativação salva sem excluir
+OK: fisioterapia: cadastro inativo bloqueia agendamento no serviço
+OK: fisioterapia: inativo removido das opções de agendamento
+OK: fisioterapia: reativação permite agendar
+OK: fisioterapia: registro compartilhado permanece após recarregar outra clínica
+OK: fisioterapia: cadastro administrativo não contém notas clínicas
+OK: psicologia: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: psicologia: clique abre a aba Cadastro
+OK: psicologia: clique abre a aba Agenda
+OK: psicologia: clique abre a aba Encaminhamentos
+OK: psicologia: clique abre a aba Prontuários
+OK: psicologia: clique abre a aba Financeiro
+OK: psicologia: abas de Recepção respeitam permissões
+OK: psicologia: abas financeiras respeitam permissões
+OK: psicologia: configuração de acesso independente salva
+OK: psicologia: Encaminhamentos independe da Agenda
+OK: psicologia: idade legada preservada
+OK: psicologia: formulário cria cadastro geral
+OK: psicologia: identificador e campos gerais persistem
+OK: psicologia: edição mantém ID global
+OK: psicologia: vínculo em outra clínica usa o mesmo cadastro
+OK: psicologia: múltiplos vínculos preservados
+OK: psicologia: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: psicologia: idade calculada a partir do nascimento
+OK: psicologia: nascimento pode complementar cadastro legado
+OK: psicologia: dado original mantido após preencher nascimento
+OK: psicologia: data impossível rejeitada no serviço
+OK: psicologia: duplicidade é apresentada antes da gravação
+OK: psicologia: selecionar existente evita duplicação
+OK: psicologia: homônimo distinto pode ser confirmado
+OK: psicologia: inativação salva sem excluir
+OK: psicologia: cadastro inativo bloqueia agendamento no serviço
+OK: psicologia: inativo removido das opções de agendamento
+OK: psicologia: reativação permite agendar
+OK: psicologia: registro compartilhado permanece após recarregar outra clínica
+OK: psicologia: cadastro administrativo não contém notas clínicas
+OK: nutricao: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: nutricao: clique abre a aba Cadastro
+OK: nutricao: clique abre a aba Agenda
+OK: nutricao: clique abre a aba Encaminhamentos
+OK: nutricao: clique abre a aba Prontuários
+OK: nutricao: clique abre a aba Financeiro
+OK: nutricao: abas de Recepção respeitam permissões
+OK: nutricao: abas financeiras respeitam permissões
+OK: nutricao: configuração de acesso independente salva
+OK: nutricao: Encaminhamentos independe da Agenda
+OK: nutricao: idade legada preservada
+OK: nutricao: formulário cria cadastro geral
+OK: nutricao: identificador e campos gerais persistem
+OK: nutricao: edição mantém ID global
+OK: nutricao: vínculo em outra clínica usa o mesmo cadastro
+OK: nutricao: múltiplos vínculos preservados
+OK: nutricao: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: nutricao: idade calculada a partir do nascimento
+OK: nutricao: nascimento pode complementar cadastro legado
+OK: nutricao: dado original mantido após preencher nascimento
+OK: nutricao: data impossível rejeitada no serviço
+OK: nutricao: duplicidade é apresentada antes da gravação
+OK: nutricao: selecionar existente evita duplicação
+OK: nutricao: homônimo distinto pode ser confirmado
+OK: nutricao: inativação salva sem excluir
+OK: nutricao: cadastro inativo bloqueia agendamento no serviço
+OK: nutricao: inativo removido das opções de agendamento
+OK: nutricao: reativação permite agendar
+OK: nutricao: registro compartilhado permanece após recarregar outra clínica
+OK: nutricao: cadastro administrativo não contém notas clínicas
+OK: Ficha geral considera acesso clínico expressamente atribuído em outra clínica
+OK: Prontuário autorizado aparece por especialidade e caso, com link correto
+
+agenda-encaminhamentos.test.cjs: 272 verificações
+OK: odonto: término anterior ao início bloqueado
+OK: odonto: data impossível bloqueada
+OK: odonto: aluno exige supervisor
+OK: odonto: prévia semanal calculada
+OK: odonto: prévia não grava dados
+OK: odonto: série gravada integralmente
+OK: odonto: sessões têm IDs próprios e vínculo à série
+OK: odonto: conflito de profissional bloqueado
+OK: odonto: conflito de sala bloqueado
+OK: odonto: sobreposição do paciente bloqueada
+OK: odonto: reagendamento desconsidera próprio registro
+OK: odonto: reagendamento altera somente uma sessão
+OK: odonto: histórico preserva data, início, fim e motivo
+OK: odonto: cancelamento exige motivo
+OK: odonto: sessão da série cancelada individualmente
+OK: odonto: falta registrada individualmente
+OK: odonto: demais sessões e vínculo da série preservados
+OK: odonto: confirmação e chegada registradas
+OK: odonto: Recepção não inicia conteúdo clínico
+OK: odonto: equipe autorizada inicia atendimento
+OK: odonto: atendimento recebe vínculos e horários da agenda
+OK: odonto: iniciar novamente reabre atendimento sem duplicação
+OK: odonto: cobrança aberta criada
+OK: odonto: atendimento clínico validado
+OK: odonto: conclusão clínica conclui sessão
+OK: odonto: cobrança continua Em aberto após conclusão clínica
+OK: odonto: bloqueio de recurso salvo
+OK: odonto: conflito posterior identificado na série
+OK: odonto: série conflitante não grava sessões parciais
+OK: odonto: recorrência mensal respeita meses e ano bissexto
+OK: odonto: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: odonto: agenda oferece os sete estados
+OK: odonto: formulário apresenta série antes da confirmação
+OK: odonto: confirmação do formulário salva a série
+OK: odonto: vínculos e situações persistem após recarga
+OK: fisioterapia: término anterior ao início bloqueado
+OK: fisioterapia: data impossível bloqueada
+OK: fisioterapia: aluno exige supervisor
+OK: fisioterapia: prévia semanal calculada
+OK: fisioterapia: prévia não grava dados
+OK: fisioterapia: série gravada integralmente
+OK: fisioterapia: sessões têm IDs próprios e vínculo à série
+OK: fisioterapia: conflito de profissional bloqueado
+OK: fisioterapia: conflito de sala bloqueado
+OK: fisioterapia: sobreposição do paciente bloqueada
+OK: fisioterapia: reagendamento desconsidera próprio registro
+OK: fisioterapia: reagendamento altera somente uma sessão
+OK: fisioterapia: histórico preserva data, início, fim e motivo
+OK: fisioterapia: cancelamento exige motivo
+OK: fisioterapia: sessão da série cancelada individualmente
+OK: fisioterapia: falta registrada individualmente
+OK: fisioterapia: demais sessões e vínculo da série preservados
+OK: fisioterapia: confirmação e chegada registradas
+OK: fisioterapia: Recepção não inicia conteúdo clínico
+OK: fisioterapia: equipe autorizada inicia atendimento
+OK: fisioterapia: atendimento recebe vínculos e horários da agenda
+OK: fisioterapia: iniciar novamente reabre atendimento sem duplicação
+OK: fisioterapia: cobrança aberta criada
+OK: fisioterapia: atendimento clínico validado
+OK: fisioterapia: conclusão clínica conclui sessão
+OK: fisioterapia: cobrança continua Em aberto após conclusão clínica
+OK: fisioterapia: bloqueio de recurso salvo
+OK: fisioterapia: conflito posterior identificado na série
+OK: fisioterapia: série conflitante não grava sessões parciais
+OK: fisioterapia: recorrência mensal respeita meses e ano bissexto
+OK: fisioterapia: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: fisioterapia: agenda oferece os sete estados
+OK: fisioterapia: formulário apresenta série antes da confirmação
+OK: fisioterapia: confirmação do formulário salva a série
+OK: fisioterapia: vínculos e situações persistem após recarga
+OK: psicologia: término anterior ao início bloqueado
+OK: psicologia: data impossível bloqueada
+OK: psicologia: aluno exige supervisor
+OK: psicologia: prévia semanal calculada
+OK: psicologia: prévia não grava dados
+OK: psicologia: série gravada integralmente
+OK: psicologia: sessões têm IDs próprios e vínculo à série
+OK: psicologia: conflito de profissional bloqueado
+OK: psicologia: conflito de sala bloqueado
+OK: psicologia: sobreposição do paciente bloqueada
+OK: psicologia: reagendamento desconsidera próprio registro
+OK: psicologia: reagendamento altera somente uma sessão
+OK: psicologia: histórico preserva data, início, fim e motivo
+OK: psicologia: cancelamento exige motivo
+OK: psicologia: sessão da série cancelada individualmente
+OK: psicologia: falta registrada individualmente
+OK: psicologia: demais sessões e vínculo da série preservados
+OK: psicologia: confirmação e chegada registradas
+OK: psicologia: Recepção não inicia conteúdo clínico
+OK: psicologia: equipe autorizada inicia atendimento
+OK: psicologia: atendimento recebe vínculos e horários da agenda
+OK: psicologia: iniciar novamente reabre atendimento sem duplicação
+OK: psicologia: cobrança aberta criada
+OK: psicologia: atendimento clínico validado
+OK: psicologia: conclusão clínica conclui sessão
+OK: psicologia: cobrança continua Em aberto após conclusão clínica
+OK: psicologia: bloqueio de recurso salvo
+OK: psicologia: conflito posterior identificado na série
+OK: psicologia: série conflitante não grava sessões parciais
+OK: psicologia: recorrência mensal respeita meses e ano bissexto
+OK: psicologia: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: psicologia: agenda oferece os sete estados
+OK: psicologia: formulário apresenta série antes da confirmação
+OK: psicologia: confirmação do formulário salva a série
+OK: psicologia: vínculos e situações persistem após recarga
+OK: nutricao: término anterior ao início bloqueado
+OK: nutricao: data impossível bloqueada
+OK: nutricao: aluno exige supervisor
+OK: nutricao: prévia semanal calculada
+OK: nutricao: prévia não grava dados
+OK: nutricao: série gravada integralmente
+OK: nutricao: sessões têm IDs próprios e vínculo à série
+OK: nutricao: conflito de profissional bloqueado
+OK: nutricao: conflito de sala bloqueado
+OK: nutricao: sobreposição do paciente bloqueada
+OK: nutricao: reagendamento desconsidera próprio registro
+OK: nutricao: reagendamento altera somente uma sessão
+OK: nutricao: histórico preserva data, início, fim e motivo
+OK: nutricao: cancelamento exige motivo
+OK: nutricao: sessão da série cancelada individualmente
+OK: nutricao: falta registrada individualmente
+OK: nutricao: demais sessões e vínculo da série preservados
+OK: nutricao: confirmação e chegada registradas
+OK: nutricao: Recepção não inicia conteúdo clínico
+OK: nutricao: equipe autorizada inicia atendimento
+OK: nutricao: atendimento recebe vínculos e horários da agenda
+OK: nutricao: iniciar novamente reabre atendimento sem duplicação
+OK: nutricao: cobrança aberta criada
+OK: nutricao: atendimento clínico validado
+OK: nutricao: conclusão clínica conclui sessão
+OK: nutricao: cobrança continua Em aberto após conclusão clínica
+OK: nutricao: bloqueio de recurso salvo
+OK: nutricao: conflito posterior identificado na série
+OK: nutricao: série conflitante não grava sessões parciais
+OK: nutricao: recorrência mensal respeita meses e ano bissexto
+OK: nutricao: mesmo paciente não pode sobrepor consultas em clínicas diferentes
+OK: nutricao: agenda oferece os sete estados
+OK: nutricao: formulário apresenta série antes da confirmação
+OK: nutricao: confirmação do formulário salva a série
+OK: nutricao: vínculos e situações persistem após recarga
+OK: odonto: encaminhamento criado com motivo resumido
+OK: odonto: origem e autor registrados
+OK: odonto: destino vê operação sem motivo clínico
+OK: odonto: conta sem acesso à origem não age na origem
+OK: odonto: destino aceita encaminhamento
+OK: odonto: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: odonto: transição inválida de encaminhamento bloqueada
+OK: odonto: agendamento no destino atualiza encaminhamento
+OK: odonto: encaminhamento aponta agendamento criado
+OK: odonto: origem não cancela sessão já agendada no destino
+OK: odonto: equipe atribuída inicia atendimento no destino
+OK: odonto: destino finaliza atendimento
+OK: odonto: encaminhamento concluído vincula atendimento de destino
+OK: odonto: histórico segue o ciclo completo
+OK: odonto: recusa sem motivo bloqueada
+OK: odonto: recusa com motivo salva
+OK: odonto: cancelamento exige e guarda motivo
+OK: fisioterapia: encaminhamento criado com motivo resumido
+OK: fisioterapia: origem e autor registrados
+OK: fisioterapia: destino vê operação sem motivo clínico
+OK: fisioterapia: conta sem acesso à origem não age na origem
+OK: fisioterapia: destino aceita encaminhamento
+OK: fisioterapia: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: fisioterapia: transição inválida de encaminhamento bloqueada
+OK: fisioterapia: agendamento no destino atualiza encaminhamento
+OK: fisioterapia: encaminhamento aponta agendamento criado
+OK: fisioterapia: origem não cancela sessão já agendada no destino
+OK: fisioterapia: equipe atribuída inicia atendimento no destino
+OK: fisioterapia: destino finaliza atendimento
+OK: fisioterapia: encaminhamento concluído vincula atendimento de destino
+OK: fisioterapia: histórico segue o ciclo completo
+OK: fisioterapia: recusa sem motivo bloqueada
+OK: fisioterapia: recusa com motivo salva
+OK: fisioterapia: cancelamento exige e guarda motivo
+OK: psicologia: encaminhamento criado com motivo resumido
+OK: psicologia: origem e autor registrados
+OK: psicologia: destino vê operação sem motivo clínico
+OK: psicologia: conta sem acesso à origem não age na origem
+OK: psicologia: destino aceita encaminhamento
+OK: psicologia: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: psicologia: transição inválida de encaminhamento bloqueada
+OK: psicologia: agendamento no destino atualiza encaminhamento
+OK: psicologia: encaminhamento aponta agendamento criado
+OK: psicologia: origem não cancela sessão já agendada no destino
+OK: psicologia: equipe atribuída inicia atendimento no destino
+OK: psicologia: destino finaliza atendimento
+OK: psicologia: encaminhamento concluído vincula atendimento de destino
+OK: psicologia: histórico segue o ciclo completo
+OK: psicologia: recusa sem motivo bloqueada
+OK: psicologia: recusa com motivo salva
+OK: psicologia: cancelamento exige e guarda motivo
+OK: nutricao: encaminhamento criado com motivo resumido
+OK: nutricao: origem e autor registrados
+OK: nutricao: destino vê operação sem motivo clínico
+OK: nutricao: conta sem acesso à origem não age na origem
+OK: nutricao: destino aceita encaminhamento
+OK: nutricao: aceitação reutiliza ID e adiciona vínculo ao destino
+OK: nutricao: transição inválida de encaminhamento bloqueada
+OK: nutricao: agendamento no destino atualiza encaminhamento
+OK: nutricao: encaminhamento aponta agendamento criado
+OK: nutricao: origem não cancela sessão já agendada no destino
+OK: nutricao: equipe atribuída inicia atendimento no destino
+OK: nutricao: destino finaliza atendimento
+OK: nutricao: encaminhamento concluído vincula atendimento de destino
+OK: nutricao: histórico segue o ciclo completo
+OK: nutricao: recusa sem motivo bloqueada
+OK: nutricao: recusa com motivo salva
+OK: nutricao: cancelamento exige e guarda motivo
+OK: odonto: vínculo acadêmico pode ser atribuído na agenda
+OK: odonto: aluno vê contexto do paciente pela sessão atribuída
+OK: odonto: botão Iniciar atendimento cria e vincula registro
+OK: odonto: botão reabre sem duplicação
+OK: odonto: aluno envia sessão atribuída para revisão
+OK: odonto: supervisor atribuído conclui sessão acadêmica
+OK: odonto: sessão concluída não pode ser remarcada
+OK: fisioterapia: vínculo acadêmico pode ser atribuído na agenda
+OK: fisioterapia: aluno vê contexto do paciente pela sessão atribuída
+OK: fisioterapia: botão Iniciar atendimento cria e vincula registro
+OK: fisioterapia: botão reabre sem duplicação
+OK: fisioterapia: aluno envia sessão atribuída para revisão
+OK: fisioterapia: supervisor atribuído conclui sessão acadêmica
+OK: fisioterapia: sessão concluída não pode ser remarcada
+OK: psicologia: vínculo acadêmico pode ser atribuído na agenda
+OK: psicologia: aluno vê contexto do paciente pela sessão atribuída
+OK: psicologia: botão Iniciar atendimento cria e vincula registro
+OK: psicologia: botão reabre sem duplicação
+OK: psicologia: aluno envia sessão atribuída para revisão
+OK: psicologia: supervisor atribuído conclui sessão acadêmica
+OK: psicologia: sessão concluída não pode ser remarcada
+OK: nutricao: vínculo acadêmico pode ser atribuído na agenda
+OK: nutricao: aluno vê contexto do paciente pela sessão atribuída
+OK: nutricao: botão Iniciar atendimento cria e vincula registro
+OK: nutricao: botão reabre sem duplicação
+OK: nutricao: aluno envia sessão atribuída para revisão
+OK: nutricao: supervisor atribuído conclui sessão acadêmica
+OK: nutricao: sessão concluída não pode ser remarcada
+OK: odonto: formulário cria encaminhamento
+OK: odonto: detalhe do destino mostra ações sem conteúdo clínico
+OK: odonto: botão Aceitar usa mesmo cadastro
+OK: odonto: encaminhamento aceito pode ser agendado
+OK: odonto: falta retorna encaminhamento à situação Aceito
+OK: odonto: nova sessão pode ser criada após falta
+OK: odonto: cancelamento agendado encerra encaminhamento e sessão atomicamente
+OK: fisioterapia: formulário cria encaminhamento
+OK: fisioterapia: detalhe do destino mostra ações sem conteúdo clínico
+OK: fisioterapia: botão Aceitar usa mesmo cadastro
+OK: fisioterapia: encaminhamento aceito pode ser agendado
+OK: fisioterapia: falta retorna encaminhamento à situação Aceito
+OK: fisioterapia: nova sessão pode ser criada após falta
+OK: fisioterapia: cancelamento agendado encerra encaminhamento e sessão atomicamente
+OK: psicologia: formulário cria encaminhamento
+OK: psicologia: detalhe do destino mostra ações sem conteúdo clínico
+OK: psicologia: botão Aceitar usa mesmo cadastro
+OK: psicologia: encaminhamento aceito pode ser agendado
+OK: psicologia: falta retorna encaminhamento à situação Aceito
+OK: psicologia: nova sessão pode ser criada após falta
+OK: psicologia: cancelamento agendado encerra encaminhamento e sessão atomicamente
+OK: nutricao: formulário cria encaminhamento
+OK: nutricao: detalhe do destino mostra ações sem conteúdo clínico
+OK: nutricao: botão Aceitar usa mesmo cadastro
+OK: nutricao: encaminhamento aceito pode ser agendado
+OK: nutricao: falta retorna encaminhamento à situação Aceito
+OK: nutricao: nova sessão pode ser criada após falta
+OK: nutricao: cancelamento agendado encerra encaminhamento e sessão atomicamente
+
+permissoes.test.cjs: 114 verificações
+OK: odonto: Administração sem leitura clínica implícita
+OK: odonto: Gestão sem prontuários
+OK: odonto: atribuição expressa permite ler versões
+OK: odonto: menu respeita acesso
+OK: odonto: link direto negado
+OK: odonto: busca não expõe conteúdo clínico
+OK: odonto: gravação direta sem permissão negada
+OK: odonto: Recepção não gerencia vínculos
+OK: odonto: exportação sem permissão negada
+OK: odonto: aluno vê apenas casos atribuídos
+OK: odonto: aluno não cria caso não atribuído
+OK: odonto: responsável lê seu caso
+OK: odonto: Validado não pode ser sobrescrito
+OK: odonto: Financeiro sem conteúdo clínico
+OK: odonto: estorno exige ação própria
+OK: odonto: desconto exige ação própria
+OK: odonto: orçamento aprovado pela tela
+OK: odonto: recebimento parcial salva
+OK: odonto: desconto autorizado salva
+OK: odonto: estorno autorizado salva
+OK: odonto: alternar contas preserva registros
+OK: odonto: conta preservada na recarga
+OK: odonto: Administração gerencia catálogo
+OK: odonto: Financeiro lê catálogo
+OK: odonto: Financeiro não altera catálogo
+OK: odonto: exportação administrativa não expõe prontuários
+OK: fisioterapia: Administração sem leitura clínica implícita
+OK: fisioterapia: Gestão sem prontuários
+OK: fisioterapia: atribuição expressa permite ler versões
+OK: fisioterapia: menu respeita acesso
+OK: fisioterapia: link direto negado
+OK: fisioterapia: busca não expõe conteúdo clínico
+OK: fisioterapia: gravação direta sem permissão negada
+OK: fisioterapia: Recepção não gerencia vínculos
+OK: fisioterapia: exportação sem permissão negada
+OK: fisioterapia: aluno vê apenas casos atribuídos
+OK: fisioterapia: aluno não cria caso não atribuído
+OK: fisioterapia: responsável lê seu caso
+OK: fisioterapia: Validado não pode ser sobrescrito
+OK: fisioterapia: Financeiro sem conteúdo clínico
+OK: fisioterapia: estorno exige ação própria
+OK: fisioterapia: desconto exige ação própria
+OK: fisioterapia: orçamento aprovado pela tela
+OK: fisioterapia: recebimento parcial salva
+OK: fisioterapia: desconto autorizado salva
+OK: fisioterapia: estorno autorizado salva
+OK: fisioterapia: alternar contas preserva registros
+OK: fisioterapia: conta preservada na recarga
+OK: fisioterapia: Administração gerencia catálogo
+OK: fisioterapia: Financeiro lê catálogo
+OK: fisioterapia: Financeiro não altera catálogo
+OK: fisioterapia: exportação administrativa não expõe prontuários
+OK: psicologia: Administração sem leitura clínica implícita
+OK: psicologia: Gestão sem prontuários
+OK: psicologia: atribuição expressa permite ler versões
+OK: psicologia: menu respeita acesso
+OK: psicologia: link direto negado
+OK: psicologia: busca não expõe conteúdo clínico
+OK: psicologia: gravação direta sem permissão negada
+OK: psicologia: Recepção não gerencia vínculos
+OK: psicologia: exportação sem permissão negada
+OK: psicologia: aluno vê apenas casos atribuídos
+OK: psicologia: aluno não cria caso não atribuído
+OK: psicologia: responsável lê seu caso
+OK: psicologia: Validado não pode ser sobrescrito
+OK: psicologia: Financeiro sem conteúdo clínico
+OK: psicologia: estorno exige ação própria
+OK: psicologia: desconto exige ação própria
+OK: psicologia: orçamento aprovado pela tela
+OK: psicologia: recebimento parcial salva
+OK: psicologia: desconto autorizado salva
+OK: psicologia: estorno autorizado salva
+OK: psicologia: alternar contas preserva registros
+OK: psicologia: conta preservada na recarga
+OK: psicologia: Administração gerencia catálogo
+OK: psicologia: Financeiro lê catálogo
+OK: psicologia: Financeiro não altera catálogo
+OK: psicologia: exportação administrativa não expõe prontuários
+OK: nutricao: Administração sem leitura clínica implícita
+OK: nutricao: Gestão sem prontuários
+OK: nutricao: atribuição expressa permite ler versões
+OK: nutricao: menu respeita acesso
+OK: nutricao: link direto negado
+OK: nutricao: busca não expõe conteúdo clínico
+OK: nutricao: gravação direta sem permissão negada
+OK: nutricao: Recepção não gerencia vínculos
+OK: nutricao: exportação sem permissão negada
+OK: nutricao: aluno vê apenas casos atribuídos
+OK: nutricao: aluno não cria caso não atribuído
+OK: nutricao: responsável lê seu caso
+OK: nutricao: Validado não pode ser sobrescrito
+OK: nutricao: Financeiro sem conteúdo clínico
+OK: nutricao: estorno exige ação própria
+OK: nutricao: desconto exige ação própria
+OK: nutricao: orçamento aprovado pela tela
+OK: nutricao: recebimento parcial salva
+OK: nutricao: desconto autorizado salva
+OK: nutricao: estorno autorizado salva
+OK: nutricao: alternar contas preserva registros
+OK: nutricao: conta preservada na recarga
+OK: nutricao: Administração gerencia catálogo
+OK: nutricao: Financeiro lê catálogo
+OK: nutricao: Financeiro não altera catálogo
+OK: nutricao: exportação administrativa não expõe prontuários
+OK: Papéis diferentes por clínica
+OK: Sem vínculo não há leitura
+OK: Psicologia: descrição financeira administrativa
+OK: Psicologia mantém itens detalhados ocultos no financeiro após integração odontológica
+OK: Psicologia: Recepção sem notas clínicas
+
+prontuario.test.cjs: 247 verificações
+OK: odonto: aluno deve vincular supervisor
+OK: odonto: aluno salva Rascunho
+OK: odonto: vínculos e autoria identificados
+OK: odonto: formulário próprio da especialidade salvo
+OK: odonto: envio muda para Em revisão
+OK: odonto: edição durante revisão bloqueada
+OK: odonto: versão aparece na fila do supervisor vinculado
+OK: odonto: outro supervisor não valida caso alheio
+OK: odonto: fila exclui caso de outro supervisor
+OK: odonto: devolução exige orientação
+OK: odonto: professor devolve com orientação
+OK: odonto: aluno edita devolvido sem autorização de registro validado
+OK: odonto: aluno reenvia
+OK: odonto: supervisor valida
+OK: odonto: validação guarda conta, nome, data e hora
+OK: odonto: Validado bloqueia edição direta
+OK: odonto: API genérica não sobrescreve Validado
+OK: odonto: adendo não contorna autorização
+OK: odonto: solicitação exige motivo
+OK: odonto: solicitação de correção registrada
+OK: odonto: não duplica solicitação ativa
+OK: odonto: não altera antes de autorizar
+OK: odonto: pedido aparece na fila vinculada
+OK: odonto: conta diferente não confirma autorização
+OK: odonto: senha incorreta não autoriza
+OK: odonto: própria conta confirma autorização fictícia
+OK: odonto: autorização contém identidade, origem, solicitante e situação
+OK: odonto: autorização limita campos
+OK: odonto: correção cria nova versão Em revisão
+OK: odonto: autorização é de uso único
+OK: odonto: versão anterior validada permanece intacta e vigente
+OK: odonto: leitura corrente preserva versão validada até nova validação
+OK: odonto: autorização consumida aponta nova versão
+OK: odonto: nova versão pode ser devolvida sem afetar vigente
+OK: odonto: devolução da correção preserva escopo autorizado
+OK: odonto: candidato devolvido pode ser ajustado e reenviado
+OK: odonto: nova versão validada
+OK: odonto: nova validação troca versão vigente e preserva anterior
+OK: odonto: comparação registra antes e depois dos ajustes finais
+OK: odonto: histórico associa todas as ações às contas
+OK: odonto: adendo segue autorização docente
+OK: odonto: adendo candidato não substitui conteúdo validado
+OK: odonto: adendo validado
+OK: odonto: adendo preserva original, versão, autoria, data e motivo
+OK: odonto: recusa exige e registra motivo
+OK: odonto: pedido recusado não permite correção
+OK: odonto: ficha apresenta comparação de versões
+OK: odonto: versões não aparecem no financeiro
+OK: odonto: senhas não são persistidas nem incluídas no histórico
+OK: odonto: versões e autorizações persistem após recarga
+OK: fisioterapia: aluno deve vincular supervisor
+OK: fisioterapia: aluno salva Rascunho
+OK: fisioterapia: vínculos e autoria identificados
+OK: fisioterapia: formulário próprio da especialidade salvo
+OK: fisioterapia: envio muda para Em revisão
+OK: fisioterapia: edição durante revisão bloqueada
+OK: fisioterapia: versão aparece na fila do supervisor vinculado
+OK: fisioterapia: outro supervisor não valida caso alheio
+OK: fisioterapia: fila exclui caso de outro supervisor
+OK: fisioterapia: devolução exige orientação
+OK: fisioterapia: professor devolve com orientação
+OK: fisioterapia: aluno edita devolvido sem autorização de registro validado
+OK: fisioterapia: aluno reenvia
+OK: fisioterapia: supervisor valida
+OK: fisioterapia: validação guarda conta, nome, data e hora
+OK: fisioterapia: Validado bloqueia edição direta
+OK: fisioterapia: API genérica não sobrescreve Validado
+OK: fisioterapia: adendo não contorna autorização
+OK: fisioterapia: solicitação exige motivo
+OK: fisioterapia: solicitação de correção registrada
+OK: fisioterapia: não duplica solicitação ativa
+OK: fisioterapia: não altera antes de autorizar
+OK: fisioterapia: pedido aparece na fila vinculada
+OK: fisioterapia: conta diferente não confirma autorização
+OK: fisioterapia: senha incorreta não autoriza
+OK: fisioterapia: própria conta confirma autorização fictícia
+OK: fisioterapia: autorização contém identidade, origem, solicitante e situação
+OK: fisioterapia: autorização limita campos
+OK: fisioterapia: correção cria nova versão Em revisão
+OK: fisioterapia: autorização é de uso único
+OK: fisioterapia: versão anterior validada permanece intacta e vigente
+OK: fisioterapia: leitura corrente preserva versão validada até nova validação
+OK: fisioterapia: autorização consumida aponta nova versão
+OK: fisioterapia: nova versão pode ser devolvida sem afetar vigente
+OK: fisioterapia: devolução da correção preserva escopo autorizado
+OK: fisioterapia: candidato devolvido pode ser ajustado e reenviado
+OK: fisioterapia: nova versão validada
+OK: fisioterapia: nova validação troca versão vigente e preserva anterior
+OK: fisioterapia: comparação registra antes e depois dos ajustes finais
+OK: fisioterapia: histórico associa todas as ações às contas
+OK: fisioterapia: adendo segue autorização docente
+OK: fisioterapia: adendo candidato não substitui conteúdo validado
+OK: fisioterapia: adendo validado
+OK: fisioterapia: adendo preserva original, versão, autoria, data e motivo
+OK: fisioterapia: recusa exige e registra motivo
+OK: fisioterapia: pedido recusado não permite correção
+OK: fisioterapia: ficha apresenta comparação de versões
+OK: fisioterapia: versões não aparecem no financeiro
+OK: fisioterapia: senhas não são persistidas nem incluídas no histórico
+OK: fisioterapia: versões e autorizações persistem após recarga
+OK: psicologia: aluno deve vincular supervisor
+OK: psicologia: aluno salva Rascunho
+OK: psicologia: vínculos e autoria identificados
+OK: psicologia: formulário próprio da especialidade salvo
+OK: psicologia: envio muda para Em revisão
+OK: psicologia: edição durante revisão bloqueada
+OK: psicologia: versão aparece na fila do supervisor vinculado
+OK: psicologia: outro supervisor não valida caso alheio
+OK: psicologia: fila exclui caso de outro supervisor
+OK: psicologia: devolução exige orientação
+OK: psicologia: professor devolve com orientação
+OK: psicologia: aluno edita devolvido sem autorização de registro validado
+OK: psicologia: aluno reenvia
+OK: psicologia: supervisor valida
+OK: psicologia: validação guarda conta, nome, data e hora
+OK: psicologia: Validado bloqueia edição direta
+OK: psicologia: API genérica não sobrescreve Validado
+OK: psicologia: adendo não contorna autorização
+OK: psicologia: solicitação exige motivo
+OK: psicologia: solicitação de correção registrada
+OK: psicologia: não duplica solicitação ativa
+OK: psicologia: não altera antes de autorizar
+OK: psicologia: pedido aparece na fila vinculada
+OK: psicologia: conta diferente não confirma autorização
+OK: psicologia: senha incorreta não autoriza
+OK: psicologia: própria conta confirma autorização fictícia
+OK: psicologia: autorização contém identidade, origem, solicitante e situação
+OK: psicologia: autorização limita campos
+OK: psicologia: correção cria nova versão Em revisão
+OK: psicologia: autorização é de uso único
+OK: psicologia: versão anterior validada permanece intacta e vigente
+OK: psicologia: leitura corrente preserva versão validada até nova validação
+OK: psicologia: autorização consumida aponta nova versão
+OK: psicologia: nova versão pode ser devolvida sem afetar vigente
+OK: psicologia: devolução da correção preserva escopo autorizado
+OK: psicologia: candidato devolvido pode ser ajustado e reenviado
+OK: psicologia: nova versão validada
+OK: psicologia: nova validação troca versão vigente e preserva anterior
+OK: psicologia: comparação registra antes e depois dos ajustes finais
+OK: psicologia: histórico associa todas as ações às contas
+OK: psicologia: adendo segue autorização docente
+OK: psicologia: adendo candidato não substitui conteúdo validado
+OK: psicologia: adendo validado
+OK: psicologia: adendo preserva original, versão, autoria, data e motivo
+OK: psicologia: recusa exige e registra motivo
+OK: psicologia: pedido recusado não permite correção
+OK: psicologia: ficha apresenta comparação de versões
+OK: psicologia: versões não aparecem no financeiro
+OK: psicologia: senhas não são persistidas nem incluídas no histórico
+OK: psicologia: versões e autorizações persistem após recarga
+OK: nutricao: aluno deve vincular supervisor
+OK: nutricao: aluno salva Rascunho
+OK: nutricao: vínculos e autoria identificados
+OK: nutricao: formulário próprio da especialidade salvo
+OK: nutricao: envio muda para Em revisão
+OK: nutricao: edição durante revisão bloqueada
+OK: nutricao: versão aparece na fila do supervisor vinculado
+OK: nutricao: outro supervisor não valida caso alheio
+OK: nutricao: fila exclui caso de outro supervisor
+OK: nutricao: devolução exige orientação
+OK: nutricao: professor devolve com orientação
+OK: nutricao: aluno edita devolvido sem autorização de registro validado
+OK: nutricao: aluno reenvia
+OK: nutricao: supervisor valida
+OK: nutricao: validação guarda conta, nome, data e hora
+OK: nutricao: Validado bloqueia edição direta
+OK: nutricao: API genérica não sobrescreve Validado
+OK: nutricao: adendo não contorna autorização
+OK: nutricao: solicitação exige motivo
+OK: nutricao: solicitação de correção registrada
+OK: nutricao: não duplica solicitação ativa
+OK: nutricao: não altera antes de autorizar
+OK: nutricao: pedido aparece na fila vinculada
+OK: nutricao: conta diferente não confirma autorização
+OK: nutricao: senha incorreta não autoriza
+OK: nutricao: própria conta confirma autorização fictícia
+OK: nutricao: autorização contém identidade, origem, solicitante e situação
+OK: nutricao: autorização limita campos
+OK: nutricao: correção cria nova versão Em revisão
+OK: nutricao: autorização é de uso único
+OK: nutricao: versão anterior validada permanece intacta e vigente
+OK: nutricao: leitura corrente preserva versão validada até nova validação
+OK: nutricao: autorização consumida aponta nova versão
+OK: nutricao: nova versão pode ser devolvida sem afetar vigente
+OK: nutricao: devolução da correção preserva escopo autorizado
+OK: nutricao: candidato devolvido pode ser ajustado e reenviado
+OK: nutricao: nova versão validada
+OK: nutricao: nova validação troca versão vigente e preserva anterior
+OK: nutricao: comparação registra antes e depois dos ajustes finais
+OK: nutricao: histórico associa todas as ações às contas
+OK: nutricao: adendo segue autorização docente
+OK: nutricao: adendo candidato não substitui conteúdo validado
+OK: nutricao: adendo validado
+OK: nutricao: adendo preserva original, versão, autoria, data e motivo
+OK: nutricao: recusa exige e registra motivo
+OK: nutricao: pedido recusado não permite correção
+OK: nutricao: ficha apresenta comparação de versões
+OK: nutricao: versões não aparecem no financeiro
+OK: nutricao: senhas não são persistidas nem incluídas no histórico
+OK: nutricao: versões e autorizações persistem após recarga
+OK: odonto: formulário da especialidade cria prontuário
+OK: odonto: fila da interface aponta registro correto
+OK: odonto: botão Validar grava estado e assinatura docente
+OK: odonto: formulário de solicitação registra campos escolhidos
+OK: odonto: confirmação da interface autoriza e limpa senha
+OK: odonto: interface cria candidato e preserva vigente
+OK: odonto: revisão da interface publica nova versão
+OK: odonto: adendo devolvido, ajustado e validado pela interface
+OK: odonto: interface não persiste senha
+OK: fisioterapia: formulário da especialidade cria prontuário
+OK: fisioterapia: fila da interface aponta registro correto
+OK: fisioterapia: botão Validar grava estado e assinatura docente
+OK: fisioterapia: formulário de solicitação registra campos escolhidos
+OK: fisioterapia: confirmação da interface autoriza e limpa senha
+OK: fisioterapia: interface cria candidato e preserva vigente
+OK: fisioterapia: revisão da interface publica nova versão
+OK: fisioterapia: adendo devolvido, ajustado e validado pela interface
+OK: fisioterapia: interface não persiste senha
+OK: psicologia: formulário da especialidade cria prontuário
+OK: psicologia: fila da interface aponta registro correto
+OK: psicologia: botão Validar grava estado e assinatura docente
+OK: psicologia: formulário de solicitação registra campos escolhidos
+OK: psicologia: confirmação da interface autoriza e limpa senha
+OK: psicologia: interface cria candidato e preserva vigente
+OK: psicologia: revisão da interface publica nova versão
+OK: psicologia: adendo devolvido, ajustado e validado pela interface
+OK: psicologia: interface não persiste senha
+OK: nutricao: formulário da especialidade cria prontuário
+OK: nutricao: fila da interface aponta registro correto
+OK: nutricao: botão Validar grava estado e assinatura docente
+OK: nutricao: formulário de solicitação registra campos escolhidos
+OK: nutricao: confirmação da interface autoriza e limpa senha
+OK: nutricao: interface cria candidato e preserva vigente
+OK: nutricao: revisão da interface publica nova versão
+OK: nutricao: adendo devolvido, ajustado e validado pela interface
+OK: nutricao: interface não persiste senha
+OK: Migração preserva versão legada sem inventar autor identificado
+OK: Autorização genérica legada não é reutilizada
+OK: Snapshot anterior à migração clínica preservado
+
+odontologia.test.cjs: 144 verificações
+OK: Atendimento odontológico criado
+OK: Dente 36 possui face oclusal
+OK: Dente anterior usa face incisal
+OK: Arcadas permanentes associam posição ao FDI correto
+OK: Face incompatível rejeitada
+OK: Achado do dente 36 oclusal salvo
+OK: Odontograma pode ser impresso antes de criar um plano
+OK: Achado guarda paciente, dente, face, atendimento, autor e data
+OK: Plano vinculado ao caso criado
+OK: Restauração do dente 36 oclusal planejada
+OK: Procedimento geral não exige dente
+OK: Dente inexistente não é aceito
+OK: Quantidade inválida não é aceita
+OK: Orçamento carrega itens selecionados
+OK: Orçamento mantém alvo, quantidade, preço e atendimento
+OK: Não duplica orçamento ativo do mesmo item
+OK: Ficha geral inclui propostas odontológicas conforme acesso ao caso
+OK: Orçamento financeiro não expõe notas clínicas
+OK: Orçamento sem aprovação não gera cobrança
+OK: Item de restauração aprovado individualmente
+OK: Aprovação parcial mantém situação correta
+OK: Cobrança criada a partir da aprovação
+OK: Somente item aprovado entra na cobrança
+OK: Cobrança preserva vínculo ao dente e atendimento
+OK: Não cria cobrança duplicada
+OK: Recebimento quita cobrança do item aprovado
+OK: Recebimento mantém todos os vínculos do teste mínimo
+OK: Repetição da mesma operação não duplica pagamento
+OK: Pagamento acima do saldo bloqueado
+OK: Cobrança não pode ser inflada fora dos itens aprovados
+OK: Aprovação genérica não contorna aprovação por item
+OK: Financeiro acessa impressão do orçamento
+OK: Plano reflete somente o item aprovado
+OK: Termo demonstrativo vinculado ao plano
+OK: Documento guarda paciente, plano, atendimento e conteúdo demonstrativo
+OK: Modelo pode ser visualizado para impressão
+OK: Procedimento aprovado entra Em execução
+OK: Item não aprovado não pode ser executado
+OK: Execução sem confirmação impede conclusão clínica
+OK: Realização fica confirmada e vinculada ao atendimento
+OK: Atendimento com procedimento confirmado é finalizado
+OK: Procedimento realizado mantém atendimento e versão validados
+OK: Procedimento realizado publicado no caso
+OK: Odontograma de atendimento validado não é sobrescrito
+OK: Radiografia e exame continuam vinculados ao caso
+OK: Item não cobrado pode ser cancelado com histórico
+OK: Orçamento e recebimento persistem após recarga
+OK: Botão do prontuário abre painel odontológico
+OK: Desenho usa 32 identificadores FDI únicos
+OK: Dente 36 está na arcada inferior
+OK: Clique na superfície associa exatamente dente 36 e O
+OK: Tela mostra dente e face ativos
+OK: Polígono oclusal do desenho mantém ID 36
+OK: Desenho anterior usa Incisal sem superfície Oclusal
+OK: Formulário de achado grava face selecionada
+OK: Impressão do odontograma sem plano identifica o atendimento
+OK: Novo plano fica selecionado na interface
+OK: Formulário do plano conserva seleção do odontograma
+OK: Modo geral ignora dente e face ativos
+OK: Orçamento da interface mostra alvo correto
+OK: Aprovação parcial funciona pela interface
+OK: Tela de cobrança contém somente o item aprovado
+OK: Recebimento da interface permite conferir dente, face e atendimento
+OK: Navegação financeira mantém endereço recarregável do recebimento
+OK: Recarregar o endereço do recebimento reabre a tela autorizada
+OK: Impressão do orçamento exibe modelo e identificação de demonstração
+OK: Botão de impressão chama a impressão nativa após validar acesso
+OK: Troca para conta sem permissão remove visualização de impressão
+OK: Anamnese odontológica estruturada é salva no atendimento
+OK: Evolução por atendimento salva e aparece no histórico
+OK: Modelo de consentimento mostra vínculo com o plano
+OK: Modelo de documento pode ser visualizado para impressão
+OK: Odontograma possui visualização imprimível com achados
+OK: Link direto e recarga preservam caso e dados odontológicos
+OK: Item planejado pode ser editado sem trocar identidade
+OK: Ajuste do item preserva antes e depois na auditoria
+OK: Item já orçado não pode mudar de preço ou alvo silenciosamente
+OK: Administração pode atualizar catálogo
+OK: Atualização do catálogo não altera orçamento existente
+OK: Não cria cobrança odontológica incompleta para contornar aprovação
+OK: Primeira aprovação parcial registrada
+OK: Recebimento parcial preserva saldo
+OK: Financeiro comum não concede desconto pela API
+OK: Desconto autorizado preserva linhas do orçamento
+OK: Desconto deriva do total e registra a conta real
+OK: Saldo após desconto pode ser quitado
+OK: Aprovação posterior completa o orçamento
+OK: Cobrança complementar inclui somente item novo aprovado
+OK: Cobrança complementar não duplica itens já cobrados
+OK: Recebimento odontológico não pode ser forjado por gravação genérica
+OK: Item com cobrança ativa não é cancelado silenciosamente
+OK: Estorno autorizado preserva orçamento e recebimentos históricos
+OK: Cobrança estornada não recebe pagamento
+OK: Após regularização financeira o cancelamento do item é permitido
+OK: Registro profissional pode vincular docente para uma correção
+OK: Correção odontológica segue autorização docente
+OK: Nova versão preserva snapshots estruturados do odontograma
+OK: Versão odontológica retificada é validada
+OK: Versão odontológica anterior permanece intacta
+OK: Correção de texto não religa nem duplica procedimento realizado
+OK: Geometria e faces consistentes do dente 18
+OK: Geometria e faces consistentes do dente 17
+OK: Geometria e faces consistentes do dente 16
+OK: Geometria e faces consistentes do dente 15
+OK: Geometria e faces consistentes do dente 14
+OK: Geometria e faces consistentes do dente 13
+OK: Geometria e faces consistentes do dente 12
+OK: Geometria e faces consistentes do dente 11
+OK: Geometria e faces consistentes do dente 21
+OK: Geometria e faces consistentes do dente 22
+OK: Geometria e faces consistentes do dente 23
+OK: Geometria e faces consistentes do dente 24
+OK: Geometria e faces consistentes do dente 25
+OK: Geometria e faces consistentes do dente 26
+OK: Geometria e faces consistentes do dente 27
+OK: Geometria e faces consistentes do dente 28
+OK: Geometria e faces consistentes do dente 48
+OK: Geometria e faces consistentes do dente 47
+OK: Geometria e faces consistentes do dente 46
+OK: Geometria e faces consistentes do dente 45
+OK: Geometria e faces consistentes do dente 44
+OK: Geometria e faces consistentes do dente 43
+OK: Geometria e faces consistentes do dente 42
+OK: Geometria e faces consistentes do dente 41
+OK: Geometria e faces consistentes do dente 31
+OK: Geometria e faces consistentes do dente 32
+OK: Geometria e faces consistentes do dente 33
+OK: Geometria e faces consistentes do dente 34
+OK: Geometria e faces consistentes do dente 35
+OK: Geometria e faces consistentes do dente 36
+OK: Geometria e faces consistentes do dente 37
+OK: Geometria e faces consistentes do dente 38
+OK: Plano compartilhado não expõe evolução de atendimento não atribuído
+OK: Painel respeita atribuição individual às evoluções
+OK: Impressão do odontograma não contorna atribuição ao atendimento
+OK: Migração não duplica procedimentos do catálogo
+OK: Snapshot anterior à integração odontológica preservado
+
+Teste mínimo executado pelo serviço e componentes reais da interface: selecionar 36/O, registrar achado, incluir restauração, gerar orçamento, aprovar item, criar cobrança e receber. Dente, face, item, paciente, plano, orçamento e atendimento permanecem vinculados.
+
+Ambiente: Node.js com scripts completos das páginas em DOM simulado. Inclui eventos do SVG, submissões reais de formulário, troca de contas, prévias HTML de impressão e chamada simulada de impressão nativa, permissões, snapshots e persistência. A associação entre dente e face foi conferida para os 32 dentes desenhados. Não houve inspeção visual em navegador nem conferência de PDF gerado por impressora nesta etapa.
+
+Executar: node tests/odontologia.test.cjs. As demais suites da pasta tests compõem a regressão cumulativa.

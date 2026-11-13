@@ -1,0 +1,12 @@
+Entrega da etapa 1 — integração da persistência e correção de ações.
+Abra index.html usando um servidor local. Para migrar dados já existentes, substitua os arquivos no mesmo endereço/origem utilizado antes (protocolo, host e porta). Outro endereço usa outro localStorage.
+
+Base: clinicas-positivo:shared:v1.
+Backup anterior à primeira gravação: clinicas-positivo:shared:v1:legacy-backup.
+As chaves antigas permanecem intactas. Se houver JSON inválido, a inicialização interrompe sem substituir a base antiga.
+A migração usa clínica + ID antigo para todos os registros e remapeia suas referências. Reabrir não importa novamente nem sobrescreve alterações.
+Pacientes são compartilhados; demais registros permanecem associados à clínica de origem. Coincidências aparecem em Pacientes no perfil Administração e nunca são unidas automaticamente.
+O serviço assets/js/core/clinic-data.js concentra leitura, migração e gravação para futura API. Não há backend ou autenticação real no projeto entregue.
+Medicina veterinária, CSS, entrada e funcionalidades existentes foram preservados.
+Testes: veja VALIDACAO.txt. Não foi realizada inspeção visual em navegador.
+A edição cadastral e os vínculos foram implementados na etapa 2. Consulte LEIA-ME-ETAPA-2.txt para a versão atual.

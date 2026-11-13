@@ -1,0 +1,4 @@
+899 verificações de regressão passaram após a organização.
+Sintaxe dos scripts, referências locais, manifesto e rotas verificados.
+Os testes agora carregam os arquivos na ordem definida nos próprios HTMLs.
+Sem inspeção visual adicional nesta organização.

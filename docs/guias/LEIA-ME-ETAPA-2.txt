@@ -1,0 +1,17 @@
+Etapa 2 — cadastro único e vínculos
+
+A versão atualizada está nesta pasta. Execute index.html pelo mesmo servidor/origem da etapa anterior para conservar os dados do navegador.
+
+Identificadores migrados (por exemplo, odonto:P-001) são globais e permanentes. Novos pacientes recebem PAC- seguido de UUID. Selecionar um cadastro existente apenas adiciona o vínculo à clínica; não cria outra pessoa.
+
+Em Pacientes, Novo registro abre o formulário geral. Nome completo é obrigatório; nome social, nascimento, telefone, e-mail e responsável podem ser informados e editados na ficha. A idade é calculada no fuso America/Sao_Paulo. Quando não há nascimento, a idade original continua identificada como dado legado.
+
+Possíveis coincidências por nome, telefone ou e-mail aparecem no formulário, com identificador, nascimento, contato e situação. Use este paciente adiciona o vínculo. Para um homônimo distinto, confira os dados e confirme novamente o salvamento; nenhuma união é automática.
+
+As abas Cadastro, Agenda, Encaminhamentos, Prontuários e Financeiro respeitam o perfil simulado. Agenda e Financeiro apresentam dados administrativos das clínicas; detalhes clínicos permanecem na especialidade e no caso. Encaminhamentos já pode apresentar registros existentes, mas a criação e tramitação aguardam as regras da próxima etapa.
+
+Editar cadastro e Inativar/Reativar aparecem conforme a permissão. Inativação preserva os registros anteriores, remove o paciente das opções de novos agendamentos e é validada também pelo serviço. Reativação libera novos agendamentos.
+
+Backup adicional antes de atualizar o esquema de pacientes: clinicas-positivo:shared:v1:before-patients-v2. Backup e chaves legadas da etapa 1 permanecem disponíveis.
+
+Validação: VALIDACAO-ETAPA-2.txt. Testes de funções reais em contexto JavaScript isolado; não houve teste visual em navegador. As permissões continuam simuladas no cliente, conforme a arquitetura de demonstração original.

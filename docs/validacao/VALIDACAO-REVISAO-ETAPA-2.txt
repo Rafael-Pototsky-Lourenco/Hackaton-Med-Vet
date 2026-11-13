@@ -1,0 +1,125 @@
+122 verificações concluídas.
+OK: odonto: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: odonto: clique abre a aba Cadastro
+OK: odonto: clique abre a aba Agenda
+OK: odonto: clique abre a aba Encaminhamentos
+OK: odonto: clique abre a aba Prontuários
+OK: odonto: clique abre a aba Financeiro
+OK: odonto: abas de Recepção respeitam permissões
+OK: odonto: abas financeiras respeitam permissões
+OK: odonto: configuração de acesso independente salva
+OK: odonto: Encaminhamentos independe da Agenda
+OK: odonto: idade legada preservada
+OK: odonto: formulário cria cadastro geral
+OK: odonto: identificador e campos gerais persistem
+OK: odonto: edição mantém ID global
+OK: odonto: vínculo em outra clínica usa o mesmo cadastro
+OK: odonto: múltiplos vínculos preservados
+OK: odonto: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: odonto: idade calculada a partir do nascimento
+OK: odonto: nascimento pode complementar cadastro legado
+OK: odonto: dado original mantido após preencher nascimento
+OK: odonto: data impossível rejeitada no serviço
+OK: odonto: duplicidade é apresentada antes da gravação
+OK: odonto: selecionar existente evita duplicação
+OK: odonto: homônimo distinto pode ser confirmado
+OK: odonto: inativação salva sem excluir
+OK: odonto: cadastro inativo bloqueia agendamento no serviço
+OK: odonto: inativo removido das opções de agendamento
+OK: odonto: reativação permite agendar
+OK: odonto: registro compartilhado permanece após recarregar outra clínica
+OK: odonto: cadastro administrativo não contém notas clínicas
+OK: fisioterapia: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: fisioterapia: clique abre a aba Cadastro
+OK: fisioterapia: clique abre a aba Agenda
+OK: fisioterapia: clique abre a aba Encaminhamentos
+OK: fisioterapia: clique abre a aba Prontuários
+OK: fisioterapia: clique abre a aba Financeiro
+OK: fisioterapia: abas de Recepção respeitam permissões
+OK: fisioterapia: abas financeiras respeitam permissões
+OK: fisioterapia: configuração de acesso independente salva
+OK: fisioterapia: Encaminhamentos independe da Agenda
+OK: fisioterapia: idade legada preservada
+OK: fisioterapia: formulário cria cadastro geral
+OK: fisioterapia: identificador e campos gerais persistem
+OK: fisioterapia: edição mantém ID global
+OK: fisioterapia: vínculo em outra clínica usa o mesmo cadastro
+OK: fisioterapia: múltiplos vínculos preservados
+OK: fisioterapia: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: fisioterapia: idade calculada a partir do nascimento
+OK: fisioterapia: nascimento pode complementar cadastro legado
+OK: fisioterapia: dado original mantido após preencher nascimento
+OK: fisioterapia: data impossível rejeitada no serviço
+OK: fisioterapia: duplicidade é apresentada antes da gravação
+OK: fisioterapia: selecionar existente evita duplicação
+OK: fisioterapia: homônimo distinto pode ser confirmado
+OK: fisioterapia: inativação salva sem excluir
+OK: fisioterapia: cadastro inativo bloqueia agendamento no serviço
+OK: fisioterapia: inativo removido das opções de agendamento
+OK: fisioterapia: reativação permite agendar
+OK: fisioterapia: registro compartilhado permanece após recarregar outra clínica
+OK: fisioterapia: cadastro administrativo não contém notas clínicas
+OK: psicologia: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: psicologia: clique abre a aba Cadastro
+OK: psicologia: clique abre a aba Agenda
+OK: psicologia: clique abre a aba Encaminhamentos
+OK: psicologia: clique abre a aba Prontuários
+OK: psicologia: clique abre a aba Financeiro
+OK: psicologia: abas de Recepção respeitam permissões
+OK: psicologia: abas financeiras respeitam permissões
+OK: psicologia: configuração de acesso independente salva
+OK: psicologia: Encaminhamentos independe da Agenda
+OK: psicologia: idade legada preservada
+OK: psicologia: formulário cria cadastro geral
+OK: psicologia: identificador e campos gerais persistem
+OK: psicologia: edição mantém ID global
+OK: psicologia: vínculo em outra clínica usa o mesmo cadastro
+OK: psicologia: múltiplos vínculos preservados
+OK: psicologia: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: psicologia: idade calculada a partir do nascimento
+OK: psicologia: nascimento pode complementar cadastro legado
+OK: psicologia: dado original mantido após preencher nascimento
+OK: psicologia: data impossível rejeitada no serviço
+OK: psicologia: duplicidade é apresentada antes da gravação
+OK: psicologia: selecionar existente evita duplicação
+OK: psicologia: homônimo distinto pode ser confirmado
+OK: psicologia: inativação salva sem excluir
+OK: psicologia: cadastro inativo bloqueia agendamento no serviço
+OK: psicologia: inativo removido das opções de agendamento
+OK: psicologia: reativação permite agendar
+OK: psicologia: registro compartilhado permanece após recarregar outra clínica
+OK: psicologia: cadastro administrativo não contém notas clínicas
+OK: nutricao: ficha geral exibe as cinco abas na conta com todos os acessos
+OK: nutricao: clique abre a aba Cadastro
+OK: nutricao: clique abre a aba Agenda
+OK: nutricao: clique abre a aba Encaminhamentos
+OK: nutricao: clique abre a aba Prontuários
+OK: nutricao: clique abre a aba Financeiro
+OK: nutricao: abas de Recepção respeitam permissões
+OK: nutricao: abas financeiras respeitam permissões
+OK: nutricao: configuração de acesso independente salva
+OK: nutricao: Encaminhamentos independe da Agenda
+OK: nutricao: idade legada preservada
+OK: nutricao: formulário cria cadastro geral
+OK: nutricao: identificador e campos gerais persistem
+OK: nutricao: edição mantém ID global
+OK: nutricao: vínculo em outra clínica usa o mesmo cadastro
+OK: nutricao: múltiplos vínculos preservados
+OK: nutricao: busca por nome, ID, telefone com e sem máscara e e-mail
+OK: nutricao: idade calculada a partir do nascimento
+OK: nutricao: nascimento pode complementar cadastro legado
+OK: nutricao: dado original mantido após preencher nascimento
+OK: nutricao: data impossível rejeitada no serviço
+OK: nutricao: duplicidade é apresentada antes da gravação
+OK: nutricao: selecionar existente evita duplicação
+OK: nutricao: homônimo distinto pode ser confirmado
+OK: nutricao: inativação salva sem excluir
+OK: nutricao: cadastro inativo bloqueia agendamento no serviço
+OK: nutricao: inativo removido das opções de agendamento
+OK: nutricao: reativação permite agendar
+OK: nutricao: registro compartilhado permanece após recarregar outra clínica
+OK: nutricao: cadastro administrativo não contém notas clínicas
+OK: Ficha geral considera acesso clínico expressamente atribuído em outra clínica
+OK: Prontuário autorizado aparece por especialidade e caso, com link correto
+
+Testes de páginas completas em DOM simulado; não constituem inspeção visual em navegador.

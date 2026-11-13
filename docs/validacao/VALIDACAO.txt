@@ -1,0 +1,6 @@
+Backup, reexecução, vínculos e compartilhamento: OK
+odonto: 7 fluxos confirmados
+fisioterapia: 7 fluxos confirmados
+psicologia: 7 fluxos confirmados
+nutricao: 7 fluxos confirmados
+Testes executados com funções reais em contexto JavaScript isolado; não houve teste visual em navegador.

@@ -15,7 +15,8 @@
   
   <!-- CSS e Script Modulares -->
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="odonto.css">
+  <link rel="stylesheet" href="assets/css/odonto.css">
+  <link rel="stylesheet" href="assets/css/odonto-extra.css">
 </head>
 <body>
   <a class="skip" href="#main-content">Pular para o conteúdo</a>
@@ -24,7 +25,7 @@
     <aside id="sidebar" class="sidebar" aria-label="Menu lateral">
       <div class="brand">
         <div class="logo-box">
-          <img id="sidebar-logo" src="universidade_logo.png" alt="Logotipo da Universidade Positivo" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-fallback',textContent:'Logotipo da instituição'}))">
+          <img id="sidebar-logo" src="assets/images/universidade_logo.png" alt="Logotipo da Universidade Positivo" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-fallback',textContent:'Logotipo da instituição'}))">
         </div>
         <div class="brand-name">
           Clínica Odontológica<br>Universidade Positivo
@@ -53,7 +54,7 @@
           <i data-lucide="bell"></i>
         </button>
         <div class="profile-control">
-          <span>Perfil simulado</span>
+          <span>Conta fictícia</span>
           <label class="skip" for="profile-select">Perfil simulado atual</label>
           <select id="profile-select"></select>
         </div>
@@ -78,6 +79,13 @@
   <div id="modal-root"></div>
   <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
-  <script src="odonto.js"></script>
+  <script src="assets/js/core/clinic-auth.js" data-clinic="odonto"></script>
+  <script src="assets/js/core/clinic-data.js"></script>
+  <script src="assets/js/clinics/odonto.js"></script>
+  <script src="assets/js/shared/patient-shared.js" data-clinic="odonto"></script>
+  <script src="assets/js/shared/auth-ui.js"></script>
+  <script src="assets/js/shared/workflow-ui.js"></script>
+  <script src="assets/js/shared/clinical-ui.js"></script>
+  <script src="assets/js/clinics/odonto-ui.js"></script>
 </body>
 </html>
