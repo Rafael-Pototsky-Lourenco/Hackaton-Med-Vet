@@ -70,10 +70,10 @@ const fixtures = [
 ].map(([entity_id, entity_type, title, status, payload]) => ({ entity_id, entity_type, title, status, payload: JSON.stringify(payload), updated_at: '2026-05-22T12:00:00.000Z', demo: true }));
 
 let backendRecords = [], ready = false, current = 'painel', profile = profiles[0], activeDetail = null, page = 1, filter = '', sort = 'asc', agendaMode = 'dia', patientTab = 'Resumo', modalDirty = false;
-const STORE_KEY = 'clinicas-positivo:fisioterapia';
+const _cd = ClinicasData.open('fisioterapia');
 const store = {
-  load() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { return []; } },
-  persist(list) { try { localStorage.setItem(STORE_KEY, JSON.stringify(list)); backendRecords = list; return { isOk: true }; } catch { return { isOk: false }; } },
+  load() { return _cd.load(); },
+  persist(list) { const ok = _cd.persist(list); if (ok) backendRecords = list; return { isOk: ok }; },
   create(r) { return this.persist([...backendRecords, { ...r, __backendId: r.entity_id + '-' + Date.now() }]); },
   update(r) { return this.persist(backendRecords.map(x => x.__backendId === r.__backendId ? r : x)); }
 };

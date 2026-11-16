@@ -30,10 +30,12 @@
     open(clinic) {
       return {
         load: () => migrate(clinic).records.filter(r => r.clinic === clinic),
-        persist(list) { const db = migrate(clinic); db.records = [...db.records.filter(r => r.clinic !== clinic), ...list.map(r => ({ ...r, clinic }))]; return write(db); },
+        persist(list, shared) { // 'shared' (opcional) grava registros compartilhados na MESMA escrita
+          const db = migrate(clinic); db.records = [...db.records.filter(r => r.clinic !== clinic && (shared === undefined || r.clinic !== 'shared')), ...list.map(r => ({ ...r, clinic })), ...(shared || []).map(r => ({ ...r, clinic: 'shared' }))]; return write(db); },
         reset() { const db = read(); db.records = db.records.filter(r => r.clinic !== clinic); return write(db); }
       };
     },
+    shared() { return { load: () => read().records.filter(r => r.clinic === 'shared'), persist(list) { const db = read(); db.records = [...db.records.filter(r => r.clinic !== 'shared'), ...list.map(r => ({ ...r, clinic: 'shared' }))]; return write(db); } }; },
     // Possíveis duplicidades para conferência administrativa: mesmo nome E mesmo telefone em origens diferentes.
     duplicates() {
       const p = read().records.filter(r => r.entity_type === 'paciente'), out = [];

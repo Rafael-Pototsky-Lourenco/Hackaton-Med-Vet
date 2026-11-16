@@ -52,14 +52,16 @@
     if (!can('atendimentos')) return restricted();
     const its = items(pt), sel = String(od.tooth);
     const st = t => { const x = its.filter(i => String(data(i).tooth) === String(t)); return x.some(i => i.status === 'Realizado') ? 'done' : x.length ? 'planned' : ''; };
-    const btn = t => `<button type="button" class="tooth ${st(t)} ${String(t) === sel ? 'sel' : ''}" data-tooth="${t}" aria-pressed="${String(t) === sel}" aria-label="Dente ${t}">${t}</button>`;
-    const q = QUADS[od.dent], row = (a, b) => `<div class="arch"><div>${a.map(btn).join('')}</div><i class="sep"></i><div>${b.map(btn).join('')}</div></div>`;
+    const SHAPE = { inc: 'M9 3 Q16 0 23 3 L21 17 Q20 27 16 27 Q12 27 11 17Z', can: 'M16 0 Q23 6 22 14 L20 26 Q16 29 12 26 L10 14 Q9 6 16 0Z', pre: 'M7 5 Q16 1 25 5 L23 16 Q22 26 16 26 Q10 26 9 16Z', mol: 'M4 6 Q4 1 10 2 Q16 5 22 2 Q28 1 28 6 L27 16 Q26 27 22 27 Q19 20 16 20 Q13 20 10 27 Q6 27 5 16Z' };
+    const kind = t => { const n = t % 10, dec = t > 50; return n <= 2 ? 'inc' : n === 3 ? 'can' : dec ? 'mol' : n <= 5 ? 'pre' : 'mol'; };
+    const btn = (t, upper) => `<button type="button" class="tooth ${st(t)} ${String(t) === sel ? 'sel' : ''}" data-tooth="${t}" aria-pressed="${String(t) === sel}" aria-label="Dente ${t}">${upper ? `<b>${t}</b>` : ''}<svg viewBox="0 0 32 30" width="30" height="28" aria-hidden="true"><path d="${SHAPE[kind(t)]}"/></svg>${upper ? '' : `<b>${t}</b>`}</button>`;
+    const q = QUADS[od.dent], row = (a, b, up) => `<div class="arch"><div>${a.map(t => btn(t, up)).join('')}</div><i class="sep"></i><div>${b.map(t => btn(t, up)).join('')}</div></div>`;
     const found = sel ? of('achado').filter(a => data(a).patientId === pt && String(data(a).tooth) === sel) : [];
     const canEdit = can('atendimentos', 'editar');
     return `<div class="grid two-col" style="grid-template-columns:2fr 1fr">
       <section class="panel"><h2>Odontograma</h2>
         <div class="actions">${['Permanente', 'Decídua'].map(d => `<button type="button" class="btn small secondary chip-btn" data-dent="${d}" aria-pressed="${od.dent === d}">${d}</button>`).join('')}</div>
-        ${row(q[0], q[1])}${row(q[2], q[3])}
+        ${row(q[0], q[1], true)}${row(q[2], q[3], false)}
         <div class="legend"><span>▢ Sem registro</span><span style="color:#916012">■ Planejado/aprovado</span><span style="color:#136c4c">■ Realizado</span><span style="color:#13789a">■ Dente ativo</span></div>
       </section>
       <section class="panel"><h2>${sel ? 'Dente ' + esc(sel) : 'Nenhum dente selecionado'}</h2>
@@ -78,7 +80,7 @@
     const rows = its.map(i => { const d = data(i); return `<tr><td>${esc(d.stage || 'Procedimentos')}</td><td>${esc(d.label)}</td><td>${esc(d.tooth || '—')}</td><td>${esc(d.tooth ? d.face : '—')}</td><td>${d.qty}</td><td>${money(d.priceCents * d.qty)}</td><td>${badge(i.status)}${d.budgetId ? ' <small>Orç. ' + esc(d.budgetId) + '</small>' : ''}</td></tr>`; }).join('');
     return `<section class="panel"><div class="panel-head"><h2>Plano de tratamento</h2><div class="actions">
       ${can('atendimentos', 'editar') ? '<button class="btn secondary" data-tab="Odontograma">+ Adicionar procedimento</button>' : ''}
-      ${can('orcamentos', 'cadastrar') ? '<button class="btn" data-genbudget="1">Gerar orçamento</button>' : ''}</div></div>
+      ${can('atendimentos', 'editar') ? '<button class="btn secondary" data-prepterm="1">Preparar termo</button>' : ''}${can('orcamentos', 'cadastrar') ? '<button class="btn" data-genbudget="1">Gerar orçamento</button>' : ''}</div></div>
       ${its.length ? `<div class="table-wrap"><table><thead><tr><th>Etapa</th><th>Procedimento</th><th>Dente</th><th>Face</th><th>Qtd</th><th>Valor</th><th>Situação</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="empty">Nenhum procedimento no plano. Use o odontograma para adicionar.</div>'}</section>`;
   }
 
@@ -110,7 +112,7 @@
 
   patientDetail = function (r) {
     const d = data(r), pt = r.entity_id, clin = can('atendimentos');
-    const tabs = ['Resumo', 'Odontograma', 'Plano', 'Orçamentos', 'Cobranças', 'Histórico clínico', 'Consultas', 'Exames', 'Procedimentos'].filter(t => t !== 'Cobranças' || can('financeiro'));
+    const tabs = ['Resumo', 'Anamnese', 'Odontograma', 'Plano', 'Evoluções', 'Exames', 'Documentos', 'Orçamentos', 'Cobranças', 'Histórico clínico', 'Consultas', 'Encaminhamentos', 'Procedimentos'].filter(t => t !== 'Cobranças' || can('financeiro'));
     if (!tabs.includes(patientTab)) patientTab = 'Resumo';
     const types = { 'Histórico clínico': ['atendimento', 'adendo'], 'Consultas': ['agendamento'], 'Exames': ['exame'], 'Procedimentos': ['cirurgia'] };
     const related = all().filter(x => data(x).patientId === pt && visible(x));
@@ -122,9 +124,10 @@
     else if (patientTab === 'Plano') content = planTab(pt);
     else if (patientTab === 'Orçamentos') content = budgetsTab(pt);
     else if (patientTab === 'Cobranças') content = chargesTab(pt);
+    else if (window.OdontoX && OdontoX.tabs[patientTab]) content = OdontoX.tabs[patientTab](pt);
     else content = `<section class="panel">${table(related.filter(x => types[patientTab]?.includes(x.entity_type)), 'Nenhum registro nesta aba.')}</section>`;
     return `<div class="crumb"><button class="link-btn" data-nav="pacientes">Pacientes</button> / ${esc(r.title)}</div>
-      <section class="panel"><div class="patient-head"><h1 style="margin:0">${esc(r.title)}</h1><span class="tag">${esc(d.prontuario || pt)}</span><span>${esc(d.idade || '')}</span><span>${esc(d.sexo || '')}</span>${clin && d.alertas ? `<span class="tag warn">⚠ ${esc(d.alertas)}</span>` : ''}</div></section>
+      <section class="panel"><div class="patient-head"><h1 style="margin:0">${esc(r.title)}</h1><span class="tag">${esc(d.prontuario || pt)}</span><span>${esc(d.idade || '')}</span><span>${esc(d.sexo || '')}</span>${clin && (window.OdontoX?.alert(pt) || d.alertas) ? `<span class="tag warn">⚠ ${esc(window.OdontoX?.alert(pt) || d.alertas)}</span>` : ''}</div></section>
       <div class="tabs" role="tablist" aria-label="Seções do paciente">${tabs.map(t => `<button role="tab" class="${patientTab === t ? 'active' : ''}" aria-selected="${patientTab === t}" data-tab="${t}">${t}</button>`).join('')}</div>${content}`;
   };
 
