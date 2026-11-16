@@ -363,8 +363,8 @@ small {
 }
 
 .btn {
-  border: 1px solid var(--navy);
-  background: var(--navy);
+  border: 1px solid var(--blue);
+  background: var(--blue);
   color: white;
   border-radius: 8px;
   padding: 10px 14px;
@@ -381,12 +381,12 @@ small {
 }
 
 .btn:hover {
-  background: #214c79;
+  background: #0e6280;
 }
 
 .btn.secondary {
   background: white;
-  color: var(--navy);
+  color: var(--blue);
   border-color: var(--line);
 }
 
@@ -639,8 +639,8 @@ tbody tr:hover {
 }
 
 .tabs button.active {
-  color: var(--navy);
-  border-bottom-color: var(--navy);
+  color: var(--blue);
+  border-bottom-color: var(--blue);
 }
 
 .modal-backdrop {
@@ -963,3 +963,14 @@ tbody tr:hover {
 .sidebar.compact .switch-link {
   display: none;
 }
+
+.arch{display:flex;gap:10px;justify-content:center;margin:14px 0;overflow-x:auto;padding-bottom:4px}
+.arch>div{display:flex;gap:6px}
+.arch .sep{width:1px;background:var(--line)}
+.tooth{width:38px;border:1px solid #9fb3c4;border-radius:10px 10px 14px 14px;background:#fff;padding:14px 0 6px;font-weight:700;color:var(--ink);font-size:12px}
+.tooth.planned{background:#fff1d9;border-color:#d79b39}
+.tooth.done{background:#e4f5ee;border-color:#136c4c}
+.tooth.sel{background:#d7f1f8;border-color:var(--blue);outline:2px solid var(--blue)}
+.chip-btn[aria-pressed=true]{background:#d7f1f8;border-color:var(--blue);color:var(--blue)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+.patient-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}

@@ -84,10 +84,10 @@ const fixtures = [
 ].map(([entity_id, entity_type, title, status, payload]) => ({ entity_id, entity_type, title, status, payload: JSON.stringify(payload), updated_at: '2026-05-22T12:00:00.000Z', demo: true }));
 
 let backendRecords = [], ready = false, current = 'painel', profile = profiles[0], activeDetail = null, page = 1, filter = '', sort = 'asc', agendaMode = 'dia', patientTab = 'Resumo', modalDirty = false;
-const STORE_KEY = 'clinicas-positivo:odonto';
+const _cd = ClinicasData.open('odonto');
 const store = {
-  load() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { return []; } },
-  persist(list) { try { localStorage.setItem(STORE_KEY, JSON.stringify(list)); backendRecords = list; return { isOk: true }; } catch { return { isOk: false }; } },
+  load() { return _cd.load(); },
+  persist(list) { const ok = _cd.persist(list); if (ok) backendRecords = list; return { isOk: ok }; },
   create(r) { return this.persist([...backendRecords, { ...r, __backendId: r.entity_id + '-' + Date.now() }]); },
   update(r) { return this.persist(backendRecords.map(x => x.__backendId === r.__backendId ? r : x)); }
 };
@@ -121,7 +121,7 @@ function can(module, action = 'visualizar') {
 
   const allowed = {
     'Recepção': ['recepcao', 'agenda', 'pacientes', 'orcamentos'],
-    'Cirurgião-dentista': ['recepcao', 'agenda', 'pacientes', 'atendimentos', 'exames', 'cirurgias', 'supervisao'],
+    'Cirurgião-dentista': ['recepcao', 'agenda', 'pacientes', 'atendimentos', 'exames', 'cirurgias', 'orcamentos', 'supervisao'],
     'Professor ou supervisor': ['agenda', 'pacientes', 'atendimentos', 'exames', 'cirurgias', 'supervisao', 'relatorios'],
     'Aluno ou estagiário': ['agenda', 'pacientes', 'atendimentos', 'exames', 'supervisao'],
     'Estoque ou farmácia': ['estoque'],
@@ -130,6 +130,7 @@ function can(module, action = 'visualizar') {
 
   if (!(allowed[profile] || []).includes(module)) return false;
   if (action === 'visualizar') return true;
+  if (action === 'estornar') return profile === 'Financeiro';
   if (action === 'exportar' || action === 'administrar' || action === 'cancelar') return false;
   if (profile === 'Aluno ou estagiário') return module === 'atendimentos' && ['cadastrar', 'editar'].includes(action);
   if (profile === 'Recepção') return ['recepcao', 'agenda', 'pacientes', 'orcamentos'].includes(module) && action !== 'finalizar' && action !== 'validar';
@@ -406,7 +407,7 @@ function detail(r) {
   if (r.entity_type === 'cirurgia') { if (r.status === 'Programada') { add('Iniciar procedimento', 'surgeryStart'); } if (r.status === 'Em andamento') add('Concluir procedimento', 'surgeryFinish'); }
   if (r.entity_type === 'produto') { add('Entrada de estoque', 'stockIn'); add('Consumo clínico', 'consume'); }
   if (r.entity_type === 'orcamento') { add('Aprovar itens', 'approve'); add('Aprovação parcial', 'partial'); }
-  if (r.entity_type === 'cobranca' && can('financeiro', 'editar')) { add('Receber parcialmente', 'pay'); add('Estornar lançamento', 'reverse', 'cancelar'); }
+  if (r.entity_type === 'cobranca' && can('financeiro', 'editar')) { add('Receber parcialmente', 'pay'); add('Estornar recebimento', 'reverse', 'estornar'); }
   
   return heading(r.title, `${entityNames[r.entity_type] || 'Registro'} · ID ${r.entity_id} · ${r.demo ? 'Registro fictício de exemplo' : 'Registro de demonstração'}`, `<button class="btn secondary" data-nav="${m}">Voltar</button>`) +
     `<section class="panel"><div class="panel-head"><h2>Detalhes</h2>${badge(r.status)}</div><div class="grid two-col" style="line-height:1.9"><div><strong>Paciente:</strong> ${esc(related?.title || 'Não se aplica')}<br><strong>Identificador:</strong> ${esc(r.entity_id)}<br><strong>Atualizado:</strong> ${esc(r.demo ? 'Exemplo fictício' : stamp())}</div><div>${lines || 'Sem informações adicionais.'}</div></div><div class="actions" style="margin-top:20px">${acts.join('')}</div></section>
@@ -650,7 +651,7 @@ function simpleAction(r, act) {
   openModal(title, html, label, async e => {
     e.preventDefault();
     let v = values(), button = e.submitter;
-    let required = ({ paciente: ['name'], agendamento: ['patient', 'date', 'time', 'end'], bloqueio: ['name', 'date', 'time', 'end'], atendimento: ['patient', 'professional', 'complaint'], exame: ['patient', 'name', 'requester'], cirurgia: ['patient', 'name', 'professional', 'date', 'time'], produto: ['name', 'code', 'unit'] })[type] || ['patient', 'name', 'amount'];
+    let required = ({ arrive: ['arrival'], reschedule: ['date', 'time', 'end', 'reason'], cancel: ['reason'], reverse: ['reason'], edit: ['complaint'], submit: ['supervisor'], finalize: ['author'], addendum: ['reason', 'notes', 'author'], validate: ['reason'], return: ['reason'], result: ['result'], evaluate: ['evaluator', 'notes'], surgeryStart: ['reason'], surgeryFinish: ['reason'], consume: ['product', 'quantity', 'reason'], stockIn: ['product', 'quantity', 'reason'], approve: ['responsible'], partial: ['responsible', 'reason'], pay: ['amount', 'method', 'operator'] })[act] || [];
     for (let k of required) { if (!v[k]?.trim()) { err(k, 'Campo obrigatório.'); return; } }
     
     let patch = {}, statusText = r.status, extra = null;
