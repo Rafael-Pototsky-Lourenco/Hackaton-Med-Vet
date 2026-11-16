@@ -54,6 +54,30 @@
 .meta3>div:first-child{border:0;padding-left:0}.meta3 svg{width:20px;height:20px;color:#456}.meta3 small{display:block;color:var(--muted)}
 .ro{background:#f3f6f9;border:1px solid var(--line);border-radius:8px;padding:12px;line-height:1.6;white-space:pre-wrap}.ro small{display:block;color:var(--muted)}
 .hist-row{display:flex;gap:10px;padding:8px 0;align-items:flex-start}.hist-row svg{width:18px;height:18px;color:#456;flex:none;margin-top:2px}
+.pcard{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:14px;flex-wrap:wrap}
+.pcard h1{margin:0 0 6px;font-size:28px}.pmeta{display:flex;gap:14px;align-items:center;color:#34465a;flex-wrap:wrap}.pmeta>*+*{border-left:1px solid var(--line);padding-left:14px}
+.palert{background:#fff1d9;color:#a33a3b;border-radius:10px;padding:8px 14px;display:inline-flex;gap:8px;align-items:center}.palert b{font-weight:800}.palert svg{width:18px;height:18px}
+.ptabs{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 8px;overflow:auto;margin-bottom:16px}
+.ptabs button{display:flex;gap:8px;align-items:center;border:0;background:none;padding:14px;color:#34465a;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}
+.ptabs button.on{color:var(--blue);border-bottom-color:var(--blue)}.ptabs svg{width:17px;height:17px}
+.plan-title{font-size:30px;margin:0 0 18px;display:flex;gap:10px;align-items:center}.plan-title svg{width:28px;height:28px}.plan-title small{font-size:13px;color:var(--muted)}
+.plan-top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.teamstrip{display:flex;border:1px solid var(--line);border-radius:10px;background:#fff}
+.teamstrip>span{display:flex;gap:10px;align-items:center;padding:10px 18px;border-left:1px solid var(--line)}.teamstrip>span:first-child{border-left:0}
+.teamstrip small{display:block;font-size:10px;color:var(--muted)}.teamstrip svg{width:20px;height:20px;color:#345}
+.ptable{width:100%;min-width:0;border:1px solid var(--line);border-radius:10px;border-collapse:separate;border-spacing:0;overflow:hidden}
+.ptable th{background:#eef2f6;text-transform:none;font-size:13px;color:#34465a;letter-spacing:0}.ptable td:first-child{font-weight:700}
+.spill{display:inline-flex;gap:6px;align-items:center;border-radius:99px;padding:4px 10px;font-weight:600;font-size:13px;white-space:nowrap}
+.spill.ok{background:#e4f5ee;color:#136c4c}.spill.pend{background:#dcecfb;color:#164066}.spill.prev{background:#eef2f6;color:#445}.spill.warn{background:#fff1d9;color:#916012}.spill svg{width:14px;height:14px}
+.plan-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.pcard2{display:flex;gap:14px;border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff}.pcard2>svg{width:26px;height:26px;color:#345;flex:none}
+.pcard2 h3{margin:0 0 4px;font-size:20px}.pcard2 p{color:var(--muted);margin:0 0 12px}
+.an-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.an-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.an-card h3{display:flex;gap:8px;align-items:center;margin:0 0 10px;font-size:18px}.an-card h3 svg{width:20px;height:20px}
+.an-card textarea{width:100%;min-height:92px;border:1px solid #cbd8e4;border-radius:8px;padding:10px;font:inherit;resize:vertical}
+.an-foot{position:sticky;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff;border-top:1px solid var(--line);padding:12px 0;margin-top:8px}
+@media(max-width:1000px){.plan-cards,.an-grid{grid-template-columns:1fr}}
 @media(max-width:1000px){.ag-layout,.rc-layout,.sv-layout{grid-template-columns:1fr}}`;
   const st = document.createElement('style'); st.id = 'odonto-ui-style'; st.textContent = css; (document.head || document.documentElement).appendChild(st);
 
@@ -132,20 +156,20 @@
     const who = i => { const p = byId(i.d.patientId); return [p?.title, pr(p)]; };
     let right = '<section class="panel"><div class="empty">Nenhum registro para revisar com os filtros atuais.</div></section>';
     if (cur) {
-      const [pn, prn] = who(cur), d = cur.d, canRev = can('supervisao', 'validar') && profile !== 'Aluno ou estagiário', ver = d.version || 1, isFix = cur.label === 'Correção solicitada', isAn = cur.label === 'Anamnese';
-      const tab = isAn ? 'Anamnese' : 'Evoluções';
+      const [pn, prn] = who(cur), d = cur.d, canRev = can('supervisao', 'validar') && profile !== 'Aluno ou estagiário', ver = d.version || 1, isFix = cur.label === 'Correção solicitada', isAn = cur.label === 'Anamnese', isPl = cur.label === 'Plano';
+      const tab = isAn ? 'Anamnese' : isPl ? 'Plano' : 'Evoluções';
       let body, acts = '';
       if (isFix) {
         body = `<div class="ro"><small>Pedido de correção</small>${esc(d.requestedBy)} em ${esc(d.requestedAt)}\nVersão de origem: v${d.versionFrom}\nMotivo: ${esc(d.reason)}\nCampos: ${esc((d.fields || []).join(', '))}</div>`;
         acts = canRev ? `<button class="btn secondary" data-refuse="${cur.id}">Recusar</button><button class="btn" data-authorize="${cur.id}">${I('check')} Autorizar correção</button>` : '';
       } else {
-        body = isAn ? `<div class="ro"><small>Anamnese (somente leitura)</small>Queixa: ${esc(d.queixa)}\nSaúde: ${esc(d.saude)}\nMedicamentos: ${esc(d.meds)}\nAlergias (${esc(d.alergiaKind)}): ${esc(d.alergia)}\nHistórico odontológico: ${esc(d.odonto)}</div>` : `<div class="ro"><small>Evolução (somente leitura)</small>${esc(d.procLabel)}: ${esc(d.registro)}\nOrientações: ${esc(d.orientacoes)}</div>`;
+        body = isPl ? `<div class="ro"><small>Plano de tratamento (somente leitura)</small>${(d.itemIds || []).map(id => byId(id)).filter(Boolean).map(i => '• ' + esc(data(i).label) + (data(i).tooth ? ' · dente ' + esc(data(i).tooth) : '') + ' — ' + esc(i.status)).join('\n')}</div>` : isAn ? `<div class="ro"><small>Anamnese (somente leitura)</small>Queixa: ${esc(d.queixa)}\nSaúde: ${esc(d.saude)}\nMedicamentos: ${esc(d.meds)}\nAlergias (${esc(d.alergiaKind)}): ${esc(d.alergia)}\nHistórico odontológico: ${esc(d.odonto)}</div>` : `<div class="ro"><small>Evolução (somente leitura)</small>${esc(d.procLabel)}: ${esc(d.registro)}\nOrientações: ${esc(d.orientacoes)}</div>`;
         acts = canRev && cur.r.status === 'Em revisão' ? `<button class="btn secondary" data-svreturn="${cur.id}" data-ver="${ver}">${I('pencil')} Solicitar correção</button><button class="btn" data-svvalidate="${cur.id}" data-ver="${ver}">${I('check')} Validar registro</button>` : cur.r.status === 'Validado' ? `<span class="section-note">Validado por ${esc(d.validatedBy)} em ${esc(d.validatedAt)}.</span>` : '';
       }
       const showComment = isFix || (canRev && cur.r.status === 'Em revisão');
       right = `<section class="panel"><div class="crumb"><span>Pacientes</span> / ${esc(pn)}</div><div class="who"><span class="avatar big">${I('user-round')}</span><div><h2 style="margin:0">${esc(pn)}</h2><small>${esc(prn)}</small></div></div>
         <div class="ftabs">${FT.map(t => `<button class="${t === tab ? 'on' : ''}" data-svtab="${t}" data-pt="${d.patientId}">${t}</button>`).join('')}</div>
-        <h2>${isFix ? 'Revisar pedido de correção' : isAn ? 'Revisar anamnese' : 'Revisar evolução'}</h2>
+        <h2>${isFix ? 'Revisar pedido de correção' : isAn ? 'Revisar anamnese' : isPl ? 'Revisar plano' : 'Revisar evolução'}</h2>
         <div class="meta3"><div>${I('graduation-cap')}<div><small>Aluno</small><b>${esc(d.student)}</b></div></div><div>${I('book-open')}<div><small>Disciplina</small><b>${esc(d.discipline)}</b></div></div><div>${I('calendar')}<div><small>Data do registro · versão</small><b>${d.date ? fmtDate(d.date) : esc(d.requestedAt || '')}${d.time ? ' às ' + esc(d.time) : ''} · v${ver}</b></div></div></div>
         ${body}${showComment ? `<div class="field" style="margin-top:14px"><label for="sv-comment">${isFix ? 'Comentário (obrigatório para recusar)' : 'Comentário para o aluno'}</label><textarea id="sv-comment" placeholder="Digite sua orientação, apontamentos ou ajustes necessários…"></textarea></div>` : ''}
         <div class="actions" style="justify-content:flex-end;margin-top:14px">${can('pacientes') ? `<button class="btn secondary" data-agficha="${d.patientId}">${I('external-link')} Abrir ficha</button>` : ''}${acts}</div>
@@ -157,6 +181,12 @@
       <div class="sv-layout"><section class="panel" style="padding:0;overflow:hidden"><h3 style="padding:16px 16px 8px;margin:0">Fila de revisões (${items.length})</h3>${left}</section>${right}</div>`;
   }
 
+  const _si = X.svItems;
+  X.svItems = () => {
+    const base = _si(), extra = list('plano').map(r => ({ r, d: data(r), id: r.entity_id, st: r.status === 'Em revisão' ? 'Aguardando revisão' : r.status, label: 'Plano' }))
+      .filter(i => (!sv.disc || i.d.discipline === sv.disc) && (!sv.turma || i.d.turma === sv.turma) && (sv.status === 'Todos' || i.st === sv.status));
+    return [...base, ...extra];
+  };
   const _m = moduleList; moduleList = m => m === 'agenda' ? agenda() : m === 'supervisao' ? supervision() : _m(m);
   reception = receptionView;
   if (!ag.sel && byId('A-001')) ag.sel = 'A-001';
@@ -167,5 +197,24 @@
     if (b.dataset.agclose) { ag.sel = ''; render(); }
     else if (b.dataset.svtab) { if (!can('pacientes')) return toast('Acesso restrito.'); navigate('pacientes', b.dataset.pt); patientTab = b.dataset.svtab; render(); }
   });
+  /* ---------- Histórico do navegador: cada tela/aba vira uma entrada (Voltar/Avançar e links diretos) ---------- */
+  const hashOf = () => '#/' + [current, activeDetail || '', activeDetail ? patientTab : ''].map(encodeURIComponent).join('/').replace(/\/+$/, '');
+  const apply = h => {
+    const [c, d, t] = h.slice(2).split('/').map(x => { try { return decodeURIComponent(x); } catch { return ''; } });
+    current = c && can(c) ? c : 'painel'; activeDetail = null;
+    if (d) { const r = byId(d); if (r && visible(r)) { activeDetail = d; if (t) patientTab = t; } }
+  };
+  let last = null; const _render = render;
+  render = function () {
+    _render(); const h = hashOf();
+    if (h !== last) { try { last === null ? history.replaceState({ h }, '', h) : history.pushState({ h }, '', h); } catch { /* ambiente sem History API */ } last = h; }
+  };
+  window.addEventListener('popstate', () => {
+    if (!location.hash.startsWith('#/')) return;
+    apply(location.hash); last = hashOf();
+    if (last !== location.hash) { try { history.replaceState({ h: last }, '', last); } catch {} }
+    _render();
+  });
+  if (location.hash.startsWith('#/')) apply(location.hash);
   render();
 })();

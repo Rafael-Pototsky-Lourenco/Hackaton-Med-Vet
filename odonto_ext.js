@@ -1,7 +1,7 @@
 /* Extensão da Clínica Odontológica: ficha com abas, odontograma, plano, orçamento, cobrança, recebimento e estorno. */
 (function () {
   'use strict';
-  entityModule.planoitem = 'atendimentos'; entityModule.achado = 'atendimentos'; entityModule.estorno = 'financeiro';
+  entityModule.planoitem = 'atendimentos'; entityModule.plano = 'atendimentos'; entityModule.achado = 'atendimentos'; entityModule.estorno = 'financeiro';
   Object.assign(entityNames, { planoitem: 'Item do plano', achado: 'Achado', estorno: 'Estorno' });
 
   const CATALOG = [['PR-01', 'Restauração em resina composta', 30000], ['PR-02', 'Raspagem supragengival e polimento', 12000], ['PR-03', 'Exodontia simples', 15000], ['PR-04', 'Tratamento endodôntico', 45000], ['PR-05', 'Aplicação de selante', 6000]];
@@ -20,7 +20,7 @@
 
   const _vis = visible;
   visible = function (r) {
-    if (['planoitem', 'achado'].includes(r.entity_type)) {
+    if (['planoitem', 'achado', 'plano'].includes(r.entity_type)) {
       if (!can('atendimentos')) return false;
       return profile !== 'Aluno ou estagiário' || data(r).patientId === 'P-001';
     }
@@ -74,14 +74,33 @@
       </section></div>`;
   }
 
+  const ic = n => `<i data-lucide="${n}"></i>`;
+  const STAGE = { 'PR-01': 'Restauração', 'PR-02': 'Periodontia', 'PR-03': 'Cirurgia', 'PR-04': 'Endodontia', 'PR-05': 'Prevenção' };
+  const PILL = { 'Realizado': ['ok', 'circle-check'], 'Planejado': ['pend', 'clock'], 'Aprovado': ['pend', 'circle-check'], 'Em execução': ['warn', 'loader'], 'Cancelado': ['prev', 'circle'] };
+  const teamOf = pt => {
+    const a = of('agendamento').filter(x => data(x).patientId === pt && data(x).student).sort((x, y) => (data(y).date + data(y).time).localeCompare(data(x).date + data(x).time))[0], d = a ? data(a) : {};
+    const m = (d.professor || '').match(/^(Profa?\.)\s*(.*)$/);
+    return { disc: d.discipline || 'Dentística', student: d.student || '—', pl: m ? m[1] : 'Prof.', prof: m ? m[2] : (d.professor || '—') };
+  };
   function planTab(pt) {
     if (!can('atendimentos')) return restricted();
-    const its = items(pt);
-    const rows = its.map(i => { const d = data(i); return `<tr><td>${esc(d.stage || 'Procedimentos')}</td><td>${esc(d.label)}</td><td>${esc(d.tooth || '—')}</td><td>${esc(d.tooth ? d.face : '—')}</td><td>${d.qty}</td><td>${money(d.priceCents * d.qty)}</td><td>${badge(i.status)}${d.budgetId ? ' <small>Orç. ' + esc(d.budgetId) + '</small>' : ''}</td></tr>`; }).join('');
-    return `<section class="panel"><div class="panel-head"><h2>Plano de tratamento</h2><div class="actions">
-      ${can('atendimentos', 'editar') ? '<button class="btn secondary" data-tab="Odontograma">+ Adicionar procedimento</button>' : ''}
-      ${can('atendimentos', 'editar') ? '<button class="btn secondary" data-prepterm="1">Preparar termo</button>' : ''}${can('orcamentos', 'cadastrar') ? '<button class="btn" data-genbudget="1">Gerar orçamento</button>' : ''}</div></div>
-      ${its.length ? `<div class="table-wrap"><table><thead><tr><th>Etapa</th><th>Procedimento</th><th>Dente</th><th>Face</th><th>Qtd</th><th>Valor</th><th>Situação</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="empty">Nenhum procedimento no plano. Use o odontograma para adicionar.</div>'}</section>`;
+    const its = items(pt), tm = teamOf(pt), plans = of('plano').filter(r => data(r).patientId === pt), lastPlan = plans[plans.length - 1];
+    const rows = its.map(i => { const d = data(i), p = PILL[i.status] || ['prev', 'circle']; return `<tr><td>${esc(d.stage || 'Procedimentos')}</td><td>${esc(d.label)}${d.qty > 1 ? ' ×' + d.qty : ''}${d.priceCents === 0 ? ' <span class="tag good">Gratuidade</span>' : ''}</td><td>${esc(d.tooth ? d.tooth + (d.face ? ' · ' + d.face : '') : '—')}</td><td><span class="spill ${p[0]}">${ic(p[1])} ${esc(i.status)}</span>${d.budgetId ? ' <small>Orç. ' + esc(d.budgetId) + '</small>' : ''}</td></tr>`; }).join('');
+    return `<section class="panel"><h2 class="plan-title">Plano de tratamento</h2>
+      <div class="plan-top"><div class="teamstrip"><span>${ic('smile')}<b>${esc(tm.disc)}</b></span><span>${ic('graduation-cap')}<div><small>Aluno</small><b>${esc(tm.student)}</b></div></span><span>${ic('user-plus')}<div><small>${esc(tm.pl)}</small><b>${esc(tm.prof)}</b></div></span></div>
+      <div class="actions">${can('atendimentos', 'editar') ? `<button class="btn" data-tab="Odontograma">${ic('plus')} Adicionar procedimento</button><button class="btn" data-planrev="1">${ic('send')} Enviar plano para revisão</button>` : ''}</div></div>
+      ${lastPlan ? `<p class="section-note">Revisão do plano: ${badge(lastPlan.status)} v${data(lastPlan).version || 1}</p>` : ''}
+      ${its.length ? `<div class="table-wrap"><table class="ptable"><thead><tr><th>Etapa</th><th>Procedimento</th><th>Dente</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="empty">Nenhum procedimento no plano. Use o odontograma para adicionar.</div>'}
+      <div class="plan-cards"><div class="pcard2">${ic('file-text')}<div><h3>Orçamento</h3><p>Gerar orçamento dos procedimentos do plano.</p>${can('orcamentos', 'cadastrar') ? '<button class="btn secondary" data-genbudget="1">Gerar orçamento</button>' : ''}</div></div>
+      <div class="pcard2">${ic('user-check')}<div><h3>Consentimento</h3><p>Preparar o termo de consentimento informado para os procedimentos.</p>${can('atendimentos', 'editar') ? '<button class="btn secondary" data-prepterm="1">Preparar termo</button>' : ''}</div></div></div></section>`;
+  }
+
+  function submitPlan() {
+    const pt = activeDetail, its = items(pt), plans = of('plano').filter(r => data(r).patientId === pt);
+    if (!its.length) return toast('Adicione procedimentos ao plano antes de enviar para revisão.');
+    if (plans.some(r => r.status === 'Em revisão')) return toast('O plano já está em revisão.');
+    const tm = teamOf(pt), v = plans.length + 1, ps = record('plano', 'Plano · ' + byId(pt).title + ' · v' + v, 'Em revisão', { patientId: pt, version: v, itemIds: its.map(i => i.entity_id), student: tm.student, professor: (tm.pl + ' ' + tm.prof).trim(), discipline: tm.disc, turma: 'Odontologia 7º período', date: new Date().toISOString().slice(0, 10), history: [{ at: stamp(), by: profile, action: 'Enviado para revisão' }] });
+    run(() => commit([ps, aud('Plano enviado para revisão', ps.entity_id)]), 'Plano enviado para revisão do professor.');
   }
 
   function budgetsTab(pt) {
@@ -126,9 +145,11 @@
     else if (patientTab === 'Cobranças') content = chargesTab(pt);
     else if (window.OdontoX && OdontoX.tabs[patientTab]) content = OdontoX.tabs[patientTab](pt);
     else content = `<section class="panel">${table(related.filter(x => types[patientTab]?.includes(x.entity_type)), 'Nenhum registro nesta aba.')}</section>`;
+    const TI = { 'Resumo': 'file-text', 'Anamnese': 'clipboard-list', 'Odontograma': 'smile', 'Plano': 'calendar-check', 'Evoluções': 'activity', 'Exames': 'flask-conical', 'Documentos': 'folder', 'Orçamentos': 'tag', 'Cobranças': 'wallet', 'Encaminhamentos': 'send', 'Consultas': 'calendar', 'Histórico clínico': 'history', 'Procedimentos': 'stethoscope' };
+    const al = clin ? (window.OdontoX?.alert(pt) || (d.alertas ? 'Alerta: ' + d.alertas : '')) : '', [a1, a2] = al.split(' · ');
     return `<div class="crumb"><button class="link-btn" data-nav="pacientes">Pacientes</button> / ${esc(r.title)}</div>
-      <section class="panel"><div class="patient-head"><h1 style="margin:0">${esc(r.title)}</h1><span class="tag">${esc(d.prontuario || pt)}</span><span>${esc(d.idade || '')}</span><span>${esc(d.sexo || '')}</span>${clin && (window.OdontoX?.alert(pt) || d.alertas) ? `<span class="tag warn">⚠ ${esc(window.OdontoX?.alert(pt) || d.alertas)}</span>` : ''}</div></section>
-      <div class="tabs" role="tablist" aria-label="Seções do paciente">${tabs.map(t => `<button role="tab" class="${patientTab === t ? 'active' : ''}" aria-selected="${patientTab === t}" data-tab="${t}">${t}</button>`).join('')}</div>${content}`;
+      <section class="pcard"><span class="avatar big">${ic('user-round')}</span><div><h1>${esc(r.title)}</h1><div class="pmeta"><span class="tag">${esc(d.prontuario || pt)}</span>${d.idade ? `<span>${esc(d.idade)}</span>` : ''}${d.telefone ? `<span>${esc(d.telefone)}</span>` : ''}${d.sexo ? `<span>${esc(d.sexo)}</span>` : ''}</div></div>${al ? `<span class="palert">${ic('triangle-alert')} ${esc(a1)}${a2 ? ' · <b>' + esc(a2) + '</b>' : ''}</span>` : ''}</section>
+      <div class="ptabs" role="tablist" aria-label="Seções do paciente">${tabs.map(t => `<button role="tab" class="${patientTab === t ? 'on' : ''}" aria-selected="${patientTab === t}" data-tab="${t}">${ic(TI[t] || 'file')}${t}</button>`).join('')}</div>${content}`;
   };
 
   /* ---------- Ações ---------- */
@@ -139,7 +160,7 @@
     const proc = CATALOG.find(c => c[0] === od.proc) || CATALOG[0], tooth = general ? '' : String(od.tooth), creates = [];
     let fid = '';
     if (!general && od.finding) { const f = record('achado', 'Achado · dente ' + tooth + ' · ' + od.finding, 'Registrado', { patientId: pt, tooth, face: od.face, desc: od.finding, author: profile, date: new Date().toISOString().slice(0, 10) }); fid = f.entity_id; creates.push(f); }
-    const it = record('planoitem', proc[1] + (tooth ? ' · dente ' + tooth : ' · geral'), 'Planejado', { patientId: pt, tooth, face: tooth ? od.face : '', dentition: od.dent, code: proc[0], label: proc[1], qty: 1, priceCents: proc[2], findingId: fid, stage: 'Procedimentos', author: profile });
+    const it = record('planoitem', proc[1] + (tooth ? ' · dente ' + tooth : ' · geral'), 'Planejado', { patientId: pt, tooth, face: tooth ? od.face : '', dentition: od.dent, code: proc[0], label: proc[1], qty: 1, priceCents: proc[2], findingId: fid, stage: STAGE[proc[0]] || 'Procedimentos', author: profile });
     creates.push(it, aud('Item adicionado ao plano', it.entity_id));
     run(() => commit(creates), 'Procedimento adicionado ao plano.');
   }
@@ -236,6 +257,7 @@
     else if (ds.dent) { od.dent = ds.dent; od.tooth = ''; render(); }
     else if (ds.addplan) addPlan(ds.addplan === 'general');
     else if (ds.genbudget) genBudget();
+    else if (ds.planrev) submitPlan();
     else if (ds.approve) approveFlow(byId(ds.approve));
     else if (ds.genbill) genBill(ds.genbill);
     else if (ds.printbudget) printBudget(ds.printbudget);
