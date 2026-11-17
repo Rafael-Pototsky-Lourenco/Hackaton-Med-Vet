@@ -1,105 +1,129 @@
-<div align="center">
+# Clínicas Positivo
 
-# 🏥 Clínicas Positivo
+Protótipo de gestão das clínicas-escola da Universidade Positivo, feito em HTML, CSS e JavaScript puro. A entrada é `index.html`, que permite escolher entre Veterinária, Odontologia, Fisioterapia, Nutrição e Psicologia.
 
-**Protótipo de gestão para as clínicas-escola da Universidade Positivo**
+> Ambiente de demonstração com dados fictícios e perfis simulados no navegador. O projeto não é um sistema oficialmente aprovado pela instituição e não deve receber dados reais.
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
-![Sem dependências de build](https://img.shields.io/badge/build-nenhum-success)
-![Dados fictícios](https://img.shields.io/badge/dados-100%25%20fict%C3%ADcios-orange)
+## Como abrir
 
-</div>
+Extraia o ZIP inteiro e abra `index.html` no navegador. Mantenha os arquivos na mesma pasta para conservar os links entre páginas, estilos, scripts e logotipo.
 
-> ⚠️ **Ambiente de demonstração.** Todos os registros são fictícios. Este projeto não é um sistema oficialmente aprovado pela instituição e **não deve receber dados reais**. As permissões são apenas simuladas no navegador.
+Também é possível servir esta pasta com um servidor estático. Se houver Python instalado, execute na pasta do projeto:
 
-## ✨ Visão geral
-
-Uma única porta de entrada (`index.html`) permite escolher entre cinco clínicas. Cada uma tem sua própria interface, com módulos, perfis de acesso, dados de exemplo e documentação adaptados à sua área.
-
-| Clínica | Página | Destaques |
-|---|---|---|
-| 🐾 Veterinária | `med_vet.html` | Tutores, pacientes, cirurgias, internamento com leitos, prescrições e estoque |
-| 🦷 Odontológica | `odonto.html` | Exames e radiografias, procedimentos, materiais e estoque |
-| 🏃 Fisioterapia | `fisioterapia.html` | Sessões, avaliações funcionais e evolução do paciente |
-| 🍎 Nutrição | `nutricao.html` | Consultas, antropometria (peso e altura) e acompanhamento |
-| 🧠 Psicologia | `psicologia.html` | Sessões, prontuários com acesso controlado e supervisão |
-
-## 🧩 Funcionalidades
-
-- **Painel inicial** com indicadores clicáveis que abrem listas já filtradas
-- **Recepção e fila**, com registro manual de chegada
-- **Agenda** com detecção de conflito de profissional e sala, reagendamento, cancelamento sem apagar histórico e bloqueio de recursos
-- **Cadastro de pacientes** com alerta de possível duplicidade e abas de histórico
-- **Atendimentos e prontuários**: rascunho, finalização, adendos rastreáveis e envio para supervisão
-- **Supervisão acadêmica**: aluno envia, supervisor valida ou devolve
-- **Orçamentos e financeiro**, com recebimento parcial e saldo
-- **Relatórios** com exportação de resumo em CSV
-- **Busca global** filtrada pelo perfil ativo
-- **Perfis simulados** que mudam módulos e ações visíveis (matriz de permissões em *Configurações*)
-- **Documentação técnica** navegável dentro da própria aplicação
-- **Acessibilidade**: link de pular conteúdo, rótulos ARIA, foco visível e layout responsivo
-
-## 🚀 Como executar
-
-Não há build nem dependências para instalar.
-
-```bash
-git clone <url-do-repositorio>
-cd <pasta-do-projeto>
-
-# opção 1: abrir o index.html direto no navegador
-# opção 2: servir localmente
-python3 -m http.server 8000
-# acesse http://localhost:8000
+```sh
+python -m http.server 8000
 ```
 
-> Os ícones (Lucide) e a fonte (Inter) são carregados por CDN, então é necessário ter internet na primeira abertura.
+Acesse <http://localhost:8000>. Não há build nem pacotes para instalar. Os ícones Lucide e a fonte Inter são carregados por CDN e precisam de acesso à internet.
 
-## 🗂️ Estrutura
+## Estrutura dos arquivos
 
-```
-.
-├── index.html            # seleção da clínica
+A organização segue a imagem de referência: todos os arquivos ficam na raiz, com o mesmo nome-base para o HTML, CSS e JavaScript de cada clínica.
+
+```text
+clinica-veterinaria/
+├── README.md
+├── ALTERACOES.md
+├── app.js
+├── clinicas-data.js
+├── fisioterapia.css
+├── fisioterapia.html
+├── fisioterapia.js
 ├── index.css
-├── app.js                # redireciona para a clínica escolhida
-├── med_vet.{html,css,js}
-├── odonto.{html,css,js}
-├── fisioterapia.{html,css,js}
-├── nutricao.{html,css,js}
-├── psicologia.{html,css,js}
-├── manifest.webmanifest  # metadados PWA
-└── img/logo.png          # opcional
+├── index.html
+├── manifest.webmanifest
+├── med_vet-data.js
+├── med_vet.css
+├── med_vet.html
+├── med_vet.js
+├── nutricao.css
+├── nutricao.html
+├── nutricao.js
+├── odonto.css
+├── odonto.html
+├── odonto.js
+├── odonto_ext.js
+├── odonto_ext2.js
+├── odonto_ext3.js
+├── odonto_ui.js
+├── psicologia.css
+├── psicologia.html
+├── psicologia.js
+└── universidade_logo.png
 ```
 
-Cada clínica é independente: o HTML define o layout, o JS contém módulos, perfis, regras e dados fictícios, e o CSS traz apenas os estilos usados por aquela página.
+`med_vet-data.js` e `ALTERACOES.md` complementam os arquivos mostrados na imagem: o primeiro é necessário para a versão atual da Veterinária; o segundo registra as alterações anteriores e esta organização.
 
-## 💾 Armazenamento de dados
+## Responsabilidade de cada parte
 
-Os dados de exemplo ficam embutidos no JavaScript de cada clínica. Tudo o que você cria na demonstração é salvo no `localStorage` do navegador, com uma chave separada por clínica (`clinicas-positivo:<clínica>`).
+| Arquivo ou grupo | Responsabilidade |
+| --- | --- |
+| `index.html`, `index.css`, `app.js` | Seleção da clínica e navegação para sua página. |
+| `<clinica>.html` | Estrutura da página e carregamento de estilos e scripts. |
+| `<clinica>.css` | Estilos da clínica. `med_vet.css` também importa a base de `odonto.css`. |
+| `<clinica>.js` | Módulos, perfis, dados fictícios, regras e interações da clínica. |
+| `clinicas-data.js` | Serviço de armazenamento compartilhado, migração e consulta de possíveis duplicidades. |
+| `med_vet-data.js` | Validação e normalização dos registros veterinários antes da persistência. |
+| `odonto_ext.js`, `odonto_ext2.js`, `odonto_ext3.js` | Extensões dos fluxos odontológicos. |
+| `odonto_ui.js` | Ajustes de interface da Odontologia, incluindo estilos incorporados ao script. |
+| `manifest.webmanifest` | Nome, cores e página inicial da aplicação. |
+| `universidade_logo.png` | Logotipo usado pela entrada e pelas cinco clínicas. |
+| `ALTERACOES.md` | Histórico e detalhes das melhorias veterinárias. |
 
-- Limpar os dados do navegador apaga os registros criados.
-- Os dados não são sincronizados entre dispositivos.
-- Para recomeçar uma clínica, apague a chave dela no `localStorage`.
+| Clínica | Arquivos principais |
+| --- | --- |
+| Veterinária | `med_vet.html`, `med_vet.css`, `med_vet.js` |
+| Odontologia | `odonto.html`, `odonto.css`, `odonto.js` |
+| Fisioterapia | `fisioterapia.html`, `fisioterapia.css`, `fisioterapia.js` |
+| Nutrição | `nutricao.html`, `nutricao.css`, `nutricao.js` |
+| Psicologia | `psicologia.html`, `psicologia.css`, `psicologia.js` |
 
-## 🎨 Personalização
+## Ordem de carregamento
 
-- **Logotipo:** coloque o arquivo em `img/logo.png`. Se ele não existir, é exibido o texto "Universidade Positivo".
-- **Cores:** as variáveis `--navy` e `--blue` no início de cada `.css` definem a cor principal da clínica.
-- **Dados de exemplo:** edite o array `fixtures` no `.js` da clínica.
-- **Nova clínica:** copie um trio `.html/.css/.js` existente, ajuste `modules`, `profiles` e `fixtures`, troque a chave `STORE_KEY` e adicione uma `<option>` no `index.html`.
+As tags `<script>` no final dos HTMLs já respeitam as dependências. Preserve esta sequência:
 
-## 🔒 Limitações
+```text
+Entrada:
+  app.js
 
-Esta interface **não** possui autenticação, autorização no servidor, integrações (WhatsApp, e-mail, laboratórios, pagamentos, emissão fiscal) nem backup. As regras de permissão rodam apenas no navegador e escondê-las na interface não protege dados. Qualquer uso real exigiria projeto de segurança, revisão clínica, jurídica e institucional.
+Veterinária:
+  clinicas-data.js → med_vet-data.js → med_vet.js
 
-## 🛠️ Tecnologias
+Odontologia:
+  clinicas-data.js → odonto.js → odonto_ext.js → odonto_ext2.js
+                  → odonto_ext3.js → odonto_ui.js
 
-- HTML5, CSS3 e JavaScript puro (sem frameworks)
-- [Lucide](https://lucide.dev) para ícones
-- [Inter](https://fonts.google.com/specimen/Inter) via Google Fonts
+Fisioterapia:
+  clinicas-data.js → fisioterapia.js
 
-## 📄 Licença
+Nutrição:
+  clinicas-data.js → nutricao.js
 
-Defina aqui a licença do projeto (por exemplo, MIT) ou o aviso de uso institucional.
+Psicologia:
+  clinicas-data.js → psicologia.js
+```
+
+As extensões odontológicas usam funções do script principal e de extensões anteriores. `odonto_ext2.js` disponibiliza `window.OdontoX` para os scripts seguintes. Alterar a ordem, adicionar `async` ou converter apenas parte dos scripts para módulos exige revisar essas dependências.
+
+Na Veterinária, mantenha `odonto.css` junto de `med_vet.css`, pois a folha veterinária importa essa base visual.
+
+## Dados e funcionalidades
+
+Os scripts de cada clínica contêm os dados fictícios iniciais. O serviço `ClinicasData` salva os registros no `localStorage`, na chave compartilhada `clinicas-positivo:v2`, identificando a clínica de origem em cada registro.
+
+As chaves antigas `clinicas-positivo:<clinica>` são migradas pelo serviço, que mantém uma cópia em `clinicas-positivo:backup:<clinica>` quando há dados antigos. A Veterinária acrescenta validação e normalização por meio de `MedVetData`.
+
+Os dados ficam no navegador: não há sincronização entre dispositivos ou backend. Limpar o armazenamento do navegador remove os registros locais. Ao alternar entre abertura por arquivo e servidor local, o navegador pode apresentar armazenamentos diferentes.
+
+As clínicas mantêm os módulos existentes de painel, recepção, agenda, pacientes, atendimentos, supervisão, financeiro e relatórios, além dos fluxos específicos de cada área. Na Veterinária, o botão **Ver dia de demonstração** permite consultar os agendamentos fictícios de **22/05/2026**.
+
+## Personalização
+
+- **Logotipo:** substitua `universidade_logo.png` na raiz, preservando o nome, ou atualize o `src` nos seis HTMLs.
+- **Cores:** ajuste as variáveis CSS da clínica. Mudanças na base `odonto.css` também podem afetar a Veterinária.
+- **Dados de exemplo:** altere `fixtures` no JavaScript principal da clínica.
+- **Fluxos veterinários:** consulte também as regras de `med_vet-data.js` e os detalhes em `ALTERACOES.md`.
+
+## Limitações
+
+Os perfis e as permissões são simulados no navegador. Não há autenticação no servidor, integrações reais ou backup externo. A estrutura organizada conserva o comportamento da versão fornecida.
