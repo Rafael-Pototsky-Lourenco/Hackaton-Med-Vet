@@ -26,19 +26,19 @@ const profiles = [
 ];
 
 const entityModule = {
-  responsaveis: 'responsaveis', paciente: 'pacientes', agendamento: 'agenda', atendimento: 'atendimentos',
+  responsavel: 'responsaveis', paciente: 'pacientes', agendamento: 'agenda', atendimento: 'atendimentos',
   exame: 'exames', cirurgia: 'cirurgias', internamento: 'internamento', prescricao: 'prescricoes',
   produto: 'estoque', movimento: 'estoque', orcamento: 'orcamentos', cobranca: 'financeiro',
   pagamento: 'financeiro', cuidado: 'internamento', documento: 'prescricoes', auditoria: 'relatorios',
-  bloqueio: 'agenda', adendo: 'atendimentos', supervisao: 'supervisao'
+  bloqueio: 'agenda', adendo: 'atendimentos', supervisao: 'supervisao', procedimento: 'internamento'
 };
 
 const entityNames = {
-  responsaveis: 'Responsáveis', paciente: 'Paciente', agendamento: 'Agendamento', atendimento: 'Atendimento',
+  responsavel: 'Responsável', paciente: 'Paciente', agendamento: 'Agendamento', atendimento: 'Atendimento',
   exame: 'Exame', cirurgia: 'Cirurgia', internamento: 'Internamento', prescricao: 'Prescrição',
   produto: 'Produto', movimento: 'Movimento', orcamento: 'Orçamento', cobranca: 'Cobrança',
   pagamento: 'Pagamento', cuidado: 'Cuidado', documento: 'Documento', auditoria: 'Auditoria',
-  bloqueio: 'Bloqueio', adendo: 'Adendo', supervisao: 'Supervisão'
+  bloqueio: 'Bloqueio', adendo: 'Adendo', supervisao: 'Supervisão', procedimento: 'Procedimento'
 };
 
 const keyFor = {
@@ -46,6 +46,32 @@ const keyFor = {
   exames: 'exame', cirurgias: 'cirurgia', internamento: 'internamento', prescricoes: 'prescricao',
   estoque: 'produto', orcamentos: 'orcamento', financeiro: 'cobranca', supervisao: 'supervisao'
 };
+
+const createActions = {
+  responsavel: { label: 'Novo responsável', title: 'Novo responsável', submit: 'Cadastrar responsável', icon: 'user-plus', success: 'Responsável cadastrado.' },
+  paciente: { label: 'Novo paciente', title: 'Novo paciente', submit: 'Cadastrar paciente', icon: 'paw-print', success: 'Paciente cadastrado.' },
+  agendamento: { label: 'Novo agendamento', title: 'Novo agendamento', submit: 'Agendar atendimento', icon: 'calendar-plus', success: 'Atendimento agendado.' },
+  bloqueio: { label: 'Bloquear recurso', title: 'Bloquear horário ou recurso', submit: 'Confirmar bloqueio', icon: 'calendar-off', success: 'Bloqueio registrado.' },
+  atendimento: { label: 'Novo atendimento', title: 'Novo atendimento', submit: 'Abrir atendimento', icon: 'file-heart', success: 'Atendimento aberto em rascunho.' },
+  exame: { label: 'Novo exame', title: 'Solicitar exame', submit: 'Solicitar exame', icon: 'flask-conical', success: 'Exame solicitado.' },
+  cirurgia: { label: 'Programar cirurgia', title: 'Programar cirurgia', submit: 'Programar cirurgia', icon: 'heart-pulse', success: 'Cirurgia programada.' },
+  internamento: { label: 'Internar paciente', title: 'Internar paciente', submit: 'Confirmar internação', icon: 'bed', success: 'Paciente admitido no internamento.' },
+  prescricao: { label: 'Nova prescrição', title: 'Nova prescrição', submit: 'Salvar prescrição', icon: 'clipboard-list', success: 'Prescrição salva.' },
+  produto: { label: 'Novo produto', title: 'Novo produto', submit: 'Cadastrar produto', icon: 'package', success: 'Produto cadastrado.' },
+  orcamento: { label: 'Novo orçamento', title: 'Novo orçamento', submit: 'Salvar orçamento', icon: 'receipt', success: 'Orçamento salvo.' },
+  cobranca: { label: 'Nova cobrança', title: 'Nova cobrança', submit: 'Criar cobrança', icon: 'wallet', success: 'Cobrança criada.' }
+};
+
+const dashboardScenarios = [
+  { id: 'agenda', label: 'Agenda e recepção', profile: 'Recepção', module: 'agenda' },
+  { id: 'prontuario', label: 'Prontuário e alertas', profile: 'Médico-veterinário', module: 'pacientes', detail: 'P-001', tab: 'Resumo' },
+  { id: 'exames', label: 'Prontuário e exames', profile: 'Aluno ou estagiário', module: 'pacientes', detail: 'P-001', tab: 'Exames' },
+  { id: 'cirurgias', label: 'Cirurgias', profile: 'Médico-veterinário', module: 'cirurgias', detail: 'CIR-001' },
+  { id: 'internamento', label: 'Internamento e cuidados', profile: 'Equipe de internamento', module: 'internamento', detail: 'INT-001' },
+  { id: 'supervisao', label: 'Revisão acadêmica', profile: 'Professor ou supervisor', module: 'supervisao' },
+  { id: 'estoque', label: 'Entradas e saídas de estoque', profile: 'Estoque ou farmácia', module: 'estoque' },
+  { id: 'financeiro', label: 'Caixa e pagamentos', profile: 'Financeiro', module: 'financeiro', detail: 'CO-001' }
+];
 
 const fixtures = [
   ['T-001', 'responsavel', 'Marina Duarte', 'Ativo', { telefone: '(00) 00000-0001', email: 'marina@example.invalid', contato: 'WhatsApp' }],
@@ -61,18 +87,20 @@ const fixtures = [
   ['CIR-001', 'cirurgia', 'Procedimento programado · Luna', 'Programada', { patientId: 'P-001', professional: 'Dra. Ana (fictícia)', room: 'Centro cirúrgico', date: '2026-05-24', time: '10:00', duration: '90 min' }],
   ['CIR-002', 'cirurgia', 'Procedimento concluído · Mingau', 'Concluída', { patientId: 'P-002', professional: 'Dr. Bruno (fictício)', room: 'Centro cirúrgico', date: '2026-05-18', time: '08:00', duration: '60 min' }],
   ['INT-001', 'internamento', 'Internamento · Mingau', 'Internado', { patientId: 'P-002', bed: 'Leito 01', professional: 'Dr. Bruno (fictício)', reason: 'Observação pós-procedimento' }],
-  ['PR-001', 'prescricao', 'Cuidado de observação · Mingau', 'Ativa', { patientId: 'P-002', care: 'Verificar parâmetros conforme orientação profissional', time: '16:00', professional: 'Dr. Bruno (fictício)' }],
+  ['PR-001', 'prescricao', 'Cuidado de observação · Mingau', 'Ativa', { patientId: 'P-002', admissionId: 'INT-001', care: 'Verificar parâmetros conforme orientação profissional', time: '16:00', professional: 'Dr. Bruno (fictício)' }],
   ['PROD-001', 'produto', 'Material de curativo', 'Ativo', { code: 'MAT-001', unit: 'un', stock: 8, min: 10, lot: 'LOTE-A', expiry: '2026-12-31', priceCents: 1800 }],
   ['PROD-002', 'produto', 'Solução de limpeza', 'Ativo', { code: 'MAT-002', unit: 'frasco', stock: 15, min: 5, lot: 'LOTE-B', expiry: '2026-09-30', priceCents: 2500 }],
   ['OR-001', 'orcamento', 'Orçamento · Luna', 'Apresentado', { patientId: 'P-001', amountCents: 18000, items: 'Avaliação e material (previstos)' }],
   ['CO-001', 'cobranca', 'Conta · Mingau', 'Parcialmente paga', { patientId: 'P-002', amountCents: 12000, paidCents: 5000, origin: 'Procedimento CIR-002' }]
-].map(([entity_id, entity_type, title, status, payload]) => ({ entity_id, entity_type, title, status, payload: JSON.stringify(payload), updated_at: '2026-05-22T12:00:00.000Z', demo: true }));
+].map(([entity_id, entity_type, title, status, payload]) => MedVetData.normalizeRecord({ entity_id, entity_type, title, status, payload: JSON.stringify(payload), updated_at: '2026-05-22T12:00:00.000Z', demo: true }));
 
 let backendRecords = [], ready = false, current = 'painel', profile = profiles[0], activeDetail = null, page = 1, filter = '', sort = 'asc', agendaMode = 'dia', patientTab = 'Resumo', modalDirty = false;
-const _cd = ClinicasData.open('med_vet');
+let agendaDate = localDate(), agendaProfessional = '', agendaStatus = '', agendaRoom = '';
+let agendaSelectedId = null;
+const _cd = MedVetData.wrap(ClinicasData.open('med_vet'));
 const store = {
   load() { return _cd.load(); },
-  persist(list) { const ok = _cd.persist(list); if (ok) backendRecords = list; return { isOk: ok }; },
+  persist(list) { const ok = _cd.persist(list); if (ok) backendRecords = _cd.load(); return { isOk: ok, error: _cd.lastError }; },
   create(r) { return this.persist([...backendRecords, { ...r, __backendId: r.entity_id + '-' + Date.now() }]); },
   update(r) { return this.persist(backendRecords.map(x => x.__backendId === r.__backendId ? r : x)); }
 };
@@ -99,6 +127,44 @@ const money = n => new Intl.NumberFormat('pt-BR', { style: 'currency', currency:
 const stamp = () => new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', dateStyle: 'short', timeStyle: 'short' }).format(new Date());
 const uid = p => p.toUpperCase().slice(0, 3) + '-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 5).toUpperCase();
 
+function localDate(value = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(value);
+  const part = type => parts.find(p => p.type === type).value;
+  return `${part('year')}-${part('month')}-${part('day')}`;
+}
+
+function localDateTime(value = new Date()) {
+  const time = new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(value);
+  return localDate(value) + 'T' + time;
+}
+
+function fmtDateTime(value) {
+  if (!value) return 'Não informado';
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? esc(value) : new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', dateStyle: 'short', timeStyle: 'short' }).format(parsed);
+}
+
+function shiftDate(value, days) {
+  const date = new Date(value + 'T12:00:00Z');
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function formTimestamp(value) {
+  const zoned = MedVetData.validTimestamp(value) ? value : String(value || '') + '-03:00';
+  return MedVetData.validTimestamp(zoned) ? new Date(zoned).toISOString() : '';
+}
+
+function agendaRecords(records = list('agendamento')) {
+  const selected = new Date(agendaDate + 'T12:00:00Z');
+  const weekStart = shiftDate(agendaDate, -((selected.getUTCDay() + 6) % 7));
+  return records.filter(r => {
+    const d = data(r);
+    const inRange = agendaMode === 'semana' ? d.date >= weekStart && d.date <= shiftDate(weekStart, 6) : agendaMode === 'mes' ? d.date?.slice(0, 7) === agendaDate.slice(0, 7) : d.date === agendaDate;
+    return inRange && (!agendaProfessional || d.professional === agendaProfessional) && (!agendaStatus || r.status === agendaStatus) && (!agendaRoom || d.room === agendaRoom);
+  });
+}
+
 function can(module, action = 'visualizar') {
   if (module === 'documentacao') return action === 'visualizar';
   if (profile === 'Administração' || profile === 'Gestão da clínica') return true;
@@ -121,7 +187,7 @@ function can(module, action = 'visualizar') {
   if (profile === 'Recepção') return ['recepcao', 'agenda', 'responsaveis', 'pacientes', 'orcamentos'].includes(module) && action !== 'finalizar' && action !== 'validar';
   if (profile === 'Financeiro') return ['orcamentos', 'financeiro'].includes(module) && action !== 'validar';
   if (profile === 'Estoque ou farmácia') return module === 'estoque' || (module === 'prescricoes' && action === 'editar');
-  if (profile === 'Equipe de internamento') return module === 'internamento' && action !== 'validar';
+  if (profile === 'Equipe de internamento') return (module === 'internamento' && action !== 'validar') || (module === 'prescricoes' && action === 'editar');
   if (profile === 'Professor ou supervisor' && action === 'validar') return true;
   return action !== 'administrar';
 }
@@ -177,31 +243,43 @@ function navigate(m, detail = null, filtered = '') {
 }
 
 function heading(title, description, action = '') {
-  return `<div class="crumb">Início / ${esc(title)}</div><div class="page-heading"><div><h1>${esc(title)}</h1><p>${description}</p></div>${action}</div>`;
+  const module = modules.find(m => m[1] === title) || modules.find(m => m[0] === current);
+  return `<div class="pg-head"><div class="pg-title"><i data-lucide="${module?.[2] || 'clipboard-list'}" aria-hidden="true"></i><div><h1>${esc(title)}</h1><p>${description}</p></div></div>${action}</div>`;
+}
+
+function createButton(type) {
+  const action = createActions[type];
+  if (!action || !can(entityModule[type], 'cadastrar')) return '';
+  return `<button type="button" class="btn" data-new="${type}"><i data-lucide="${action.icon}" aria-hidden="true"></i> ${esc(action.label)}</button>`;
 }
 
 function badge(s) {
-  let bad = /Cancelado|Vencido|Atrasado|Bloqueado|Devolvido/.test(s);
-  let good = /Concluído|Finalizado|Avaliado|Pago|Validado|Ativo|Disponível/.test(s);
+  let bad = /Cancelad[oa]|Vencid[oa]|Atrasad[oa]|Bloquead[oa]|Devolvid[oa]|Não executado/.test(s);
+  let good = /Concluíd[oa]|Finalizad[oa]|Avaliad[oa]|Pag[oa]|Validad[oa]|Ativ[oa]|Disponível|Alta clínica|Executado|Realizado/.test(s);
   return `<span class="tag ${bad ? 'bad' : good ? 'good' : 'warn'}">${esc(s)}</span>`;
 }
 
-function recordRow(r) {
+function recordRow(r, type = '') {
   let d = data(r), p = d.patientId ? byId(d.patientId) : null;
+  const registration = ['paciente', 'responsavel'].includes(type);
   return `<tr>
     <td><button type="button" class="link-btn" data-detail="${esc(r.entity_id)}">${esc(r.title)}</button> ${r.demo ? '<span class="tag fict">Fictício</span>' : ''}</td>
     <td>${p ? esc(p.title) : r.entity_type === 'paciente' ? esc(byId(d.responsavelId)?.title || '—') : esc(d.professional || d.telefone || d.code || d.bed || '—')}</td>
     <td>${badge(r.status)}</td>
-    <td>${esc(d.date ? fmtDate(d.date) + (d.time ? ' · ' + d.time : '') : r.entity_id)}</td>
+    <td>${type === 'exame' ? fmtDate(d.requestedAt) + (d.requestedAtEstimated ? '<br><small title="Data recuperada da atualização do registro legado">Data recuperada do legado</small>' : '') : registration ? fmtDate(r.created_at) + (r.created_at_estimated ? '<br><small title="A data original de inclusão não existia; foi preservada a data disponível no registro">Data recuperada do legado</small>' : '') : esc(d.date ? fmtDate(d.date) + (d.time ? ' · ' + d.time : '') : r.entity_id)}</td>
+    ${type === 'internamento' ? `<td>${d.dischargeAt ? fmtDateTime(d.dischargeAt) : '—'}</td>` : ''}
+    ${registration ? `<td>${can(entityModule[type], 'editar') ? `<button class="btn small secondary" data-act="editRegistration" data-id="${esc(r.entity_id)}">Editar</button>` : '—'}</td>` : ''}
   </tr>`;
 }
 
 function table(records, empty = 'Nenhum resultado encontrado.') {
   if (!records.length) return `<div class="empty">${empty}</div>`;
+  const type = records.every(r => r.entity_type === records[0].entity_type) ? records[0].entity_type : '';
+  const registration = ['paciente', 'responsavel'].includes(type);
   return `<div class="table-wrap">
     <table>
-      <thead><tr><th>Registro</th><th>Vínculo / responsável</th><th>Status</th><th>Data / ID</th></tr></thead>
-      <tbody>${records.map(recordRow).join('')}</tbody>
+      <thead><tr><th>${esc(entityNames[type] || 'Registro')}</th><th>Vínculo / responsável</th><th>Status</th><th>${registration ? 'Data de inclusão' : type === 'exame' ? 'Data de solicitação' : 'Data / ID'}</th>${type === 'internamento' ? '<th>Data e hora da alta</th>' : ''}${registration ? '<th>Ações</th>' : ''}</tr></thead>
+      <tbody>${records.map(r => recordRow(r, type)).join('')}</tbody>
     </table>
   </div>`;
 }
@@ -235,8 +313,9 @@ function paged(records) {
 }
 
 function moduleList(m) {
+  if (m === 'estoque') return stockView();
   let name = modules.find(x => x[0] === m)?.[1] || m, t = keyFor[m], records = t ? list(t) : [];
-  let action = can(m, 'cadastrar') ? `<button class="btn" data-new="${t}"><i data-lucide="plus"></i> Novo registro</button>` : '';
+  let action = createButton(t);
   
   let description = {
     responsaveis: 'Cadastros de responsáveis, relacionados aos pacientes.',
@@ -256,15 +335,8 @@ function moduleList(m) {
   let special = '';
 
   if (m === 'agenda') {
-    special = `<div class="panel">
-      <div class="toolbar">
-        <div class="field"><label for="agenda-mode">Visualização</label><select id="agenda-mode"><option value="dia" ${agendaMode === 'dia' ? 'selected' : ''}>Diária</option><option value="semana" ${agendaMode === 'semana' ? 'selected' : ''}>Semanal</option><option value="mes" ${agendaMode === 'mes' ? 'selected' : ''}>Mensal</option></select></div>
-        <div class="field"><label for="agenda-prof">Profissional</label><select id="agenda-prof"><option value="">Todos</option><option>Dra. Ana (fictícia)</option><option>Dr. Bruno (fictício)</option></select></div>
-        <div class="field"><label for="agenda-status">Status</label><select id="agenda-status"><option value="">Todos</option><option>Agendado</option><option>Confirmado</option><option>Chegou</option><option>Aguardando</option><option>Concluído</option></select></div>
-        ${can(m, 'cadastrar') ? '<button class="btn secondary" data-new="bloqueio">Bloquear recurso</button>' : ''}
-      </div>
-      <p class="section-note">Visualização ${agendaMode === 'dia' ? 'diária' : agendaMode === 'semana' ? 'semanal' : 'mensal'} · filtre por profissional e status; sala, serviço e horários constam nos detalhes.</p>
-    </div>`;
+    records = agendaVisibleRecords(agendaRecords(records));
+    special = agendaControls() + `<div class="ag-layout"><div>${agendaBoard(records)}</div>${agendaSelection(records)}</div>`;
   }
   
   if (m === 'internamento') {
@@ -274,7 +346,7 @@ function moduleList(m) {
         return `<div class="bed ${r ? 'occupied' : ''}"><strong>${b}</strong><p style="margin:8px 0">${r ? esc(byId(data(r).patientId)?.title || r.title) : 'Disponível'}</p>${r ? badge('Ocupado') : badge('Disponível')}</div>`;
       }).join('')}
     </div>
-    <div class="panel"><strong>Passagem de plantão</strong><p class="section-note">Cuidados pendentes permanecem listados até execução ou justificativa.</p>${table(list('prescricao').filter(r => r.status === 'Ativa'), 'Sem cuidados pendentes.')}</div>`;
+    <div class="panel"><h2>Medicações e cuidados</h2><p class="section-note">Execuções ficam registradas com data, hora e responsável.</p>${careList(list('prescricao'))}</div>`;
   }
 
   if (m === 'estoque') {
@@ -295,47 +367,183 @@ function moduleList(m) {
 
   return heading(name, description, action) + special + 
     `<section class="panel">${toolbar()}${paged(records)}</section>
-    ${m === 'agenda' ? `<section class="panel"><h2>Bloqueios e indisponibilidades</h2>${table(list('bloqueio'), 'Nenhum bloqueio registrado.')}</section>` : ''}
+    ${m === 'agenda' ? `<section class="panel"><h2>Bloqueios e indisponibilidades</h2>${table(agendaRecords(list('bloqueio')), 'Nenhum bloqueio registrado no período.')}</section>` : ''}
     ${m === 'estoque' ? `<section class="panel"><h2>Movimentos de estoque</h2>${table(list('movimento'), 'Nenhuma movimentação registrada.')}</section>` : ''}
     ${m === 'financeiro' ? `<section class="panel"><h2>Pagamentos e caixa</h2>${table(list('pagamento'), 'Nenhum pagamento novo registrado.')}<p class="section-note">Meios eletrônicos só são confirmados por registro manual identificado nesta demonstração. Recibo não é nota fiscal.</p></section>` : ''}`;
 }
 
 function dashboard() {
+  const today = localDate();
   let cards = [
-    ['Consultas do dia', of('agendamento').filter(r => data(r).date === '2026-05-22').length, 'agenda', ''],
-    ['Pacientes aguardando', of('agendamento').filter(r => ['Chegou', 'Aguardando'].includes(r.status)).length, 'recepcao', ''],
-    ['Atendimentos em andamento', of('atendimento').filter(r => r.status === 'Rascunho').length, 'atendimentos', 'Rascunho'],
-    ['Cirurgias programadas', of('cirurgia').filter(r => r.status === 'Programada').length, 'cirurgias', 'Programada'],
-    ['Animais internados', of('internamento').filter(r => r.status === 'Internado').length, 'internamento', 'Internado'],
-    ['Cuidados pendentes', of('prescricao').filter(r => r.status === 'Ativa').length, 'internamento', ''],
-    ['Exames aguardando avaliação', of('exame').filter(r => r.status === 'Resultado disponível').length, 'exames', 'Resultado disponível'],
-    ['Aguardando supervisão', of('atendimento').filter(r => r.status === 'Aguardando supervisão').length, 'supervisao', ''],
-    ['Contas a receber', of('cobranca').filter(r => (data(r).amountCents || 0) > (data(r).paidCents || 0)).length, 'financeiro', ''],
-    ['Estoque mínimo', of('produto').filter(r => (data(r).stock || 0) <= (data(r).min || 0)).length, 'estoque', '']
+    ['Consultas do dia', list('agendamento').filter(r => data(r).date === today).length, 'agenda', ''],
+    ['Pacientes aguardando', list('agendamento').filter(r => ['Chegou', 'Aguardando'].includes(r.status)).length, 'recepcao', ''],
+    ['Atendimentos em andamento', list('atendimento').filter(r => r.status === 'Rascunho').length, 'atendimentos', 'Rascunho'],
+    ['Cirurgias programadas', list('cirurgia').filter(r => r.status === 'Programada').length, 'cirurgias', 'Programada'],
+    ['Animais internados', list('internamento').filter(r => r.status === 'Internado').length, 'internamento', 'Internado'],
+    ['Cuidados pendentes', list('prescricao').filter(r => r.status === 'Ativa').length, 'internamento', ''],
+    ['Exames aguardando avaliação', list('exame').filter(r => r.status === 'Resultado disponível').length, 'exames', 'Resultado disponível'],
+    ['Aguardando supervisão', list('atendimento').filter(r => r.status === 'Aguardando supervisão').length, 'supervisao', ''],
+    ['Contas a receber', list('cobranca').filter(r => (data(r).amountCents || 0) > (data(r).paidCents || 0)).length, 'financeiro', ''],
+    ['Estoque mínimo', list('produto').filter(r => (data(r).stock || 0) <= (data(r).min || 0)).length, 'estoque', '']
   ].filter(x => can(x[2]));
   
-  return heading('Painel inicial', `Visão operacional do perfil simulado: ${profile}. Indicadores baseados nos registros visíveis.`) +
-    `<div class="grid metrics">${cards.map(c => `<button class="metric" data-nav="${c[2]}" data-filter="${esc(c[3])}"><span>${c[0]}</span><strong class="number">${c[1]}</strong><span class="caption">Abrir lista filtrada →</span></button>`).join('')}</div>
+  let shortcuts = [['pacientes', 'Ver pacientes'], ['agenda', 'Ver agenda']].filter(([module]) => can(module));
+  if (!shortcuts.length) shortcuts = [['estoque', 'Ver estoque'], ['prescricoes', 'Ver prescrições']].filter(([module]) => can(module));
+  return `<div class="crumb">Início / Painel inicial</div><div class="page-heading"><div><h1>Painel inicial</h1><p>Visão operacional do perfil simulado: ${esc(profile)}. Indicadores baseados nos registros visíveis.</p></div></div>
+    <div class="grid metrics">${cards.map(c => `<button type="button" class="metric" data-nav="${c[2]}" data-filter="${esc(c[3])}" ${c[2] === 'agenda' ? `data-dashboard-day="${today}"` : ''}><span>${c[0]}</span><strong class="number">${c[1]}</strong><span class="caption">Abrir lista filtrada →</span></button>`).join('')}</div>
     <div class="grid two-col">
       <section class="panel">
         <div class="panel-head"><h2>Próximos passos</h2></div>
-        <p class="section-note">Comece pelos cadastros, confira a agenda e abra um atendimento. Cada registro mantém seus vínculos por ID.</p>
-        <div class="actions">
-          <button class="btn secondary" data-nav="responsaveis">Ver responsáveis</button>
-          <button class="btn secondary" data-nav="agenda">Ver agenda</button>
-        </div>
+        <p class="section-note">${can('pacientes') ? 'Comece pelos cadastros, confira a agenda e abra um atendimento. Cada registro mantém seus vínculos por ID.' : 'Confira o estoque disponível e acompanhe as prescrições. Cada movimentação mantém seu histórico.'}</p>
+        <div class="actions">${shortcuts.map(([module, label]) => `<button type="button" class="btn secondary" data-nav="${module}">${label}</button>`).join('')}</div>
       </section>
       <section class="panel">
         <h2>Estado da demonstração</h2>
-        <p>${ready ? `${backendRecords.length} registro(s) no armazenamento local; exemplos fictícios identificados separadamente.` : 'Aguardando leitura dos dados...'}</p>
+        <p>${ready ? `${backendRecords.filter(visible).length} registro(s) no armazenamento local; exemplos fictícios identificados separadamente.` : 'Aguardando leitura dos dados...'}</p>
         <p class="section-note">Nenhuma ação é executada em sistemas da instituição.</p>
       </section>
-    </div>`;
+    </div>
+    <section class="panel">
+      <h2>Testar o sistema</h2>
+      <p class="section-note">Atalhos para os cenários, com o perfil indicado.</p>
+      <div class="actions">${dashboardScenarios.map(scenario => `<button type="button" class="btn secondary small" data-dashboard-scenario="${scenario.id}">${scenario.label} · ${scenario.profile}</button>`).join('')}</div>
+    </section>`;
+}
+
+function openDashboardAgenda(date = localDate()) {
+  if (!can('agenda') || !MedVetData.validDate(date)) return;
+  agendaDate = date;
+  agendaMode = 'dia';
+  agendaProfessional = '';
+  agendaStatus = '';
+  agendaRoom = '';
+  agendaSelectedId = null;
+  navigate('agenda');
+}
+
+function openDashboardScenario(id) {
+  const scenario = dashboardScenarios.find(item => item.id === id);
+  if (!scenario) return;
+  profile = scenario.profile;
+  patientTab = scenario.tab || 'Resumo';
+  if (scenario.module === 'agenda') { openDashboardAgenda('2026-05-22'); return; }
+  const detail = scenario.detail && byId(scenario.detail);
+  navigate(scenario.module, detail && visible(detail) ? detail.entity_id : null);
+}
+
+function agendaControls(dashboardOnly = false) {
+  const options = (items, chosen, label) => `<option value="">${label}</option>` + items.map(value => `<option value="${esc(value)}" ${value === chosen ? 'selected' : ''}>${esc(value)}</option>`).join('');
+  const records = list('agendamento');
+  const filters = dashboardOnly ? '' : `<section class="filters agenda-filters" aria-label="Filtros da agenda"><div class="field"><label for="agenda-prof">Profissional</label><select id="agenda-prof">${options([...new Set(records.map(r => data(r).professional).filter(Boolean))], agendaProfessional, 'Todos os profissionais')}</select></div><div class="field"><label for="agenda-status">Status</label><select id="agenda-status">${options(['Agendado', 'Confirmado', 'Chegou', 'Aguardando', 'Em atendimento', 'Concluído', 'Cancelado'], agendaStatus, 'Todos os status')}</select></div><div class="field"><label for="agenda-room">Sala</label><select id="agenda-room">${options([...new Set(records.map(r => data(r).room).filter(Boolean))], agendaRoom, 'Todas as salas')}</select></div></section>`;
+  const modes = dashboardOnly ? '' : `<div class="seg" role="group" aria-label="Visualização da agenda">${[['dia', 'Dia'], ['semana', 'Semana'], ['mes', 'Mês']].map(([mode, label]) => `<button type="button" class="${agendaMode === mode ? 'on' : ''}" data-agenda-mode="${mode}" aria-pressed="${agendaMode === mode}">${label}</button>`).join('')}</div>`;
+  return filters + `<div class="datebar">${modes}<button type="button" class="icon-btn" data-agenda-shift="-1" aria-label="Dia anterior"><i data-lucide="chevron-left" aria-hidden="true"></i></button><div class="pill"><i data-lucide="calendar" aria-hidden="true"></i><label class="skip" for="agenda-date">${dashboardOnly ? 'Data da agenda' : 'Data de referência'}</label><input id="agenda-date" type="date" required value="${esc(agendaDate)}"></div><button type="button" class="icon-btn" data-agenda-shift="1" aria-label="Próximo dia"><i data-lucide="chevron-right" aria-hidden="true"></i></button><button type="button" class="btn small secondary" data-agenda-today="true">Hoje</button>${!dashboardOnly && can('agenda', 'cadastrar') ? '<button class="btn secondary datebar-action" data-new="bloqueio"><i data-lucide="calendar-off" aria-hidden="true"></i> Bloquear recurso</button>' : ''}</div>`;
+}
+
+function agendaVisibleRecords(records) {
+  const query = filter.toLowerCase();
+  return records.filter(r => (r.title + ' ' + r.status + ' ' + r.entity_id).toLowerCase().includes(query));
+}
+
+function selectedAgendaRecord(records) {
+  if (agendaSelectedId === '') return null;
+  return records.find(r => r.entity_id === agendaSelectedId) || records[0] || null;
+}
+
+function agendaCard(r, selectedId, style = '') {
+  const d = data(r), patient = byId(d.patientId);
+  const color = r.status === 'Cancelado' ? 'event-red' : r.status === 'Concluído' ? 'event-green' : r.status === 'Confirmado' ? 'event-blue' : 'event-yellow';
+  const label = `${fmtDate(d.date)} · ${d.time || 'Horário não informado'} – ${d.end || '—'} · ${patient?.title || r.title} · ${d.service || 'Consulta'} · ${r.status}`;
+  const selection = current === 'agenda' ? `data-agenda-select="${esc(r.entity_id)}" aria-pressed="${selectedId === r.entity_id}"` : `data-detail="${esc(r.entity_id)}"`;
+  return `<button type="button" class="ag-card ${color} ${selectedId === r.entity_id ? 'sel' : ''}" ${selection} ${style ? `style="${style}"` : ''} title="${esc(label)}" aria-label="${esc(label)}"><small>${esc(d.time || '—')} – ${esc(d.end || '—')} · ${esc(r.status)}</small><b>${esc(patient?.title || r.title)}</b><span>${esc(d.service || 'Consulta')}</span></button>`;
+}
+
+function agendaSelection(records) {
+  const r = selectedAgendaRecord(records);
+  if (!r) return `<aside class="ag-panel" aria-label="Detalhes do agendamento"><h2>Detalhes do agendamento</h2><p class="section-note">${records.length ? 'Selecione um horário na agenda para consultar o paciente e a equipe.' : 'Nenhum agendamento corresponde à data e aos filtros selecionados.'}</p>${records.length ? '' : '<button class="btn small secondary" data-demo-date="2026-05-22">Ver dia de demonstração</button>'}</aside>`;
+  const d = data(r), patient = byId(d.patientId), live = !['Cancelado', 'Concluído'].includes(r.status);
+  const row = (icon, value) => `<div class="ap-row"><i data-lucide="${icon}" aria-hidden="true"></i><span>${esc(value)}</span></div>`;
+  return `<aside class="ag-panel" aria-label="Detalhes do agendamento"><div class="ap-head"><div class="who"><span class="avatar"><i data-lucide="paw-print" aria-hidden="true"></i></span><div><h2>${esc(patient?.title || r.title)}</h2><small>${esc(data(patient).prontuario || d.patientId || r.entity_id)}</small></div></div><button class="icon-btn" type="button" data-agenda-close="true" aria-label="Fechar detalhes do agendamento"><i data-lucide="x" aria-hidden="true"></i></button></div><div class="ap-status">${badge(r.status)}</div>${row('calendar', fmtDate(d.date))}${row('clock', (d.time || '—') + ' – ' + (d.end || '—'))}${row('door-open', d.room || 'Sala não informada')}${row('stethoscope', d.service || 'Consulta')}${row('user-round', d.professional || 'Profissional não informado')}<div class="ap-actions">${live && !['Chegou', 'Aguardando', 'Em atendimento'].includes(r.status) && can('agenda', 'editar') ? `<button class="btn" data-act="arrive" data-id="${esc(r.entity_id)}"><i data-lucide="check" aria-hidden="true"></i> Registrar chegada</button>` : ''}${patient && visible(patient) && can('pacientes') ? `<button class="btn secondary" data-patient-file="${esc(patient.entity_id)}"><i data-lucide="external-link" aria-hidden="true"></i> Abrir ficha</button>` : ''}<button class="btn secondary" data-detail="${esc(r.entity_id)}">Ver agendamento</button>${live && can('agenda', 'editar') ? `<button class="btn secondary" data-act="reschedule" data-id="${esc(r.entity_id)}">Reagendar</button>` : ''}</div></aside>`;
+}
+
+function agendaBoard(records) {
+  const mode = current === 'painel' ? 'dia' : agendaMode;
+  const selectedId = current === 'agenda' ? selectedAgendaRecord(records)?.entity_id : null;
+  const card = (r, style = '') => agendaCard(r, selectedId, style);
+  const sorted = records.slice().sort((a, b) => (data(a).date + data(a).time).localeCompare(data(b).date + data(b).time));
+  const daysOfWeek = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+  const calendar = (body, label) => `<div class="agenda-calendar" role="region" aria-label="${label}" tabindex="0">${body}</div>`;
+  if (mode === 'semana') {
+    const weekday = (new Date(agendaDate + 'T12:00:00Z').getUTCDay() + 6) % 7;
+    const monday = shiftDate(agendaDate, -weekday);
+    return calendar(`<div class="ag-week">${daysOfWeek.map((label, i) => {
+      const date = shiftDate(monday, i), rows = sorted.filter(r => data(r).date === date);
+      return `<section aria-label="${label} ${fmtDate(date)}"><div class="ag-t">${label} · ${fmtDate(date)}</div>${rows.length ? rows.map(r => card(r)).join('') : '<div class="empty">Sem agendamentos</div>'}</section>`;
+    }).join('')}</div>`, 'Agenda da semana');
+  }
+  if (mode === 'mes') {
+    const first = agendaDate.slice(0, 7) + '-01';
+    const offset = (new Date(first + 'T12:00:00Z').getUTCDay() + 6) % 7;
+    const count = new Date(Date.UTC(Number(first.slice(0, 4)), Number(first.slice(5, 7)), 0)).getUTCDate();
+    const cells = Math.ceil((offset + count) / 7) * 7;
+    return calendar(`<div class="ag-month">${daysOfWeek.map(label => `<div class="ag-t">${label}</div>`).join('')}${Array.from({ length: cells }, (_, i) => {
+      const date = shiftDate(first, i - offset), outside = date.slice(0, 7) !== agendaDate.slice(0, 7);
+      return outside ? '<div class="ag-month-day outside" aria-hidden="true"></div>' : `<section class="ag-month-day ${date === localDate() ? 'today' : ''}" aria-label="${fmtDate(date)}"><strong>${Number(date.slice(-2))}</strong>${sorted.filter(r => data(r).date === date).map(r => card(r)).join('')}</section>`;
+    }).join('')}</div>`, 'Agenda do mês');
+  }
+
+  const minutes = time => {
+    const match = /^(\d{2}):(\d{2})$/.exec(String(time || ''));
+    return match && Number(match[1]) < 24 && Number(match[2]) < 60 ? Number(match[1]) * 60 + Number(match[2]) : NaN;
+  };
+  const entries = sorted.map(r => ({ r, start: minutes(data(r).time), end: minutes(data(r).end) })).filter(x => Number.isFinite(x.start) && Number.isFinite(x.end) && x.end > x.start);
+  const start = Math.min(480, ...entries.map(x => Math.floor(x.start / 30) * 30));
+  const end = Math.max(1080, ...entries.map(x => Math.ceil(x.end / 30) * 30));
+  const slots = (end - start) / 30;
+  const rooms = [...new Set(['Consultório 1', 'Consultório 2', 'Centro cirúrgico', ...sorted.map(r => data(r).room).filter(Boolean)])].filter(room => current === 'painel' || !agendaRoom || room === agendaRoom);
+  let column = 2;
+  const groups = rooms.map(room => {
+    const laneEnds = [];
+    const appointments = entries.filter(x => (data(x.r).room || 'Consultório 1') === room).map(entry => {
+      const from = Math.floor((entry.start - start) / 30), to = Math.ceil((entry.end - start) / 30);
+      let lane = laneEnds.findIndex(last => last <= from);
+      if (lane < 0) lane = laneEnds.length;
+      laneEnds[lane] = to;
+      return { ...entry, from, to, lane };
+    });
+    const group = { room, appointments, lanes: Math.max(1, laneEnds.length), column };
+    column += group.lanes;
+    return group;
+  });
+  const grid = `<div class="ag-grid" style="grid-template-columns:70px ${groups.map(g => `repeat(${g.lanes}, minmax(170px, 1fr))`).join(' ')};grid-template-rows:auto repeat(${slots}, 64px)"><div class="ag-t ag-time-head" style="grid-row:1;grid-column:1">Horário</div>${groups.map(g => `<div class="ag-boxh" style="grid-row:1;grid-column:${g.column}/span ${g.lanes}"><i data-lucide="stethoscope" aria-hidden="true"></i><div><b>${esc(g.room)}</b><small>${g.appointments.length} agendamento(s)</small></div></div>`).join('')}${Array.from({ length: slots }, (_, i) => {
+    const time = start + i * 30;
+    return `<div class="ag-t" style="grid-row:${i + 2};grid-column:1">${String(Math.floor(time / 60)).padStart(2, '0')}:${String(time % 60).padStart(2, '0')}</div>${groups.map(g => `<div class="ag-slot" aria-hidden="true" style="grid-row:${i + 2};grid-column:${g.column}/span ${g.lanes}"></div>`).join('')}`;
+  }).join('')}${groups.map(g => g.appointments.map(entry => card(entry.r, `grid-column:${g.column + entry.lane};grid-row:${entry.from + 2}/span ${entry.to - entry.from}`)).join('')).join('')}</div>`;
+  const missingTime = sorted.filter(r => !entries.some(entry => entry.r.entity_id === r.entity_id));
+  return calendar(grid, 'Agenda do dia por sala') + (missingTime.length ? `<div class="notice">Agendamentos com horário incompleto${missingTime.map(r => card(r)).join('')}</div>` : '');
+}
+
+function careList(records) {
+  if (!records.length) return '<div class="empty">Nenhuma medicação ou cuidado registrado.</div>';
+  return records.map(r => `<div class="care-item ${['Executado', 'Realizado'].includes(r.status) ? 'care-done' : ''}"><div><button class="link-btn" data-detail="${esc(r.entity_id)}">${esc(r.title)}</button><small>${esc(byId(data(r).patientId)?.title || '')} · ${esc(data(r).time || '')}${data(r).executedAt ? ' · Realizado em ' + fmtDateTime(data(r).executedAt) : ''}</small></div>${badge(r.status)}${r.status === 'Ativa' && can('prescricoes', 'editar') ? `<button class="btn small secondary" data-act="execute" data-id="${esc(r.entity_id)}">Marcar realizado</button>` : ''}</div>`).join('');
+}
+
+function stockView() {
+  const records = list('produto').filter(r => (r.title + ' ' + r.status + ' ' + r.entity_id + ' ' + data(r).code).toLowerCase().includes(filter.toLowerCase())).sort((a, b) => sort === 'asc' ? a.title.localeCompare(b.title, 'pt-BR') : b.title.localeCompare(a.title, 'pt-BR'));
+  const products = list('produto'), low = products.filter(r => Number(data(r).stock) <= Number(data(r).min));
+  return heading('Produtos e estoque', 'Consulte o saldo disponível, registre entradas e acompanhe as saídas.', createButton('produto')) + `<div class="grid metrics stock-summary"><div class="metric"><span>Itens cadastrados</span><strong class="number">${products.length}</strong></div><div class="metric"><span>No estoque mínimo</span><strong class="number">${low.length}</strong></div><div class="metric"><span>Lotes vencidos</span><strong class="number">${products.filter(r => data(r).expiry && data(r).expiry < localDate()).length}</strong></div></div><section class="panel">${toolbar()}<div class="table-wrap"><table><thead><tr><th>Produto / código</th><th>Estoque disponível</th><th>Mínimo</th><th>Lote / validade</th><th>Situação</th><th>Movimentar</th></tr></thead><tbody>${records.map(r => {
+    const d = data(r), expired = d.expiry && d.expiry < localDate();
+    return `<tr><td><button class="link-btn" data-detail="${esc(r.entity_id)}">${esc(r.title)}</button><br><small>${esc(d.code)}</small></td><td><strong class="stock-quantity">${Number(d.stock || 0).toLocaleString('pt-BR')}</strong> ${esc(d.unit)}</td><td>${Number(d.min || 0).toLocaleString('pt-BR')} ${esc(d.unit)}</td><td>${esc(d.lot || '—')}<br><small>${fmtDate(d.expiry)}</small></td><td>${badge(expired ? 'Vencido' : Number(d.stock) <= Number(d.min) ? 'Estoque baixo' : 'Disponível')}</td><td><div class="stock-actions">${can('estoque', 'editar') ? `<button class="btn small secondary" data-act="stockIn" data-id="${esc(r.entity_id)}">+ Entrada</button><button class="btn small secondary" data-act="consume" data-id="${esc(r.entity_id)}" ${expired || Number(d.stock) <= 0 ? 'disabled' : ''}>− Saída</button>` : '—'}</div></td></tr>`;
+  }).join('')}</tbody></table></div>${records.length ? '' : '<div class="empty">Nenhum produto encontrado.</div>'}</section><section class="panel"><h2>Histórico de movimentações</h2>${stockMovements()}</section>`;
+}
+
+function stockMovements() {
+  const movements = list('movimento').sort((a, b) => b.created_at.localeCompare(a.created_at));
+  return movements.length ? `<div class="table-wrap"><table><thead><tr><th>Movimento</th><th>Produto</th><th>Quantidade</th><th>Data e hora</th><th>Responsável / motivo</th></tr></thead><tbody>${movements.map(r => { const d = data(r); return `<tr><td>${badge(d.direction === 'Entrada' || r.title.startsWith('Entrada') ? 'Entrada' : 'Saída')}</td><td>${esc(byId(d.productId)?.title || d.productId)}</td><td>${esc(d.quantity)} ${esc(d.unit)}</td><td>${fmtDateTime(r.created_at)}</td><td>${esc(d.operator)}<br><small>${esc(d.reason)}</small></td></tr>`; }).join('')}</tbody></table></div>` : '<div class="empty">As entradas e saídas aparecerão aqui após o registro.</div>';
 }
 
 function reception() {
   let rows = list('agendamento').filter(r => ['Confirmado', 'Agendado', 'Chegou', 'Aguardando', 'Em atendimento'].includes(r.status));
-  return heading('Recepção e fila', 'Chegada registrada manualmente; prioridade clínica não é atribuída automaticamente.', can('agenda', 'cadastrar') ? '<button class="btn" data-new="agendamento">Novo agendamento</button>' : '') + 
+  return heading('Recepção e fila', 'Chegada registrada manualmente; prioridade clínica não é atribuída automaticamente.', createButton('agendamento')) + 
     `<section class="panel">
       <h2>Fila de atendimento</h2>
       ${rows.length ? `<div class="table-wrap"><table><thead><tr><th>Paciente</th><th>Horário / chegada</th><th>Profissional</th><th>Status</th><th>Ações</th></tr></thead><tbody>${rows.map(r => {
@@ -367,8 +575,9 @@ function patientDetail(r) {
         <strong>Espécie:</strong> ${esc(d.especie || 'Não informado')}<br>
         <strong>Raça:</strong> ${esc(d.raca || 'Não informado')}<br>
         <strong>Sexo:</strong> ${esc(d.sexo || 'Não informado')}<br>
-        <strong>Peso informado:</strong> ${esc(d.peso || 'Não informado')}<br>
-        <strong>Responsável:</strong> ${esc(byId(d.responsavelId)?.title || 'Não informado')}</p>
+        <strong>Peso informado:</strong> ${esc(d.peso || 'Não informado')} ${d.peso ? 'kg' : ''}<br>
+        <strong>Responsável:</strong> ${esc(byId(d.responsavelId)?.title || 'Não informado')}<br>
+        <strong>Data de inclusão:</strong> ${fmtDate(r.created_at)}${r.created_at_estimated ? ' <small>(recuperada do legado)</small>' : ''}</p>
       </div>
       <div class="panel"><h2>Alertas clínicos</h2>
         <p>${esc(d.alertas || 'Não informado — não equivale a ausência de alergias ou reações.')}</p>
@@ -377,7 +586,7 @@ function patientDetail(r) {
     </div>` : 
     `<section class="panel">${table(related.filter(x => types[patientTab]?.includes(x.entity_type)), 'Nenhum registro nesta aba.')}</section>`;
   
-  return heading(r.title, 'Paciente fictício · ' + (d.prontuario || r.entity_id), '<button class="btn secondary" data-nav="pacientes">Voltar à lista</button>') +
+  return heading(r.title, 'Prontuário · ' + (d.prontuario || r.entity_id), `<div class="actions">${can('pacientes', 'editar') ? `<button class="btn" data-act="editRegistration" data-id="${esc(r.entity_id)}">Editar cadastro</button>` : ''}<button class="btn secondary" data-nav="pacientes">Voltar à lista</button></div>`) +
     `<div class="tabs" role="tablist" aria-label="Seções do paciente">${tabs.map(t => `<button role="tab" class=" ${patientTab === t ? 'active' : ''}" aria-selected="${patientTab === t}" data-tab="${t}">${t}</button>`).join('')}</div>${content}`;
 }
 
@@ -386,10 +595,15 @@ function detail(r) {
   if (r.entity_type === 'paciente') return patientDetail(r);
   
   let d = data(r), m = entityModule[r.entity_type], related = d.patientId ? byId(d.patientId) : null;
-  let lines = Object.entries(d).filter(([k]) => !['patientId', 'responsavelId'].includes(k)).map(([k, v]) => `<div><strong>${esc(({ professional: 'Profissional', room: 'Sala', date: 'Data', time: 'Hora', end: 'Término', complaint: 'Queixa principal', notes: 'Registro', result: 'Laudo', stock: 'Estoque', priceCents: 'Preço', amountCents: 'Valor', paidCents: 'Recebido', bed: 'Leito', reason: 'Motivo', student: 'Aluno', supervisor: 'Supervisor', care: 'Cuidado', dose: 'Dose informada', unit: 'Unidade', lot: 'Lote', expiry: 'Validade', origin: 'Origem', arrivedAt: 'Chegada' }[k] || k))}:</strong> ${esc(k === 'date' || k === 'expiry' ? fmtDate(v) : k.endsWith('Cents') ? money(v) : v)}</div>`).join('');
+  const labels = { professional: 'Profissional', room: 'Sala', date: 'Data', time: 'Hora', end: 'Término', complaint: 'Queixa principal', notes: 'Registro', result: 'Laudo', stock: 'Estoque disponível', priceCents: 'Preço', amountCents: 'Valor', paidCents: 'Recebido', bed: 'Leito', reason: 'Motivo', student: 'Aluno', supervisor: 'Supervisor', care: 'Cuidado', dose: 'Dose informada', unit: 'Unidade', lot: 'Lote', expiry: 'Validade', origin: 'Origem', arrivedAt: 'Chegada', requestedAt: 'Data de solicitação', requestedAtEstimated: 'Data recuperada do registro legado', admissionId: 'Internamento', admission: 'Admissão', admissionAt: 'Data e hora de admissão', dischargeAt: 'Data e hora da alta', discharge: 'Orientações da alta', performedAt: 'Data e hora do procedimento', executedAt: 'Realizado em', executedBy: 'Realizado por', cancelReason: 'Motivo do cancelamento', canceledAt: 'Data e hora do cancelamento', dischargedBy: 'Profissional da alta', executionNotes: 'Observações da execução' };
+  let lines = Object.entries(d).filter(([k]) => !['patientId', 'responsavelId', 'dischargedAt'].includes(k)).map(([k, value]) => {
+    const formatted = ['date', 'expiry', 'requestedAt'].includes(k) ? fmtDate(value) : ['dischargeAt', 'performedAt', 'admissionAt', 'executedAt', 'canceledAt'].includes(k) ? fmtDateTime(value) : k.endsWith('Cents') ? money(value) : typeof value === 'boolean' ? value ? 'Sim' : 'Não' : typeof value === 'object' ? JSON.stringify(value) : value;
+    return '<div><strong>' + esc(labels[k] || k) + ':</strong> ' + esc(formatted) + '</div>';
+  }).join('');
   let acts = [];
   
   const add = (label, act, permission = 'editar') => { if (can(m, permission)) acts.push(`<button class="btn small secondary" data-act="${act}" data-id="${r.entity_id}">${label}</button>`); };
+  if (r.entity_type === 'responsavel') add('Editar cadastro', 'editRegistration');
   
   if (r.entity_type === 'agendamento') {
     if (!['Cancelado', 'Concluído'].includes(r.status)) { add('Registrar chegada', 'arrive'); add('Reagendar', 'reschedule'); add('Cancelar', 'cancel', 'cancelar'); }
@@ -406,17 +620,30 @@ function detail(r) {
     if (r.status === 'Finalizado') { add('Adicionar adendo', 'addendum'); if (can('exames', 'cadastrar')) acts.push(`<button class="btn small secondary" data-new="exame" data-patient="${esc(d.patientId || '')}">Solicitar exame</button>`); }
   }
   if (r.entity_type === 'exame') { if (r.status === 'Solicitado') add('Anexar resultado textual', 'result'); if (r.status === 'Resultado disponível') add('Registrar avaliação', 'evaluate', 'validar'); }
-  if (r.entity_type === 'cirurgia') { if (r.status === 'Programada') { add('Iniciar procedimento', 'surgeryStart'); add('Encaminhar ao internamento', 'admit'); } if (r.status === 'Em andamento') add('Concluir procedimento', 'surgeryFinish'); }
-  if (r.entity_type === 'internamento' && r.status === 'Internado') { add('Registrar evolução', 'evolution'); add('Prescrever cuidado', 'care'); add('Transferir leito', 'transfer'); add('Alta clínica', 'discharge', 'finalizar'); }
+  if (r.entity_type === 'cirurgia') { if (r.status === 'Programada') { add('Iniciar procedimento', 'surgeryStart'); add('Encaminhar ao internamento', 'admit'); } if (r.status === 'Em andamento') add('Concluir procedimento', 'surgeryFinish'); if (['Programada', 'Em andamento'].includes(r.status)) add('Cancelar cirurgia', 'surgeryCancel'); }
+  if (r.entity_type === 'internamento' && r.status === 'Internado') { add('Registrar procedimento', 'procedure'); add('Registrar evolução', 'evolution'); if (can('prescricoes', 'cadastrar')) add('Prescrever cuidado', 'care'); add('Transferir leito', 'transfer'); add('Alta clínica', 'discharge', 'finalizar'); }
   if (r.entity_type === 'prescricao' && r.status === 'Ativa') { add('Registrar execução', 'execute'); add('Justificar não execução', 'skipCare'); if (can('estoque', 'editar')) add('Dispensar item', 'dispense'); }
   if (r.entity_type === 'produto') { add('Entrada de estoque', 'stockIn'); add('Consumo clínico', 'consume'); }
   if (r.entity_type === 'orcamento') { add('Aprovar itens', 'approve'); add('Aprovação parcial', 'partial'); }
   if (r.entity_type === 'cobranca' && can('financeiro', 'editar')) { add('Receber parcialmente', 'pay'); add('Estornar lançamento', 'reverse', 'cancelar'); }
   
   return heading(r.title, `${entityNames[r.entity_type] || 'Registro'} · ID ${r.entity_id} · ${r.demo ? 'Registro fictício de exemplo' : 'Registro de demonstração'}`, `<button class="btn secondary" data-nav="${m}">Voltar</button>`) +
-    `<section class="panel"><div class="panel-head"><h2>Detalhes</h2>${badge(r.status)}</div><div class="grid two-col" style="line-height:1.9"><div><strong>Paciente:</strong> ${esc(related?.title || 'Não se aplica')}<br><strong>Identificador:</strong> ${esc(r.entity_id)}<br><strong>Atualizado:</strong> ${esc(r.demo ? 'Exemplo fictício' : stamp())}</div><div>${lines || 'Sem informações adicionais.'}</div></div><div class="actions" style="margin-top:20px">${acts.join('')}</div></section>
+    `<section class="panel"><div class="panel-head"><h2>Detalhes</h2>${badge(r.status)}</div><div class="grid two-col" style="line-height:1.9"><div><strong>Paciente:</strong> ${esc(related?.title || 'Não se aplica')}<br><strong>Identificador:</strong> ${esc(r.entity_id)}<br><strong>Data de inclusão:</strong> ${fmtDate(r.created_at)}${r.created_at_estimated ? ' <small>(recuperada do legado)</small>' : ''}<br><strong>Atualizado:</strong> ${fmtDateTime(r.updated_at)}</div><div>${lines || 'Sem informações adicionais.'}</div></div><div class="actions" style="margin-top:20px">${acts.join('')}</div></section>
+    ${r.entity_type === 'internamento' ? admissionHistory(r) : ''}
     ${r.entity_type === 'atendimento' ? `<section class="panel"><h2>Adendos e revisão</h2>${table(all().filter(x => ['adendo', 'supervisao'].includes(x.entity_type) && data(x).parentId === r.entity_id), 'Nenhum adendo ou comentário.')}</section>` : ''}
     ${r.entity_type === 'cobranca' ? `<section class="panel"><h2>Saldo</h2><strong>${money(Math.max(0, (d.amountCents || 0) - (d.paidCents || 0)))}</strong><p class="section-note">Pagamento parcial não encerra a conta. Alta clínica é independente do saldo.</p></section>` : ''}`;
+}
+
+function admissionHistory(r) {
+  const d = data(r);
+  const linked = all().filter(x => visible(x) && (data(x).admissionId === r.entity_id || data(x).parentId === r.entity_id));
+  const history = linked.filter(x => ['procedimento', 'documento'].includes(x.entity_type)).map(x => ({ title: x.title, at: data(x).performedAt || x.created_at, notes: data(x).notes, professional: data(x).professional || data(x).author, status: x.status }));
+  history.push({ title: 'Admissão no internamento', at: d.admissionAt || r.created_at, notes: d.reason, professional: d.professional, status: 'Registrado' });
+  if (d.dischargeAt) history.push({ title: 'Alta clínica', at: d.dischargeAt, notes: d.discharge, professional: d.dischargedBy || d.professional, status: 'Alta clínica' });
+  const cares = linked.filter(x => x.entity_type === 'prescricao');
+  cares.filter(x => data(x).executedAt).forEach(x => history.push({ title: x.title, at: data(x).executedAt, notes: data(x).executionNotes || data(x).care, professional: data(x).executedBy, status: x.status }));
+  history.sort((a, b) => new Date(b.at) - new Date(a.at));
+  return `<section class="panel"><div class="panel-head"><h2>Histórico de procedimentos e evolução</h2><small>Internamento ${esc(r.entity_id)}</small></div><ol class="timeline">${history.map(entry => `<li class="timeline-item"><div class="panel-head"><strong>${esc(entry.title)}</strong>${badge(entry.status)}</div><div class="timeline-meta">${fmtDateTime(entry.at)} · ${esc(entry.professional || 'Não informado')}</div><p class="timeline-note">${esc(entry.notes || 'Sem observações adicionais.')}</p></li>`).join('')}</ol></section><section class="panel"><h2>Medicações e cuidados deste internamento</h2>${careList(cares)}</section>`;
 }
 
 function settings() {
@@ -474,7 +701,7 @@ function render() {
 }
 
 function field(id, label, type = 'text', value = '', extra = '') {
-  return `<div class="field"><label for="${id}">${label}</label><input id="${id}" name="${id}" type="${type}" value="${esc(value)}" ${extra}><span class="error" id="err-${id}"></span></div>`;
+  return `<div class="field"><label for="${id}">${label}</label><input id="${id}" name="${id}" type="${type}" value="${esc(value)}" ${label.includes('*') ? 'required' : ''} aria-describedby="err-${id}" ${extra}><span class="error" id="err-${id}"></span></div>`;
 }
 
 function selectField(id, label, options, chosen = '') {
@@ -485,7 +712,7 @@ function patientOptions() { return list('paciente').map(r => [r.entity_id, r.tit
 function responsavelOptions() { return list('responsavel').map(r => [r.entity_id, r.title]); }
 function textArea(id, label, value = '') { return `<div class="field span-2"><label for="${id}">${label}</label><textarea id="${id}" name="${id}">${esc(value)}</textarea><span class="error" id="err-${id}"></span></div>`; }
 
-function openModal(title, content, submit = 'Gravar registro', handler = null) {
+function openModal(title, content, submit = 'Salvar', handler = null) {
   $('#modal-root').innerHTML = `<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-head"><h2 id="modal-title">${esc(title)}</h2><button class="icon-btn" type="button" id="close-modal" aria-label="Fechar"><i data-lucide="x"></i></button></div><form id="modal-form" novalidate>${content}<div id="modal-feedback" role="alert"></div><div class="actions" style="justify-content:flex-end;margin-top:20px"><button type="button" class="btn secondary" id="cancel-modal">Cancelar</button><button type="submit" class="btn">${submit}</button></div></form></div></div>`;
   modalDirty = false;
   $('#modal-form').addEventListener('input', () => modalDirty = true);
@@ -517,69 +744,66 @@ function err(id, msg) {
 function values() { return Object.fromEntries(new FormData($('#modal-form')).entries()); }
 
 function record(type, title, statusText, payload) {
-  return { entity_id: uid(type), entity_type: type, title, status: statusText, payload: JSON.stringify(payload), updated_at: new Date().toISOString() };
+  const now = new Date().toISOString();
+  return { entity_id: uid(type), entity_type: type, title, status: statusText, payload: JSON.stringify(payload), created_at: now, updated_at: now };
+}
+
+function showSaveError(message) {
+  const error = _cd.lastError;
+  if (error?.field) err(error.field === 'peso' ? 'weight' : error.field, error.error);
+  const feedback = $('#modal-feedback');
+  if (feedback) feedback.innerHTML = `<div class="notice error-note">${esc(error?.error || message)}</div>`;
+}
+
+async function commitRecords(changes, button) {
+  const old = button?.textContent;
+  if (button) { button.disabled = true; button.textContent = 'Gravando...'; }
+  try {
+    const next = [...backendRecords];
+    changes.forEach(change => {
+      const index = next.findIndex(x => x.entity_id === change.entity_id);
+      const copy = { ...change, demo: false, __backendId: index >= 0 ? next[index].__backendId : change.entity_id + '-' + Date.now() };
+      if (index >= 0) next[index] = copy; else next.push(copy);
+    });
+    if (next.length > 999) { showSaveError('Limite de 999 registros atingido.'); return false; }
+    if (!store.persist(next).isOk) { showSaveError('Falha ao gravar. Nenhuma alteração foi aplicada.'); return false; }
+    modalDirty = false;
+    $('#modal-root').innerHTML = '';
+    return true;
+  } catch (error) {
+    showSaveError('Falha ao gravar. Tente novamente.');
+    return false;
+  } finally {
+    if (button) { button.disabled = false; button.textContent = old; }
+  }
 }
 
 async function saveNew(r, button) {
-  if (backendRecords.length >= 999) { toast('Limite de 999 registros atingido.'); return false; }
-  button.disabled = true; button.textContent = 'Gravando...';
-  try {
-    let res = store.create(r);
-    if (!res.isOk) {
-      $('#modal-feedback').innerHTML = '<div class="notice error-note">Não foi possível confirmar a gravação. Atualize os dados antes de tentar novamente.</div>';
-      return false;
-    }
-    modalDirty = false;
-    $('#modal-root').innerHTML = '';
-    toast('Registro gravado no navegador.');
-    return true;
-  } catch (e) {
-    $('#modal-feedback').innerHTML = '<div class="notice error-note">Erro de salvamento. Confira a conexão e tente novamente após atualizar.</div>';
-    return false;
-  } finally {
-    button.disabled = false;
-    button.textContent = 'Gravar registro';
-  }
+  const ok = await commitRecords([r], button);
+  if (ok) toast(createActions[r.entity_type]?.success || 'Registro salvo no navegador.');
+  return ok;
 }
 
-async function updateRecord(r, patch, statusText, button) {
-  if (r.demo) {
-    let copy = { entity_id: r.entity_id, entity_type: r.entity_type, title: r.title, status: statusText ?? r.status, payload: JSON.stringify({ ...data(r), ...patch }), updated_at: new Date().toISOString() };
-    return saveNew(copy, button);
-  }
-  let source = backendRecords.find(x => x.__backendId === r.__backendId);
-  if (!source) { toast('Registro mudou. Atualize antes de editar.'); return false; }
-  button.disabled = true;
-  let old = button.textContent;
-  button.textContent = 'Gravando...';
-  try {
-    let result = store.update({ ...source, status: statusText ?? r.status, payload: JSON.stringify({ ...data(r), ...patch }), updated_at: new Date().toISOString() });
-    if (!result.isOk) {
-      $('#modal-feedback').innerHTML = '<div class="notice error-note">Não foi possível confirmar a alteração. Atualize antes de tentar novamente.</div>';
-      return false;
-    }
-    modalDirty = false;
-    $('#modal-root').innerHTML = '';
-    toast('Alteração gravada no navegador.');
-    return true;
-  } catch (e) {
-    $('#modal-feedback').innerHTML = '<div class="notice error-note">Falha ao gravar alteração.</div>';
-    return false;
-  } finally {
-    button.disabled = false;
-    button.textContent = old;
-  }
+async function updateRecord(r, patch, statusText, button, title = r.title) {
+  const source = byId(r.entity_id);
+  if (!source) { toast('Registro indisponível. Atualize antes de editar.'); return false; }
+  const updated = { ...source, title, status: statusText ?? source.status, payload: JSON.stringify({ ...data(source), ...patch }), created_at: source.created_at, updated_at: new Date().toISOString() };
+  const ok = await commitRecords([updated], button);
+  if (ok) toast('Alteração gravada no navegador.');
+  return ok;
 }
 
-async function createFlow(type, patientId = '') {
-  if (!can(entityModule[type] || 'agenda', 'cadastrar')) return toast('Ação indisponível para este perfil.');
-  let title = 'Novo ' + (entityNames[type] || 'registro').toLowerCase(), html = '', initial = patientId || patientOptions()[0]?.[0] || '';
+async function createFlow(type, patientId = '', admissionId = '', editing = null) {
+  const action = createActions[type];
+  if (!action) return toast('Este fluxo deve ser iniciado pelo atendimento relacionado.');
+  if (!can(entityModule[type] || 'agenda', editing ? 'editar' : 'cadastrar')) return toast('Ação indisponível para este perfil.');
+  let title = editing ? 'Editar ' + entityNames[type].toLowerCase() : action.title, html = '', initial = patientId || patientOptions()[0]?.[0] || '';
   
   if (type === 'responsavel') html = `<div class="form-grid">${field('name', 'Nome ou razão social *')}${field('phone', 'Telefone (opcional)', 'tel')}${field('email', 'E-mail (opcional)', 'email')}${selectField('contact', 'Preferência de contato', [['Telefone', 'Telefone'], ['WhatsApp', 'WhatsApp'], ['E-mail', 'E-mail']])}${field('address', 'Endereço (opcional)')}${textArea('notes', 'Observações')}</div><p class="section-note">Responsável provisório é permitido. Documentos de identificação não são coletados nesta demonstração.</p>`;
-  else if (type === 'paciente') html = `<div class="form-grid">${field('name', 'Nome do paciente *')}${selectField('responsavel', 'Responsável *', responsavelOptions())}${selectField('species', 'Espécie', [['Cão', 'Cão'], ['Gato', 'Gato'], ['Coelho', 'Coelho'], ['Outra', 'Outra']])}${field('breed', 'Raça ou SRD')}${selectField('sex', 'Sexo', [['Não informado', 'Não informado'], ['Fêmea', 'Fêmea'], ['Macho', 'Macho']])}${field('weight', 'Peso informado (kg)', 'number', '', 'min="0" step="0.01"')}${textArea('alerts', 'Alertas, alergias e reações (não preencher como normal automaticamente)')}</div><div id="duplicate-warning" class="notice">Possíveis duplicidades por nome e responsável serão exibidas antes da gravação. Não há união automática.</div>`;
+  else if (type === 'paciente') html = `<div class="form-grid">${field('name', 'Nome do paciente *')}${selectField('responsavel', 'Responsável *', responsavelOptions())}${selectField('species', 'Espécie', [['Cão', 'Cão'], ['Gato', 'Gato'], ['Coelho', 'Coelho'], ['Outra', 'Outra']])}${field('breed', 'Raça ou SRD')}${selectField('sex', 'Sexo', [['Não informado', 'Não informado'], ['Fêmea', 'Fêmea'], ['Macho', 'Macho']])}${field('weight', 'Peso do paciente (kg) *', 'number', '', 'min="0.001" step="any"')}${textArea('alerts', 'Alertas, alergias e reações (não preencher como normal automaticamente)')}</div><div id="duplicate-warning" class="notice">Possíveis duplicidades por nome e responsável serão exibidas antes da gravação. Não há união automática.</div>`;
   else if (type === 'agendamento' || type === 'bloqueio') html = `<div class="form-grid">${type === 'agendamento' ? selectField('patient', 'Paciente *', patientOptions()) : field('name', 'Motivo do bloqueio *')}${selectField('professional', 'Profissional / recurso', [['Dra. Ana (fictícia)', 'Dra. Ana (fictícia)'], ['Dr. Bruno (fictício)', 'Dr. Bruno (fictício)']])}${selectField('room', 'Sala', [['Consultório 1', 'Consultório 1'], ['Consultório 2', 'Consultório 2'], ['Centro cirúrgico', 'Centro cirúrgico']])}${field('date', 'Data *', 'date')}${field('time', 'Início *', 'time')}${field('end', 'Fim *', 'time')}${type === 'agendamento' ? field('service', 'Serviço', 'text', 'Consulta') : ''}${textArea('notes', 'Observações ou justificativa de encaixe')}</div>`;
   else if (type === 'atendimento') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${selectField('kind', 'Tipo', [['Consulta', 'Consulta'], ['Retorno', 'Retorno'], ['Sem agendamento', 'Sem agendamento']])}${field('professional', 'Profissional *', 'text', profile === 'Aluno ou estagiário' ? 'Aluno(a) Camila (fictício)' : 'Dra. Ana (fictícia)')}${field('complaint', 'Queixa principal *')}${textArea('notes', 'Anamnese, exame físico, parâmetros com unidades, conduta e orientações — diferencie não informado, não avaliado e normal')}${profile === 'Aluno ou estagiário' ? field('supervisor', 'Supervisor *', 'text', 'Prof.ª Elisa (fictícia)') : ''}</div><p class="section-note">Rascunho pode ser continuado depois. Nenhum diagnóstico ou achado é gerado automaticamente.</p>`;
-  else if (type === 'exame') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${field('name', 'Exame solicitado *')}${field('requester', 'Solicitante *', 'text', 'Dra. Ana (fictícia)')}${selectField('priority', 'Prioridade informada', [['Rotina', 'Rotina'], ['Prioritário', 'Prioritário']])}${field('lab', 'Laboratório interno ou externo')}${textArea('notes', 'Observações')}</div>`;
+  else if (type === 'exame') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${field('name', 'Exame solicitado *')}${field('requestedAt', 'Data de solicitação *', 'date', localDate())}${field('requester', 'Solicitante *', 'text', 'Dra. Ana (fictícia)')}${selectField('priority', 'Prioridade informada', [['Rotina', 'Rotina'], ['Prioritário', 'Prioritário']])}${field('lab', 'Laboratório interno ou externo')}${textArea('notes', 'Observações')}</div>`;
   else if (type === 'cirurgia') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${field('name', 'Procedimento *')}${field('professional', 'Cirurgião *', 'text', 'Dra. Ana (fictícia)')}${field('anesthetist', 'Anestesista (informado pelo responsável)')}${field('room', 'Sala', 'text', 'Centro cirúrgico')}${field('date', 'Data *', 'date')}${field('time', 'Horário *', 'time')}${field('duration', 'Duração prevista (min)', 'number', '', 'min="1"')}${textArea('notes', 'Avaliação pré-operatória, autorizações e checklist (sem protocolos automáticos)')}</div>`;
   else if (type === 'internamento') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${selectField('bed', 'Leito *', [['Leito 01', 'Leito 01'], ['Leito 02', 'Leito 02'], ['Leito 03', 'Leito 03']])}${field('professional', 'Responsável clínico *')}${textArea('reason', 'Motivo da admissão *')}</div>`;
   else if (type === 'prescricao') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${field('name', 'Medicamento ou cuidado *')}${field('dose', 'Dose somente se informada pelo veterinário')}${field('unit', 'Unidade / apresentação')}${field('route', 'Via')}${field('time', 'Próximo horário *', 'time')}${field('professional', 'Veterinário responsável *')}${textArea('notes', 'Frequência, início, término e observações')}</div>`;
@@ -587,17 +811,23 @@ async function createFlow(type, patientId = '') {
   else if (type === 'orcamento' || type === 'cobranca') html = `<div class="form-grid">${selectField('patient', 'Paciente *', patientOptions(), initial)}${field('name', type === 'orcamento' ? 'Descrição do orçamento *' : 'Descrição da cobrança *')}${field('amount', 'Valor (R$) *', 'number', '', 'min="0.01" step="0.01"')}${textArea('notes', 'Itens, origem e observações')}</div>`;
   else { toast('Este fluxo deve ser iniciado pelo registro relacionado.'); return; }
 
-  openModal(title, html, 'Gravar registro', async e => {
+  openModal(title, html, editing ? 'Salvar alterações' : action.submit, async e => {
     e.preventDefault();
     let v = values(), button = e.submitter;
-    let required = type === 'responsavel' ? ['name'] : type === 'paciente' ? ['name', 'responsavel'] : type === 'agendamento' ? ['patient', 'date', 'time', 'end'] : type === 'bloqueio' ? ['name', 'date', 'time', 'end'] : type === 'atendimento' ? ['patient', 'professional', 'complaint'] : type === 'exame' ? ['patient', 'name', 'requester'] : type === 'cirurgia' ? ['patient', 'name', 'professional', 'date', 'time'] : type === 'internamento' ? ['patient', 'bed', 'professional', 'reason'] : type === 'prescricao' ? ['patient', 'name', 'time', 'professional'] : type === 'produto' ? ['name', 'code', 'unit'] : ['patient', 'name', 'amount'];
+    let required = type === 'responsavel' ? ['name'] : type === 'paciente' ? ['name', 'responsavel', 'weight'] : type === 'agendamento' ? ['patient', 'date', 'time', 'end'] : type === 'bloqueio' ? ['name', 'date', 'time', 'end'] : type === 'atendimento' ? ['patient', 'professional', 'complaint'] : type === 'exame' ? ['patient', 'name', 'requester', 'requestedAt'] : type === 'cirurgia' ? ['patient', 'name', 'professional', 'date', 'time'] : type === 'internamento' ? ['patient', 'bed', 'professional', 'reason'] : type === 'prescricao' ? ['patient', 'name', 'time', 'professional'] : type === 'produto' ? ['name', 'code', 'unit'] : ['patient', 'name', 'amount'];
     
     let invalid = false;
     required.forEach(k => { if (!v[k]?.trim()) { err(k, 'Campo obrigatório.'); invalid = true; } });
     if (invalid) return;
 
     if (type === 'responsavel' && v.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) { err('email', 'Informe um e-mail válido.'); return; }
-    if (type === 'paciente' && of('paciente').some(r => r.title.toLowerCase() === v.name.toLowerCase() && data(r).responsavelId === v.responsavel)) { err('name', 'Possível duplicidade: mesmo nome e responsável. Confira antes de continuar.'); return; }
+    if (type === 'paciente' && !Number.isFinite(MedVetData.parseWeight(v.weight))) { err('weight', 'Informe um peso maior que zero, em kg.'); return; }
+    if (type === 'paciente' && of('paciente').some(r => r.entity_id !== editing?.entity_id && r.title.toLowerCase() === v.name.trim().toLowerCase() && data(r).responsavelId === v.responsavel)) { err('name', 'Possível duplicidade: mesmo nome e responsável. Confira antes de continuar.'); return; }
+    if (type === 'exame' && !MedVetData.validDate(v.requestedAt)) { err('requestedAt', 'Informe uma data válida.'); return; }
+    if (type === 'prescricao' && admissionId) {
+      const admission = byId(admissionId);
+      if (!admission || admission.entity_type !== 'internamento' || admission.status !== 'Internado' || data(admission).patientId !== v.patient) { err('patient', 'O cuidado deve pertencer ao paciente deste internamento ativo.'); return; }
+    }
     if (['agendamento', 'bloqueio'].includes(type)) {
       if (v.end <= v.time) { err('end', 'O término deve ser posterior ao início.'); return; }
       let clash = [...of('agendamento'), ...of('bloqueio')].some(r => {
@@ -607,25 +837,34 @@ async function createFlow(type, patientId = '') {
       if (clash) { err('time', 'Conflito de profissional ou sala neste intervalo. Escolha outro horário. Encaixes exigem autorização e justificativa não disponíveis neste perfil de fluxo.'); return; }
     }
     if (type === 'internamento' && of('internamento').some(r => r.status === 'Internado' && data(r).bed === v.bed)) { err('bed', 'Leito ocupado. Escolha outro leito.'); return; }
-    if (type === 'produto' && v.expiry && v.expiry < new Date().toISOString().slice(0, 10)) { err('expiry', 'Lote vencido não pode entrar como disponível.'); return; }
+    if (type === 'produto' && (!Number.isFinite(Number(v.stock)) || Number(v.stock) < 0 || !Number.isFinite(Number(v.min)) || Number(v.min) < 0)) { err('stock', 'Informe quantidades válidas e não negativas.'); return; }
+    if (type === 'produto' && v.expiry && v.expiry < localDate()) { err('expiry', 'Lote vencido não pode entrar como disponível.'); return; }
     
     let id = uid(type), p = {}, name = v.name || byId(v.patient)?.title || 'Registro';
     if (type === 'responsavel') p = { telefone: v.phone, email: v.email, contato: v.contact, endereco: v.address, observacoes: v.notes };
-    if (type === 'paciente') p = { responsavelId: v.responsavel, especie: v.species, raca: v.breed || 'SRD', sexo: v.sex, peso: v.weight ? v.weight + ' kg' : 'Não informado', alertas: v.alerts, prontuario: 'PR-' + id.slice(-7) };
+    if (type === 'paciente') p = { responsavelId: v.responsavel, especie: v.species, raca: v.breed || 'SRD', sexo: v.sex, peso: MedVetData.parseWeight(v.weight), alertas: v.alerts, prontuario: editing ? data(editing).prontuario : 'PR-' + id.slice(-7) };
     if (type === 'agendamento' || type === 'bloqueio') p = { patientId: v.patient, professional: v.professional, room: v.room, date: v.date, time: v.time, end: v.end, service: v.service, notes: v.notes };
     if (type === 'atendimento') p = { patientId: v.patient, professional: v.professional, type: v.kind, complaint: v.complaint, notes: v.notes, student: profile === 'Aluno ou estagiário' ? v.professional : '', supervisor: v.supervisor || '', date: new Date().toISOString() };
-    if (type === 'exame') p = { patientId: v.patient, requester: v.requester, priority: v.priority, lab: v.lab, notes: v.notes };
+    if (type === 'exame') p = { patientId: v.patient, requestedAt: v.requestedAt, requester: v.requester, priority: v.priority, lab: v.lab, notes: v.notes };
     if (type === 'cirurgia') p = { patientId: v.patient, professional: v.professional, anesthetist: v.anesthetist, room: v.room, date: v.date, time: v.time, duration: v.duration + ' min', notes: v.notes };
-    if (type === 'internamento') p = { patientId: v.patient, bed: v.bed, professional: v.professional, reason: v.reason, admission: stamp() };
-    if (type === 'prescricao') p = { patientId: v.patient, care: v.name, dose: v.dose, unit: v.unit, route: v.route, time: v.time, professional: v.professional, notes: v.notes };
+    if (type === 'internamento') p = { patientId: v.patient, bed: v.bed, professional: v.professional, reason: v.reason, admissionAt: new Date().toISOString() };
+    if (type === 'prescricao') p = { patientId: v.patient, admissionId, care: v.name, dose: v.dose, unit: v.unit, route: v.route, time: v.time, professional: v.professional, notes: v.notes };
     if (type === 'produto') p = { code: v.code, category: v.category, unit: v.unit, stock: Number(v.stock), min: Number(v.min), lot: v.lot, expiry: v.expiry, priceCents: Math.round(Number(v.price) * 100) };
     if (type === 'orcamento' || type === 'cobranca') p = { patientId: v.patient, amountCents: Math.round(Number(v.amount) * 100), paidCents: 0, items: v.notes, origin: 'Lançamento manual demonstrativo' };
     
     let statuses = { responsavel: 'Ativo', paciente: 'Ativo', agendamento: 'Agendado', bloqueio: 'Bloqueado', atendimento: 'Rascunho', exame: 'Solicitado', cirurgia: 'Programada', internamento: 'Internado', prescricao: 'Ativa', produto: 'Ativo', orcamento: 'Rascunho', cobranca: 'Em aberto' };
-    let r = { entity_id: id, entity_type: type, title: type === 'agendamento' ? 'Consulta · ' + name : type === 'paciente' || type === 'responsavel' || type === 'produto' ? name : (entityNames[type] || type) + ' · ' + name, status: statuses[type], payload: JSON.stringify(p), updated_at: new Date().toISOString() };
+    if (editing) { if (await updateRecord(editing, p, null, button, v.name.trim())) render(); return; }
+    let r = { entity_id: id, entity_type: type, title: type === 'agendamento' ? 'Consulta · ' + name : type === 'paciente' || type === 'responsavel' || type === 'produto' ? name : (entityNames[type] || type) + ' · ' + name, status: statuses[type], payload: JSON.stringify(p), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
     
     if (await saveNew(r, button)) { activeDetail = id; render(); }
   });
+
+  if (editing) {
+    const d = data(editing);
+    const defaults = type === 'paciente' ? { name: editing.title, responsavel: d.responsavelId, species: d.especie, breed: d.raca, sex: d.sexo, weight: MedVetData.parseWeight(d.peso), alerts: d.alertas } : { name: editing.title, phone: d.telefone, email: d.email, contact: d.contato, address: d.endereco, notes: d.observacoes };
+    Object.entries(defaults).forEach(([id, value]) => { if ($('#' + id)) $('#' + id).value = Number.isNaN(value) ? '' : value ?? ''; });
+  }
+  if (['agendamento', 'bloqueio'].includes(type)) $('#date').value = agendaDate;
   
   if (type === 'paciente') {
     $('#name').addEventListener('input', () => {
@@ -636,7 +875,24 @@ async function createFlow(type, patientId = '') {
 }
 
 function simpleAction(r, act) {
-  let d = data(r), title = '', html = '', label = 'Registrar ação';
+  if (!r || !visible(r)) return toast('Registro indisponível para este perfil.');
+  const permission = act === 'discharge' || act === 'finalize' ? 'finalizar' : ['validate', 'return', 'evaluate'].includes(act) ? 'validar' : ['cancel', 'reverse'].includes(act) ? 'cancelar' : 'editar';
+  const actionModule = ['stockIn', 'consume', 'dispense'].includes(act) ? 'estoque' : entityModule[r.entity_type];
+  if (act !== 'copy' && !can(actionModule, permission)) return toast('Ação indisponível para este perfil.');
+  if (act === 'editRegistration') { if (['paciente', 'responsavel'].includes(r.entity_type)) createFlow(r.entity_type, '', '', r); return; }
+  if (['procedure', 'evolution', 'discharge', 'transfer', 'care'].includes(act) && r.status !== 'Internado') return toast('O internamento já foi encerrado.');
+  if (['execute', 'skipCare'].includes(act) && r.status !== 'Ativa') return toast('Este cuidado já foi registrado.');
+  if (act === 'surgeryCancel' && !['Programada', 'Em andamento'].includes(r.status)) return toast('Esta cirurgia não pode mais ser cancelada.');
+  const actionLabels = {
+    arrive: 'Confirmar chegada', reschedule: 'Salvar reagendamento', cancel: 'Cancelar agendamento', reverse: 'Confirmar estorno',
+    edit: 'Salvar rascunho', submit: 'Enviar para supervisão', finalize: 'Finalizar atendimento', addendum: 'Salvar adendo',
+    validate: 'Confirmar validação', return: 'Devolver para correção', result: 'Salvar laudo', evaluate: 'Salvar avaliação',
+    surgeryStart: 'Iniciar cirurgia', surgeryFinish: 'Concluir cirurgia', surgeryCancel: 'Cancelar cirurgia',
+    evolution: 'Salvar evolução', procedure: 'Registrar procedimento', transfer: 'Confirmar transferência', discharge: 'Confirmar alta clínica',
+    execute: 'Marcar como realizado', skipCare: 'Salvar justificativa', dispense: 'Confirmar dispensação', consume: 'Registrar saída', stockIn: 'Registrar entrada',
+    approve: 'Aprovar orçamento', partial: 'Confirmar aprovação parcial', pay: 'Registrar pagamento'
+  };
+  let d = data(r), title = '', html = '', label = actionLabels[act] || 'Salvar';
   const reason = (text = 'Motivo *') => textArea('reason', text);
   
   if (act === 'arrive') { title = 'Registrar chegada'; html = field('arrival', 'Horário de chegada *', 'time', new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date())); }
@@ -655,13 +911,15 @@ function simpleAction(r, act) {
   else if (act === 'result') { title = 'Registrar laudo'; html = `${selectField('lab', 'Origem do laboratório', [['Interno', 'Interno'], ['Externo', 'Externo']])}${textArea('result', 'Texto ou referência do laudo *')}<p class="section-note">Resultado disponível não significa avaliado. Anexos binários não são armazenados nesta demonstração.</p>`; }
   else if (act === 'evaluate') { title = 'Avaliar resultado'; html = `${field('evaluator', 'Profissional avaliador *', 'text', profile)}${textArea('notes', 'Registro da avaliação *')}`; }
   else if (act === 'surgeryStart' || act === 'surgeryFinish') { title = act === 'surgeryStart' ? 'Iniciar cirurgia' : 'Concluir cirurgia'; html = reason(act === 'surgeryStart' ? 'Checklist e confirmação de identidade/procedimento *' : 'Descrição cirúrgica e recuperação *'); }
+  else if (act === 'surgeryCancel') { title = 'Cancelar cirurgia'; html = reason('Motivo do cancelamento *'); }
   else if (act === 'admit') { createFlow('internamento', d.patientId); return; }
   else if (act === 'evolution') { title = 'Registrar evolução'; html = `${textArea('notes', 'Evolução, parâmetros com unidade e horário *')}${field('author', 'Executor *', 'text', profile)}`; }
-  else if (act === 'care') { createFlow('prescricao', d.patientId); return; }
+  else if (act === 'procedure') { title = 'Registrar procedimento realizado'; html = `${textArea('notes', 'Procedimento e observações *')}${field('performedAt', 'Data e hora do procedimento *', 'datetime-local', localDateTime())}${field('professional', 'Profissional responsável *', 'text', profile)}`; }
+  else if (act === 'care') { createFlow('prescricao', d.patientId, r.entity_id); return; }
   else if (act === 'transfer') { title = 'Transferir leito'; html = `${selectField('bed', 'Novo leito *', [['Leito 01', 'Leito 01'], ['Leito 02', 'Leito 02'], ['Leito 03', 'Leito 03']])}${reason()}`; }
-  else if (act === 'discharge') { title = 'Alta clínica'; html = reason('Orientações e motivo da alta *'); }
-  else if (act === 'execute' || act === 'skipCare') { title = act === 'execute' ? 'Registrar execução' : 'Justificar não execução'; html = `${field('executor', 'Executor *', 'text', profile)}${field('realTime', 'Horário real *', 'time', new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()))}${act === 'skipCare' ? reason('Justificativa da não execução *') : textArea('notes', 'Observações da execução')}`; }
-  else if (act === 'dispense' || act === 'consume' || act === 'stockIn') { title = act === 'stockIn' ? 'Entrada de estoque' : act === 'dispense' ? 'Dispensar item' : 'Registrar consumo clínico'; html = `${selectField('product', 'Produto *', list('produto').map(x => [x.entity_id, x.title]))}${field('quantity', 'Quantidade *', 'number', '1', 'min="0.01" step="0.01"')}${reason('Justificativa / vínculo *')}`; }
+  else if (act === 'discharge') { title = 'Alta clínica'; html = `${field('dischargeAt', 'Data e hora da alta *', 'datetime-local', localDateTime())}${reason('Orientações e motivo da alta *')}`; }
+  else if (act === 'execute' || act === 'skipCare') { title = act === 'execute' ? 'Registrar execução' : 'Justificar não execução'; html = `${field('executor', 'Executor *', 'text', profile)}${field('realTime', 'Data e hora da execução *', 'datetime-local', localDateTime())}${act === 'skipCare' ? reason('Justificativa da não execução *') : textArea('notes', 'Observações da execução')}`; }
+  else if (act === 'dispense' || act === 'consume' || act === 'stockIn') { title = act === 'stockIn' ? 'Entrada de estoque' : act === 'dispense' ? 'Dispensar item' : 'Registrar saída de estoque'; html = `${selectField('product', 'Produto *', list('produto').map(x => [x.entity_id, x.title + ' · disponível: ' + data(x).stock + ' ' + data(x).unit]), r.entity_type === 'produto' ? r.entity_id : '')}${field('quantity', 'Quantidade *', 'number', '1', 'min="0.01" step="0.01"')}${reason('Justificativa / vínculo *')}`; }
   else if (act === 'approve' || act === 'partial') { title = act === 'approve' ? 'Aprovar orçamento' : 'Aprovar parcialmente'; html = `${field('responsible', 'Responsável pela confirmação *')}${selectField('method', 'Forma de confirmação', [['Verbal registrada', 'Verbal registrada'], ['E-mail informado', 'E-mail informado']])}${act === 'partial' ? reason('Itens aprovados *') : textArea('notes', 'Observações')}`; }
   else if (act === 'pay') { title = 'Receber pagamento parcial'; html = `${field('amount', 'Valor recebido (R$) *', 'number', '', 'min="0.01" step="0.01"')}${selectField('method', 'Meio informado', [['Dinheiro', 'Dinheiro'], ['PIX confirmado manualmente', 'PIX confirmado manualmente'], ['Cartão confirmado manualmente', 'Cartão confirmado manualmente']])}${field('operator', 'Operador *', 'text', profile)}`; }
   else return toast('Ação indisponível.');
@@ -670,6 +928,7 @@ function simpleAction(r, act) {
     e.preventDefault();
     let v = values(), button = e.submitter;
     let required = Object.keys(v).filter(k => !['notes'].includes(k));
+    if (['procedure', 'evolution', 'addendum', 'evaluate'].includes(act)) required.push('notes');
     for (let k of required) { if (!v[k]?.trim()) { err(k, 'Campo obrigatório.'); return; } }
     
     let patch = {}, statusText = r.status, extra = null;
@@ -691,12 +950,13 @@ function simpleAction(r, act) {
     if (act === 'evaluate') { patch = { evaluator: v.evaluator, evaluatedAt: stamp(), evaluation: v.notes }; statusText = 'Avaliado'; }
     if (act === 'surgeryStart') { patch.checklist = v.reason; statusText = 'Em andamento'; }
     if (act === 'surgeryFinish') { patch.description = v.reason; statusText = 'Concluída'; }
+    if (act === 'surgeryCancel') { patch = { cancelReason: v.reason, canceledAt: new Date().toISOString() }; statusText = 'Cancelada'; }
     if (act === 'transfer') {
       if (of('internamento').some(x => x.entity_id !== r.entity_id && x.status === 'Internado' && data(x).bed === v.bed)) { err('bed', 'Leito ocupado.'); return; }
       patch = { bed: v.bed, transferHistory: [...(d.transferHistory || []), { from: d.bed, to: v.bed, reason: v.reason, at: stamp() }] };
     }
-    if (act === 'discharge') { patch = { discharge: v.reason, dischargedAt: stamp() }; statusText = 'Alta clínica'; }
-    if (act === 'execute' || act === 'skipCare') { patch = { executedBy: v.executor, executedAt: v.realTime, executionNotes: v.reason || v.notes }; statusText = act === 'execute' ? 'Executado' : 'Não executado — justificado'; }
+    if (act === 'discharge') { const at = formTimestamp(v.dischargeAt); if (!at) { err('dischargeAt', 'Informe data e hora válidas.'); return; } patch = { discharge: v.reason, dischargeAt: at, dischargedBy: profile }; statusText = 'Alta clínica'; }
+    if (act === 'execute' || act === 'skipCare') { const at = formTimestamp(v.realTime); if (!at) { err('realTime', 'Informe data e hora válidas.'); return; } patch = { executedBy: v.executor, executedAt: at, executionNotes: v.reason || v.notes }; statusText = act === 'execute' ? 'Executado' : 'Não executado — justificado'; }
     if (act === 'approve' || act === 'partial') { patch = { confirmedBy: v.responsible, confirmationMethod: v.method, approvedItems: v.reason || d.items, confirmedAt: stamp() }; statusText = act === 'approve' ? 'Aprovado' : 'Parcialmente aprovado'; }
     if (act === 'pay') {
       let cents = Math.round(Number(v.amount) * 100), balance = (d.amountCents || 0) - (d.paidCents || 0);
@@ -707,30 +967,31 @@ function simpleAction(r, act) {
     }
     if (['dispense', 'consume', 'stockIn'].includes(act)) {
       let product = byId(v.product), pd = data(product), qty = Number(v.quantity);
-      if (!product || qty <= 0) { err('quantity', 'Informe quantidade válida.'); return; }
-      if (act !== 'stockIn' && pd.expiry && pd.expiry < new Date().toISOString().slice(0, 10)) { err('product', 'Lote vencido não pode ser usado.'); return; }
+      if (!product || product.entity_type !== 'produto' || !Number.isFinite(qty) || qty <= 0) { err('quantity', 'Informe quantidade válida.'); return; }
+      if (pd.expiry && pd.expiry < localDate()) { err('product', 'Lote vencido não pode ser movimentado como disponível. Cadastre o lote com validade correta.'); return; }
       if (act !== 'stockIn' && qty > Number(pd.stock)) { err('quantity', 'Estoque insuficiente; estoque negativo bloqueado.'); return; }
       
-      let movement = record('movimento', (act === 'stockIn' ? 'Entrada' : 'Consumo') + ' · ' + product.title, 'Registrado', { productId: product.entity_id, quantity: qty, unit: pd.unit, reason: v.reason, originId: r.entity_id, operator: profile, at: stamp() });
-      if (!await saveNew(movement, button)) return;
-      let updated = await updateRecord(product, { stock: Number(pd.stock) + (act === 'stockIn' ? qty : -qty) }, null, button);
-      if (!updated) return;
-      
-      toast('Movimento registrado; atualização do saldo confirmada.');
-      if (act === 'dispense') await updateRecord(r, { dispensedMovementId: movement.entity_id }, null, button);
+      let movement = record('movimento', (act === 'stockIn' ? 'Entrada' : 'Saída') + ' · ' + product.title, 'Registrado', { productId: product.entity_id, direction: act === 'stockIn' ? 'Entrada' : 'Saída', quantity: qty, unit: pd.unit, reason: v.reason, originId: r.entity_id, operator: profile, at: stamp() });
+      const stock = Math.round((Number(pd.stock) + (act === 'stockIn' ? qty : -qty)) * 1000000) / 1000000;
+      const updated = { ...product, payload: JSON.stringify({ ...pd, stock }), updated_at: new Date().toISOString() };
+      const changes = [movement, updated];
+      if (act === 'dispense') changes.push({ ...r, payload: JSON.stringify({ ...data(r), dispensedMovementId: movement.entity_id }), updated_at: new Date().toISOString() });
+      if (!await commitRecords(changes, button)) return;
+      toast('Movimento e saldo gravados.');
       render(); return;
     }
     
-    if (act === 'addendum' || act === 'evolution') {
-      let entry = record(act === 'addendum' ? 'adendo' : 'documento', act === 'addendum' ? 'Adendo · ' + r.title : 'Evolução · ' + r.title, 'Registrado', { parentId: r.entity_id, patientId: d.patientId, reason: v.reason || '', notes: v.notes, author: v.author, at: stamp() });
+    if (act === 'addendum' || act === 'evolution' || act === 'procedure') {
+      const at = act === 'procedure' ? formTimestamp(v.performedAt) : new Date().toISOString();
+      if (!at) { err('performedAt', 'Informe data e hora válidas.'); return; }
+      let entry = record(act === 'addendum' ? 'adendo' : act === 'procedure' ? 'procedimento' : 'documento', act === 'addendum' ? 'Adendo · ' + r.title : act === 'procedure' ? 'Procedimento · ' + r.title : 'Evolução · ' + r.title, 'Registrado', { parentId: r.entity_id, admissionId: act !== 'addendum' ? r.entity_id : '', patientId: d.patientId, reason: v.reason || '', notes: v.notes, author: v.author || v.professional, professional: v.professional || v.author, performedAt: at });
       if (await saveNew(entry, button)) render();
       return;
     }
     
     if (extra) {
-      if (!await saveNew(extra, button)) return;
-      let b = $('#modal-form button[type=submit]') || button;
-      if (await updateRecord(r, patch, statusText, b)) render();
+      const updated = { ...r, status: statusText, payload: JSON.stringify({ ...data(r), ...patch }), updated_at: new Date().toISOString() };
+      if (await commitRecords([extra, updated], button)) render();
       return;
     }
     
@@ -754,6 +1015,15 @@ document.addEventListener('click', e => {
   if (t.id === 'menu-toggle') { $('#sidebar').classList.toggle(innerWidth < 900 ? 'open' : 'compact'); return; }
   if (t.id === 'notifications-btn') { toast('Notificações: consulte cuidados pendentes, exames e supervisão no painel.'); return; }
   if (t.id === 'close-modal' || t.id === 'cancel-modal') { closeModal(); return; }
+  if (t.dataset.dashboardScenario) { openDashboardScenario(t.dataset.dashboardScenario); return; }
+  if (t.dataset.dashboardDay) { openDashboardAgenda(t.dataset.dashboardDay); return; }
+  if (t.dataset.agendaMode) { if (['dia', 'semana', 'mes'].includes(t.dataset.agendaMode)) { agendaMode = t.dataset.agendaMode; page = 1; render(); } return; }
+  if (t.dataset.agendaSelect) { if (agendaVisibleRecords(agendaRecords()).some(r => r.entity_id === t.dataset.agendaSelect)) { agendaSelectedId = t.dataset.agendaSelect; render(); } return; }
+  if (t.dataset.agendaClose) { agendaSelectedId = ''; render(); return; }
+  if (t.dataset.patientFile) { const patient = byId(t.dataset.patientFile); if (patient?.entity_type === 'paciente' && visible(patient)) navigate('pacientes', patient.entity_id); return; }
+  if (t.dataset.agendaShift) { agendaDate = shiftDate(agendaDate, Number(t.dataset.agendaShift)); page = 1; render(); return; }
+  if (t.dataset.agendaToday) { agendaDate = localDate(); page = 1; render(); return; }
+  if (t.dataset.demoDate) { agendaDate = t.dataset.demoDate; page = 1; render(); return; }
   if (t.dataset.nav) { navigate(t.dataset.nav, null, t.dataset.filter || ''); return; }
   if (t.dataset.new) { createFlow(t.dataset.new, t.dataset.patient || ''); return; }
   if (t.dataset.detail) { activeDetail = t.dataset.detail; patientTab = 'Resumo'; render(); return; }
@@ -786,12 +1056,16 @@ document.addEventListener('click', e => {
 
 document.addEventListener('input', e => {
   if (e.target.id === 'global-search') search();
+  if (e.target.closest('#modal-form') && e.target.getAttribute('aria-invalid')) {
+    e.target.removeAttribute('aria-invalid');
+    const error = $('#err-' + e.target.id);
+    if (error) error.textContent = '';
+  }
   if (e.target.id === 'list-filter') {
     filter = e.target.value;
     page = 1;
     let pos = e.target.selectionStart;
-    let panel = e.target.closest('.panel');
-    panel.innerHTML = toolbar() + paged(list(keyFor[current]));
+    render();
     $('#list-filter').focus();
     $('#list-filter').setSelectionRange(pos, pos);
   }
@@ -808,7 +1082,10 @@ document.addEventListener('change', e => {
   }
   if (e.target.id === 'list-sort') { sort = e.target.value; render(); }
   if (e.target.id === 'agenda-mode') { agendaMode = e.target.value; render(); }
-  if (e.target.id === 'agenda-prof' || e.target.id === 'agenda-status') { filter = e.target.value; render(); }
+  if (e.target.id === 'agenda-date') { if (MedVetData.validDate(e.target.value)) { agendaDate = e.target.value; page = 1; } render(); }
+  if (e.target.id === 'agenda-prof') { agendaProfessional = e.target.value; page = 1; render(); }
+  if (e.target.id === 'agenda-status') { agendaStatus = e.target.value; page = 1; render(); }
+  if (e.target.id === 'agenda-room') { agendaRoom = e.target.value; page = 1; render(); }
 });
 
 document.addEventListener('keydown', e => {
