@@ -12,7 +12,7 @@ const modules = [
   ['supervisao', 'Supervisão acadêmica', 'graduation-cap', 'Gestão'],
   ['relatorios', 'Relatórios', 'chart-column', 'Gestão'],
   ['configuracoes', 'Configurações', 'settings', 'Gestão'],
-  ['escopo', 'Escopo e validação', 'list-checks', 'Gestão'],
+  ['escopo', 'Checklist do Ambiente', 'list-checks', 'Gestão'],
   ['documentacao', 'Documentação técnica', 'book-open', 'Referência']
 ];
 
@@ -65,6 +65,8 @@ const keyFor = {
   financeiro: 'cobranca',
   supervisao: 'supervisao'
 };
+
+const newLabel = t => ({ paciente: 'Novo paciente', agendamento: 'Novo agendamento', atendimento: 'Novo atendimento', exame: 'Novo exame', orcamento: 'Novo orçamento', cobranca: 'Nova cobrança' })[t] || 'Novo registro';
 
 const fixtures = [
   ["P-001", "paciente", "Helena Prado", "Ativo", {"idade": "34 anos", "sexo": "Feminino", "telefone": "(00) 00000-0001", "prontuario": "PR-001", "alertas": "Alergia informada a anestésico local; verificar histórico"}],
@@ -250,7 +252,7 @@ function paged(records) {
 
 function moduleList(m) {
   let name = modules.find(x => x[0] === m)?.[1] || m, t = keyFor[m], records = t ? list(t) : [];
-  let action = can(m, 'cadastrar') ? `<button class="btn" data-new="${t}"><i data-lucide="plus"></i> Novo registro</button>` : '';
+  let action = can(m, 'cadastrar') ? `<button class="btn" data-new="${t}"><i data-lucide="plus"></i> ${newLabel(t)}</button>` : '';
   
   let description = {
     pacientes: 'Prontuários únicos e vínculos com responsáveis.',
@@ -425,7 +427,7 @@ function settings() {
 
 function scope() {
   let tests = [['Navegação entre módulos', 'Executado'], ['Cadastro e busca em registros gravados', 'Executado'], ['Conflito básico de agenda', 'Executado'], ['Rascunho, supervisão e adendo', 'Executado'], ['Pagamento parcial e saldo', 'Executado'], ['Controle básico de estoque', 'Executado'], ['Autorização no servidor', 'Não executado'], ['Integração de mensagens e laboratório', 'Não executado'], ['Assinatura digital certificada', 'Não aplicável'], ['Emissão fiscal', 'Não executado']];
-  return heading('Escopo e validação', 'Transparência sobre o que esta demonstração faz e o que não faz.') +
+  return heading('Checklist do Ambiente', 'Transparência sobre o que esta demonstração faz e o que não faz.') +
     `<div class="grid two-col"><section class="panel"><h2>Recursos implementados</h2><p class="section-note">Navegação, busca filtrada pelo perfil simulado, cadastros vinculados, agenda com conflito, chegada, rascunho e adendo, submissão acadêmica, exames, procedimentos, movimentos de estoque e recebimento parcial. Registros de exemplo e novos registros são identificáveis.</p><h2>Armazenamento disponível</h2><p class="section-note">Novos registros e alterações são salvos no armazenamento local (localStorage) deste navegador. Os exemplos iniciais são dados fictícios embutidos na demonstração. Ao limpar os dados do navegador ou usar outro dispositivo, os registros criados não estarão disponíveis.</p></section><section class="panel"><h2>Dependências e riscos</h2><p class="section-note">Sem conexão com WhatsApp, e-mail, equipamentos, laboratórios, pagamentos, assinaturas ou emissão fiscal. Não há autorização no servidor nem gestão segura de anexos. O uso com dados reais exigiria segurança, revisão clínica, jurídica e institucional, testes e implantação próprios. Não há aprovação ou implantação declarada.</p></section></div>
     <section class="panel"><h2>Checklist de testes do ambiente</h2><div class="checklist">${tests.map(([a, b]) => `<div class="check-row"><span>${a}</span>${badge(b)}</div>`).join('')}</div><p class="section-note" style="margin-top:14px">“Executado” indica comportamento implementado na interface, não homologação institucional ou teste de produção.</p></section>`;
 }

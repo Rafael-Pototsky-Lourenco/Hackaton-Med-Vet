@@ -15,7 +15,7 @@ const modules = [
   ['supervisao', 'Supervisão acadêmica', 'graduation-cap', 'Gestão'],
   ['relatorios', 'Relatórios', 'chart-column', 'Gestão'],
   ['configuracoes', 'Configurações', 'settings', 'Gestão'],
-  ['escopo', 'Escopo e validação', 'list-checks', 'Gestão'],
+  ['escopo', 'Checklist do Ambiente', 'list-checks', 'Gestão'],
   ['documentacao', 'Documentação técnica', 'book-open', 'Referência']
 ];
 
@@ -656,7 +656,7 @@ function settings() {
 
 function scope() {
   let tests = [['Navegação entre módulos', 'Executado'], ['Cadastro e busca em registros gravados', 'Executado'], ['Conflito básico de agenda', 'Executado'], ['Rascunho, supervisão e adendo', 'Executado'], ['Pagamento parcial e saldo', 'Executado'], ['Controle básico de estoque', 'Executado'], ['Autorização no servidor', 'Não executado'], ['Integração de mensagens e laboratório', 'Não executado'], ['Assinatura digital certificada', 'Não aplicável'], ['Emissão fiscal', 'Não executado']];
-  return heading('Escopo e validação', 'Transparência sobre o que esta demonstração faz e o que não faz.') +
+  return heading('Checklist do Ambiente', 'Transparência sobre o que esta demonstração faz e o que não faz.') +
     `<div class="grid two-col"><section class="panel"><h2>Recursos implementados</h2><p class="section-note">Navegação, busca filtrada pelo perfil simulado, cadastros vinculados, agenda com conflito, chegada, rascunho e adendo, submissão acadêmica, exames, cirurgias, leitos, cuidados, movimentos de estoque e recebimento parcial. Registros de exemplo e novos registros são identificáveis.</p><h2>Armazenamento disponível</h2><p class="section-note">Novos registros e alterações são salvos no armazenamento local (localStorage) deste navegador. Os exemplos iniciais são dados fictícios embutidos na demonstração. Ao limpar os dados do navegador ou usar outro dispositivo, os registros criados não estarão disponíveis.</p></section><section class="panel"><h2>Dependências e riscos</h2><p class="section-note">Sem conexão com WhatsApp, e-mail, equipamentos, laboratórios, pagamentos, assinaturas ou emissão fiscal. Não há autorização no servidor nem gestão segura de anexos. O uso com dados reais exigiria segurança, revisão clínica, jurídica e institucional, testes e implantação próprios. Não há aprovação ou implantação declarada.</p></section></div>
     <section class="panel"><h2>Checklist de testes do ambiente</h2><div class="checklist">${tests.map(([a, b]) => `<div class="check-row"><span>${a}</span>${badge(b)}</div>`).join('')}</div><p class="section-note" style="margin-top:14px">“Executado” indica comportamento implementado na interface, não homologação institucional ou teste de produção.</p></section>`;
 }

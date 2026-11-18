@@ -23,6 +23,7 @@
 .ag-slot{border-bottom:1px solid #eef2f6;border-left:1px solid var(--line)}
 .ag-card{display:flex;flex-direction:column;gap:2px;text-align:left;border:0;border-left:4px solid var(--c,#4b8aae);background:var(--bg2,#d8eaf9);border-radius:8px;margin:3px 6px;padding:6px 9px;font-size:12px;line-height:1.25;overflow:hidden;z-index:1;color:var(--ink)}
 .ag-card b{font-size:14px}.ag-card small{color:#3c4d5f}
+.ag-card{min-width:0}.ag-card.c1{padding:4px 9px;gap:1px;justify-content:center}.ag-card.c1 b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ag-card.c1 em{font-weight:400;font-style:normal;color:#3c4d5f}.ag-card small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ag-card.sel{outline:2px solid var(--blue);box-shadow:0 4px 12px #0003}
 [data-d="Periodontia"]{--c:#3a9a4a;--bg2:#dff3e2}[data-d="Cirurgia Oral"]{--c:#7a55c4;--bg2:#e9e0fa}[data-d="Prótese"]{--c:#d79b39;--bg2:#fdeecb}
 [data-d="Dentística"]{--c:#4b8aae;--bg2:#d8eaf9}[data-d="Endodontia"]{--c:#d0507f;--bg2:#fbdce8}[data-d="Odontopediatria"]{--c:#1b9a92;--bg2:#d6f2ef}
@@ -91,14 +92,14 @@
   function agenda() {
     const f = r => { const d = data(r); return (!ag.disc || d.discipline === ag.disc) && (!ag.prof || d.professor === ag.prof) && (!ag.student || d.student === ag.student) && (!ag.box || d.box === ag.box); };
     const apps = list('agendamento').filter(f), sel = ag.sel && byId(ag.sel);
-    const card = (r, style = '') => { const d = data(r); return `<button type="button" class="ag-card ${ag.sel === r.entity_id ? 'sel' : ''}" data-d="${esc(d.discipline || '')}" data-agsel="${r.entity_id}" style="${style}"><small>${esc(d.time)} – ${esc(d.end)} · ${esc(r.status)}</small><b>${esc(byId(d.patientId)?.title || '—')}</b><span>${esc(d.discipline || d.service || '')}</span></button>`; };
+    const card = (r, style = '', c1 = false) => { const d = data(r), nm = esc(byId(d.patientId)?.title || '—'); return `<button type="button" class="ag-card ${c1 ? 'c1' : ''} ${ag.sel === r.entity_id ? 'sel' : ''}" data-d="${esc(d.discipline || '')}" data-agsel="${r.entity_id}" style="${style}"><small>${esc(d.time)} – ${esc(d.end)} · ${esc(r.status)}</small>${c1 ? `<b>${nm} <em>· ${esc(d.discipline || d.service || '')}</em></b>` : `<b>${nm}</b><span>${esc(d.discipline || d.service || '')}</span>`}</button>`; };
     let grid;
     if (ag.mode === 'dia') {
       const boxes = Object.keys(X.BOXES).filter(b => !ag.box || b === ag.box), day = apps.filter(r => data(r).date === ag.date);
-      grid = `<div class="ag-grid" style="grid-template-columns:70px repeat(${boxes.length},minmax(170px,1fr));grid-template-rows:auto repeat(20,44px)"><div style="grid-row:1;grid-column:1"></div>
+      grid = `<div class="ag-grid" style="grid-template-columns:70px repeat(${boxes.length},minmax(170px,1fr));grid-template-rows:auto repeat(20,60px)"><div style="grid-row:1;grid-column:1"></div>
         ${boxes.map((b, i) => `<div class="ag-boxh" style="grid-row:1;grid-column:${i + 2}">${I('armchair')}<div><b>${b}</b><small>${day.filter(r => data(r).box === b).length} agendamentos</small></div></div>`).join('')}
         ${Array.from({ length: 20 }, (_, r) => `<div class="ag-t" style="grid-row:${r + 2};grid-column:1">${String(8 + (r >> 1)).padStart(2, '0')}:${r % 2 ? '30' : '00'}</div>${boxes.map((b, c) => `<div class="ag-slot" style="grid-row:${r + 2};grid-column:${c + 2}"></div>`).join('')}`).join('')}
-        ${day.map(r => { const d = data(r), c = boxes.indexOf(d.box); if (c < 0) return ''; const s = Math.max(0, Math.floor((mins(d.time) - 480) / 30)), n = Math.max(1, Math.ceil((mins(d.end) - mins(d.time)) / 30)); return card(r, `grid-column:${c + 2};grid-row:${s + 2}/span ${n}`); }).join('')}</div>`;
+        ${day.map(r => { const d = data(r), c = boxes.indexOf(d.box); if (c < 0) return ''; const s = Math.max(0, Math.floor((mins(d.time) - 480) / 30)), n = Math.max(1, Math.ceil((mins(d.end) - mins(d.time)) / 30)); return card(r, `grid-column:${c + 2};grid-row:${s + 2}/span ${n}`, n === 1); }).join('')}</div>`;
     } else {
       const add = (s, n) => { const d = new Date(s + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
       const wd = (new Date(ag.date + 'T12:00:00Z').getUTCDay() + 6) % 7, mon = add(ag.date, -wd), days = [0, 1, 2, 3, 4].map(i => add(mon, i));
